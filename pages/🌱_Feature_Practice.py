@@ -233,11 +233,11 @@ with tab4:
         sounds, correct_answer = current_set
         
         st.markdown(f"#### 🐳 **Identify ONE Common Feature.**")
-        st.write(f"**Sounds:** [{', '.join(sounds)}]")
+        st.write(f"⚪ **Sounds:** [{', '.join(sounds)}]")
     
         # Step 3: Ask the user for input
-        st.write("Question: Which distinctive feature naturally groups these sounds?")
-        user_answer = st.text_input("Write feature with value (e.g., [+voice], [-nasal]):", value="")
+        st.write("⚪ Question: Which distinctive feature naturally groups these sounds?")
+        user_answer = st.text_input("Write feature with +/- value (e.g., [+voice], [-nasal]):", value="")
     
         # Step 4: Check answer and give feedback
         if st.button("Check Answer"):
