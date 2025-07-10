@@ -205,7 +205,7 @@ with tab4:
         [+sonorant], [+strident], [+nasal], [+continuant]  
         Write answers in square brackets, like `[+voice]` or `[+nasal]`.
         """)
-    
+    st.caption("Do not use [+consonantal], [-nasal], or [-lateral], most of which are uninformative to group sounds")
     # Initialize session state
     if 'questions' not in st.session_state:
         st.session_state['questions'] = []
