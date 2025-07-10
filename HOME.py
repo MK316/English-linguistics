@@ -4,9 +4,9 @@ import streamlit as st
 title_html = """
 <h1 style='text-align: center;'>
     <span style='color: #aed581;'>ExamReady:</span><br>
-    <span style='color: #ce93d8;'>E</span>
+    <span style='color: #212121;'>E</span>
     <span style='color: gray;'>nglish </span>
-    <span style='color: #6a1b9a;'>L</span>
+    <span style='color: #212121;'>L</span>
     <span style='color: gray;'>inguistics for </span><br>
     <span style='color: #f9d34c;'>T</span>
     <span style='color: gray;'>eacher</span>
