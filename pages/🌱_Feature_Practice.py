@@ -123,7 +123,7 @@ with tab2:
         st.markdown("""
         <a href="https://mk-316-feature-practice.hf.space/" target="_blank">
             <button style="
-                background-color: #3AAFA9;
+                background-color: #0d47a1;
                 color: white;
                 padding: 10px 15px;
                 font-size: 14px;
