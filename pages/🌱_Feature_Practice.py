@@ -159,13 +159,6 @@ with tab2:
         <p style="font-size:12px; color: gray">Updated on: 2024.11.6</p>
         """, unsafe_allow_html=True)
 
-    # Optional image footer (keep or remove as needed)
-    st.image(
-        "https://github.com/MK316/MK-316/raw/main/images/bg2.png",
-        caption="\"He who knows no foreign languages knows nothing of his own.\" — Johann Wolfgang von Goethe",
-        use_container_width=True
-    )
-
 with tab3: 
     def create_feature_matrix(vowel_features):
         # Convert the dictionary to a DataFrame and transpose it
