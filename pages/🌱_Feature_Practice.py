@@ -232,11 +232,11 @@ with tab4:
         current_set = st.session_state['questions'][st.session_state['current_question']]
         sounds, correct_answer = current_set
         
-        st.markdown(f"#### 🐳 **Q: Identify ONE Common Feature that can naturally group the following sounds.**")
+        st.markdown(f"#### 🐳 **Identify ONE Common Feature.**")
         st.write(f"**Sounds:** [{', '.join(sounds)}]")
     
         # Step 3: Ask the user for input
-        st.write("Which feature is shared among these sounds?")
+        st.write("Question: Which distinctive feature naturally groups these sounds?")
         user_answer = st.text_input("Write feature with value (e.g., [+voice], [-nasal]):", value="")
     
         # Step 4: Check answer and give feedback
