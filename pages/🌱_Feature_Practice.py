@@ -92,34 +92,79 @@ with tab2:
     st.markdown('### 🐾 Distinctive Feature Practice Apps')
     st.write('Applications to train yourself with distinctive features in phonology')
 
-    # Describing your apps briefly
     st.caption("""
     Here is a selection of applications designed to enhance feature matrix learning through interactive and innovative tools.
     """)
 
-    # First row with three columns
+    # Columns for buttons
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        st.image("images/button01.png", width=100)
-        if st.button('App 1: Distinctive features', key='3'):
-            st.markdown("🌀 [App link](https://mk-316-featureapp01.hf.space/): Basic level - Sound lists by feature marking ")
-            st.markdown("Updated on: 2024.10.15")
-    with col2:
-        st.image("images/button01.png", width=100)
-        if st.button('App 2: Feature Quiz 1', key='5'):
-            st.markdown("🌀 [App link](https://mk-316-feature-practice.hf.space/): Basic level - Feature marking for individual segments")
-            st.markdown("Updated on: 2024.10.14")
-    with col3:
-        st.image("images/button01.png", width=100)
-        if st.button('App 3: Feature Quiz 2', key='6'):
-            st.markdown("🌀 [App link](https://feature-quiz02.streamlit.app/): Level 1 - Distinctive feature quiz (choose)")
-            st.markdown("Updated on: 2024.11.6")
+        st.markdown("""
+        <a href="https://mk-316-featureapp01.hf.space/" target="_blank">
+            <button style="
+                background-color: #FF8C42;
+                color: white;
+                padding: 10px 15px;
+                font-size: 14px;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                width: 100%;
+            ">
+                App 1: Distinctive Features
+            </button>
+        </a>
+        <p style="font-size:13px">Basic level - Sound lists by feature marking</p>
+        <p style="font-size:12px; color: gray">Updated on: 2024.10.15</p>
+        """, unsafe_allow_html=True)
 
-    # URL to the raw image on GitHub
-    image_url = "https://github.com/MK316/MK-316/raw/main/images/bg2.png"
-    # Display the image
-    st.image(image_url, caption="\"He who knows no foreign languages knows nothing of his own.\" — Johann Wolfgang von Goethe", use_container_width=True)
+    with col2:
+        st.markdown("""
+        <a href="https://mk-316-feature-practice.hf.space/" target="_blank">
+            <button style="
+                background-color: #3AAFA9;
+                color: white;
+                padding: 10px 15px;
+                font-size: 14px;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                width: 100%;
+            ">
+                App 2: Feature Quiz 1
+            </button>
+        </a>
+        <p style="font-size:13px">Basic level - Feature marking for individual segments</p>
+        <p style="font-size:12px; color: gray">Updated on: 2024.10.14</p>
+        """, unsafe_allow_html=True)
+
+    with col3:
+        st.markdown("""
+        <a href="https://feature-quiz02.streamlit.app/" target="_blank">
+            <button style="
+                background-color: #6C63FF;
+                color: white;
+                padding: 10px 15px;
+                font-size: 14px;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                width: 100%;
+            ">
+                App 3: Feature Quiz 2
+            </button>
+        </a>
+        <p style="font-size:13px">Level 1 - Distinctive feature quiz (choose)</p>
+        <p style="font-size:12px; color: gray">Updated on: 2024.11.6</p>
+        """, unsafe_allow_html=True)
+
+    # Optional image footer (keep or remove as needed)
+    st.image(
+        "https://github.com/MK316/MK-316/raw/main/images/bg2.png",
+        caption="\"He who knows no foreign languages knows nothing of his own.\" — Johann Wolfgang von Goethe",
+        use_container_width=True
+    )
 
 with tab3: 
     def create_feature_matrix(vowel_features):
