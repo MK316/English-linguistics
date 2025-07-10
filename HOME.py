@@ -6,13 +6,13 @@ title_html = """
     <span style='color: #71c6c6;'>E</span>
     <span style='color: gray;'>xam </span>
     <span style='color: #71c6c6;'>R</span>
-    <span style='color: gray;'>eady: </span>
+    <span style='color: gray;'>eady: </span><br>
     <span style='color: #7b1fa2;'>E</span>
     <span style='color: gray;'>nglish </span>
     <span style='color: #7b1fa2;'>L</span>
     <span style='color: gray;'>inguistics for </span>
     <span style='color: #f9d34c;'>T</span>
-    <span style='color: gray;'>eacher</span><br>
+    <span style='color: gray;'>eacher</span>
     <span style='color: #81d38c;'>C</span>
     <span style='color: gray;'>ertification </span>
 </h1>
