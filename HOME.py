@@ -10,7 +10,7 @@ title_html = """
     <span style='color: gray;'>inguistics for </span><br>
     <span style='color: #f9d34c;'>T</span>
     <span style='color: gray;'>eacher</span>
-    <span style='color: #81d38c;'>C</span>
+    <span style='color: #00e5ff;'>C</span>
     <span style='color: gray;'>ertification </span>
 </h1>
 """
