@@ -9,14 +9,12 @@ title_html = """
     <span style='color: gray;'>eady: </span>
     <span style='color: #7b1fa2;'>E</span>
     <span style='color: gray;'>nglish </span>
-    <span style='color: #71c6c6;'>L</span>
+    <span style='color: #7b1fa2;'>L</span>
     <span style='color: gray;'>inguistics for </span>
-    <span style='color: #71c6c6;'>T</span>
+    <span style='color: #f9d34c;'>T</span>
     <span style='color: gray;'>eacjer</span><br>
-    <span style='color: #f9d34c;'>C</span>
+    <span style='color: #81d38c;'>C</span>
     <span style='color: gray;'>ertification </span>
-    <span style='color: #81d38c;'>T</span>
-    <span style='color: gray;'>eachers</span>
 </h1>
 """
 
