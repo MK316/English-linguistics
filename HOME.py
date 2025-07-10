@@ -1,4 +1,29 @@
 import streamlit as st
 
-st.write("English Linguistics")
+# Your HTML formatted title
+title_html = """
+<h1 style='text-align: center;'>
+    <span style='color: #71c6c6;'>E:</span>
+    <span style='color: gray;'>xam </span>
+    <span style='color: #71c6c6;'>R</span>
+    <span style='color: gray;'>eady: </span>
+    <span style='color: #7b1fa2;'>E</span>
+    <span style='color: gray;'>nglish </span>
+    <span style='color: #71c6c6;'>L</span>
+    <span style='color: gray;'>inguistics for </span>
+    <span style='color: #71c6c6;'>T</span>
+    <span style='color: gray;'>eacjer</span><br>
+    <span style='color: #f9d34c;'>C</span>
+    <span style='color: gray;'>ertification </span>
+    <span style='color: #81d38c;'>T</span>
+    <span style='color: gray;'>eachers</span>
+</h1>
+"""
+
+# Initial content
+st.markdown(title_html, unsafe_allow_html=True)
+st.write("English Linguistics: Phonetics & Phonology")
 st.caption("This page will get ready for Fall 2025 semester.")
+
+# Image placed at the bottom of the page
+st.image("https://github.com/MK316/GNUET/raw/main/images/bg3.png")
