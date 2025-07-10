@@ -143,7 +143,7 @@ with tab2:
         st.markdown("""
         <a href="https://feature-quiz02.streamlit.app/" target="_blank">
             <button style="
-                background-color: #6C63FF;
+                background-color: #7e57c2;
                 color: white;
                 padding: 10px 15px;
                 font-size: 14px;
