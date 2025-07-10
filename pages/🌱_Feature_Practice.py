@@ -1,9 +1,11 @@
 import streamlit as st
+
+import streamlit as st
 from st_aggrid import AgGrid
 import pandas as pd
 import random
 
-tab1, tab2, tab3, tab4 = st.tabs(["🌀 Feature matrix for consonants","🌀 Practice Applications","🌀 Vowel features","🌀 Natural class"])
+tab1, tab2, tab3, tab4 = st.tabs(["🌀 Feature matrix","🌀 Consonant Practice","🌀 Vowel practice","🌀 Natural class"])
 
 # IPA features dictionary with full feature names
 ipa_features = {
@@ -234,3 +236,5 @@ with tab4:
                     st.session_state['score'] = 0
                     st.session_state['answered'] = False
                     st.rerun()
+#########################
+
