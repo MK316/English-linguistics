@@ -3,10 +3,7 @@ import streamlit as st
 # Your HTML formatted title
 title_html = """
 <h1 style='text-align: center;'>
-    <span style='color: #71c6c6;'>E</span>
-    <span style='color: gray;'>xam </span>
-    <span style='color: #71c6c6;'>R</span>
-    <span style='color: gray;'>eady: </span><br>
+    <span style='color: #c8e6c9;'>ExamReady:</span>
     <span style='color: #ce93d8;'>E</span>
     <span style='color: gray;'>nglish </span>
     <span style='color: #6a1b9a;'>L</span>
