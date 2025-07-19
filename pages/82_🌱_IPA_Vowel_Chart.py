@@ -168,7 +168,7 @@ st.set_page_config(layout="wide")
 with tab3:
     st.caption("📍 Keep in mind that each vowel's placement is illustrative and can vary depending on the dialect.")
 
-    image_url = "https://github.com/MK316/APP4U/raw/main/images/diphthongs.png"
+    image_url = "https://github.com/MK316/English-linguistics/raw/main/images/diphthongs.png"
 
     try:
         response = requests.get(image_url)
