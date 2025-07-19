@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-# Provided IPA feature dictionary
+# ----- Feature Dictionary -----
 ipa_features = {
     'p': {'syllabic': '-', 'consonantal': '+', 'sonorant': '-', 'coronal': '-', 'anterior': '+', 'continuant': '-', 'nasal': '-', 'strident': '-', 'lateral': '-', 'delayed release': '-', 'voice': '-'},
     'b': {'syllabic': '-', 'consonantal': '+', 'sonorant': '-', 'coronal': '-', 'anterior': '+', 'continuant': '-', 'nasal': '-', 'strident': '-', 'lateral': '-', 'delayed release': '-', 'voice': '+'},
@@ -29,22 +29,33 @@ ipa_features = {
     'w': {'syllabic': '-', 'consonantal': '-', 'sonorant': '+', 'coronal': '-', 'anterior': '-', 'continuant': '+', 'nasal': '-', 'strident': '-', 'lateral': '-', 'delayed release': '-', 'voice': '+'}
 }
 
-# Convert dictionary to DataFrame
+# --- Convert to DataFrame ---
 df = pd.DataFrame(ipa_features)
-
-# Optional: reorder index
 df = df.reindex([
     'syllabic', 'consonantal', 'sonorant', 'coronal', 'anterior',
     'continuant', 'nasal', 'strident', 'lateral', 'delayed release', 'voice'
 ])
 
-# Define styling function
-def highlight_plus(val):
-    return 'background-color: orange; color: black' if val == '+' else ''
+# --- UI Selectors ---
+st.title("🔶 Interactive Consonant Feature Matrix")
 
-# Apply styling
-styled_df = df.style.applymap(highlight_plus)
+selected_row = st.selectbox("Highlight Feature (row)", [""] + list(df.index))
+selected_col = st.selectbox("Highlight Consonant (column)", [""] + list(df.columns))
 
-st.title("🟧 Consonant Feature Matrix")
-st.caption("‘+’ cells are highlighted in orange for visual distinction.")
+# --- Styling Function ---
+def style_matrix(val, row, col):
+    if val == "+":
+        return "background-color: orange; color: black"
+    elif row == selected_row or col == selected_col:
+        return "background-color: lightblue"
+    return ""
+
+def apply_highlighting(dataframe):
+    return dataframe.style.apply(
+        lambda r: [style_matrix(v, r.name, r.index[i]) for i, v in enumerate(r)],
+        axis=1
+    )
+
+# --- Display Matrix ---
+styled_df = apply_highlighting(df)
 st.dataframe(styled_df, use_container_width=True)
