@@ -32,7 +32,7 @@ consonants = [
 
 
 # --- UI Layout ---
-tab1, tab2, tab3 = st.tabs(["Explore Sounds", "Identify Symbol", "Identify Feature"])
+tab1, tab2, tab3 = st.tabs(["[1] Explore Sounds", "[2] Identify Symbol", "[3] Identify Key Difference"])
 
 # ----------------- TAB 1 -----------------
 with tab1:
