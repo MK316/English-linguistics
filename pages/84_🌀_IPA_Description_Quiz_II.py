@@ -200,7 +200,19 @@ with tab3:
 
     c1, c2 = st.session_state.pair
     st.markdown(f"### Which feature distinguishes the following two sounds?")
-    st.markdown(f"<span style='font-size:1.5em'>{c1['symbol']}  &nbsp;&nbsp;&nbsp;  {c2['symbol']}</span>", unsafe_allow_html=True)
+    st.markdown(
+        f"""
+        <div style='display: flex; justify-content: center; gap: 40px; margin-top: 1em; margin-bottom: 1em;'>
+            <div style='padding: 0.5em 1em; background-color: #f0f0f0; border-radius: 8px; font-size: 2em; border: 2px solid #ccc;'>
+                {c1['symbol']}
+            </div>
+            <div style='padding: 0.5em 1em; background-color: #f0f0f0; border-radius: 8px; font-size: 2em; border: 2px solid #ccc;'>
+                {c2['symbol']}
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
     tab3_choice = st.radio("Choose one:", diff_options, key="tab3_choice")
 
