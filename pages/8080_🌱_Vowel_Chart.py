@@ -148,7 +148,7 @@ with tab2:
                 <td class="rowlabel">Low</td>
                 <td>æ</td>
                 <td class="bottomcell">a</td>
-                <td class="bottomcell"><span class="orange">ɑ</span> / ɒ</td>
+                <td class="bottomcell"><span class="orange">ɑ / ɒ</span></td>
             </tr>
         </tbody>
     </table>
