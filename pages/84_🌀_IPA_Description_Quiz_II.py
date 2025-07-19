@@ -90,7 +90,11 @@ with tab2:
     if question:
         # Safely construct the description
         manner_display = "nasal (stop)" if question["manner"] == "nasal" else question["manner"]
-        desc = f"{question['voicing']} {question['place']} ({question['oro_nasal']}) {question['centrality']} {manner_display}"
+        if question["oro_nasal"] == "nasal":
+            desc = f"{question['place']} ({question['oro_nasal']}) {question['manner'] if question['manner'] != 'nasal' else 'nasal (stop)'}"
+        else:
+            manner_display = "nasal (stop)" if question["manner"] == "nasal" else question["manner"]
+            desc = f"{question['voicing']} {question['place']} ({question['oro_nasal']}) {question['centrality']} {manner_display}"
 
         st.subheader(f"Which symbol matches: *{desc}*?")
     
