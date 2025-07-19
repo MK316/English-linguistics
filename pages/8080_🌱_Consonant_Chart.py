@@ -11,7 +11,7 @@ with tab1:
     st.markdown("Consonant chart")
 
 with tab1:
-    st.image("https://raw.githubusercontent.com/MK316/English-linguistics/main/pages/images/Cchart.png", caption="Consonant Chart", use_column_width=True)
+    st.image("https://raw.githubusercontent.com/MK316/English-linguistics/main/pages/images/Cchart.png", caption="Consonant Chart", use_container_width=True)
 
 
 with tab2:
