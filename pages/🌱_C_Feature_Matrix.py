@@ -37,8 +37,8 @@ df = df.reindex([
 ])
 
 # --- UI Selectors ---
-st.title("🔶 Interactive Consonant Feature Matrix")
-
+st.markdown("#### 🌱 Interactive Consonant Feature Matrix")
+st.caption("If none is selected for both, no highlights.")
 selected_row = st.selectbox("Highlight Feature (row)", [""] + list(df.index))
 selected_col = st.selectbox("Highlight Consonant (column)", [""] + list(df.columns))
 
