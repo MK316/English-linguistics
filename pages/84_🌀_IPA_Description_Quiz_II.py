@@ -165,41 +165,60 @@ with tab2:
 
 # ----------------- TAB 3 -----------------
 with tab3:
-    st.header("🌳 Identify the Distinctive Feature")
+    st.header("🧩 Find the Key Feature Difference")
 
-    if 'contrast_pair' not in st.session_state:
-        st.session_state.contrast_pair = None
-        st.session_state.feature_answer = None
-        st.session_state.feature_options = []
-        st.session_state.feature_feedback = ""
+    # Fixed options for difference types
+    diff_options = [
+        "Voicing",
+        "Place",
+        "Oro-nasal process (oral vs. nasal)",
+        "Centrality (central vs. lateral)",
+        "Manner"
+    ]
 
-    def new_pair():
-        for _ in range(100):
-            a, b = random.sample(consonants, 2)
-            diffs = [k for k in ['voicing', 'place', 'oro_nasal', 'centrality', 'manner'] if a[k] != b[k]]
-            if len(diffs) == 1:
-                st.session_state.contrast_pair = (a, b)
-                st.session_state.feature_answer = diffs[0]
-                all_features = ['voicing', 'place', 'oro_nasal', 'centrality', 'manner']
-                distractors = [f for f in all_features if f != diffs[0]]
-                st.session_state.feature_options = random.sample(distractors, 4 - 1) + [diffs[0]]
-                random.shuffle(st.session_state.feature_options)
-                st.session_state.feature_feedback = ""
+    def get_key_difference(c1, c2):
+        if c1["voicing"] != c2["voicing"]:
+            return "Voicing"
+        elif c1["place"] != c2["place"]:
+            return "Place"
+        elif c1["oro_nasal"] != c2["oro_nasal"]:
+            return "Oro-nasal process (oral vs. nasal)"
+        elif c1["centrality"] != c2["centrality"]:
+            return "Centrality (central vs. lateral)"
+        elif c1["manner"] != c2["manner"]:
+            return "Manner"
+        return "None"
+
+    if "pair" not in st.session_state:
+        while True:
+            c1, c2 = random.sample(consonants, 2)
+            key_diff = get_key_difference(c1, c2)
+            if key_diff != "None":
+                st.session_state.pair = (c1, c2)
+                st.session_state.key_diff = key_diff
                 break
 
+    c1, c2 = st.session_state.pair
+    st.markdown(f"### Which feature distinguishes the following two sounds?")
+    st.markdown(f"<span style='font-size:1.5em'>{c1['symbol']}  &nbsp;&nbsp;&nbsp;  {c2['symbol']}</span>", unsafe_allow_html=True)
 
+    tab3_choice = st.radio("Choose one:", diff_options, key="tab3_choice")
 
-    pair = st.session_state.contrast_pair
-    if pair:
-        st.subheader(f"What is the key difference between: {pair[0]['symbol']} vs. {pair[1]['symbol']}?")
-        feature_choice = st.radio("Choose the distinguishing feature:", st.session_state.feature_options, key="tab3_radio")
-
-        col1, col2 = st.columns([1, 1])
-        with col1:
-            if st.button("Check answer", key="tab3_check"):
-                if feature_choice == st.session_state.feature_answer:
-                    st.success("✅ Correct! The key feature is indeed " + feature_choice)
-                else:
-                    st.error("❌ That's not the distinguishing feature. Try again.")
-        with col2:
-            st.button("Next", key="tab3_next_btn2", on_click=new_pair)
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("Check answer", key="tab3_check"):
+            if tab3_choice == st.session_state.key_diff:
+                st.success("✅ Correct! The key difference is indeed: " + tab3_choice)
+            else:
+                st.error("❌ Incorrect. Try again.")
+    with col2:
+        if st.button("Next", key="tab3_next"):
+            # Get a new pair with one distinct feature
+            while True:
+                c1, c2 = random.sample(consonants, 2)
+                key_diff = get_key_difference(c1, c2)
+                if key_diff != "None":
+                    st.session_state.pair = (c1, c2)
+                    st.session_state.key_diff = key_diff
+                    break
+            st.experimental_rerun()
