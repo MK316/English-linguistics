@@ -1,46 +1,50 @@
 import streamlit as st
 
-st.set_page_config(page_title="Interactive Vowel Chart")
+st.set_page_config(page_title="Interactive IPA Vowel Chart")
 
 st.title("🟦 Interactive IPA Vowel Chart")
+st.write("Click on any vowel to highlight it.")
 
-# Define vowels by height and backness
-vowels = {
-    'high': {'front': 'i', 'central': 'ɨ', 'back': 'u', 'front2': 'ɪ', 'back2': 'ʊ'},
-    'mid': {'front': 'e', 'front2': 'ɛ', 'central': 'ə', 'back': 'o', 'back2': 'ɔ'},
-    'low': {'front': 'æ', 'central': 'a', 'back': 'ɑ'}
-}
-
-# Initialize selection state in session
-if 'selected' not in st.session_state:
+# Session state for selection
+if "selected" not in st.session_state:
     st.session_state.selected = None
 
-# Function to create vowel cell as a button
 def vowel_button(label, key):
-    is_selected = st.session_state.selected == key
-    btn_style = """
+    selected = st.session_state.selected == key
+    style = f"""
         <style>
-        div.stButton > button {{
-            background-color: {};
-            color: {};
+        div[data-testid="stButton"] button[{key}] {{
+            background-color: {"darkblue" if selected else "#f0f0f0"};
+            color: {"white" if selected else "black"};
             width: 3em;
             height: 2em;
             font-size: 1.2em;
             border-radius: 0.3em;
         }}
         </style>
-    """.format('darkblue' if is_selected else '#f0f0f0',
-               'white' if is_selected else 'black')
-
-    st.markdown(btn_style, unsafe_allow_html=True)
+    """
+    # Unique selector workaround using the key as attribute
+    st.markdown(f"<div {key}></div>", unsafe_allow_html=True)
+    st.markdown(style, unsafe_allow_html=True)
     if st.button(label, key=key):
         st.session_state.selected = key
 
-# Layout
-st.write("Click on any vowel to highlight it.")
+# Custom row layout with height label on the left
+def row_with_label(label, front=None, central=None, back=None):
+    col0, col1, col2, col3 = st.columns([1, 2, 2, 2])
+    with col0:
+        st.markdown(f"**{label}**")
+    with col1:
+        if front: vowel_button(front, f"{label}_front_{front}")
+    with col2:
+        if central: vowel_button(central, f"{label}_central_{central}")
+    with col3:
+        if back: vowel_button(back, f"{label}_back_{back}")
 
-# Build the table manually
-col1, col2, col3 = st.columns(3)
+# Table headers
+col0, col1, col2, col3 = st.columns([1, 2, 2, 2])
+with col0:
+    st.markdown(" ")
 with col1:
     st.markdown("**front**")
 with col2:
@@ -48,33 +52,13 @@ with col2:
 with col3:
     st.markdown("**back**")
 
-# Row: High
-col1, col2, col3 = st.columns(3)
-with col1:
-    vowel_button('i', 'high_front')
-    vowel_button('ɪ', 'high_front2')
-with col2:
-    vowel_button('ɨ', 'high_central')
-with col3:
-    vowel_button('u', 'high_back')
-    vowel_button('ʊ', 'high_back2')
+# High row
+row_with_label("high", front="i", central="ɨ", back="u")
+row_with_label("high", front="ɪ", central=None, back="ʊ")
 
-# Row: Mid
-col1, col2, col3 = st.columns(3)
-with col1:
-    vowel_button('e', 'mid_front')
-    vowel_button('ɛ', 'mid_front2')
-with col2:
-    vowel_button('ə', 'mid_central')
-with col3:
-    vowel_button('o', 'mid_back')
-    vowel_button('ɔ', 'mid_back2')
+# Mid row
+row_with_label("mid", front="e", central="ə", back="o")
+row_with_label("mid", front="ɛ", central=None, back="ɔ")
 
-# Row: Low
-col1, col2, col3 = st.columns(3)
-with col1:
-    vowel_button('æ', 'low_front')
-with col2:
-    vowel_button('a', 'low_central')
-with col3:
-    vowel_button('ɑ', 'low_back')
+# Low row
+row_with_label("low", front="æ", central="a", back="ɑ")
