@@ -142,7 +142,7 @@ with tab2:
                 <td class="rowlabel">(Mid)</td>
                 <td>e<br>ɛ</td>
                 <td>ə<br>ʌ (ɜ)</td>
-                <td>o<br><span class="orange">ɔ</span></td>
+                <td>o<br><span class="orange">(ɔ)</span></td>
             </tr>
             <tr>
                 <td class="rowlabel">Low</td>
