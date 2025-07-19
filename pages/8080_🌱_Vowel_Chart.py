@@ -4,7 +4,7 @@ st.set_page_config(page_title="Final IPA Vowel Chart")
 
 st.title("🌱 Final IPA Vowel Chart")
 
-tab1, tab2, tab3 = st.tabs(["Monophthongs", "Diphthongs", "Tab 3"])
+tab1, tab2, tab3 = st.tabs(["Monophthongs", "Tense/Lax", "Diphthongs"])
 
 with tab1:
     st.markdown("""
@@ -108,7 +108,7 @@ with tab2:
         font-weight: bold;
     }
     .orange {
-        color: orange;
+        color: red;
         font-weight: bold;
     }
     .rowlabel {
