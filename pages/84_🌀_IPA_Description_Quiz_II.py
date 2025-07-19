@@ -64,9 +64,19 @@ with tab2:
 
     if "trigger_rerun" not in st.session_state:
         st.session_state.trigger_rerun = False
-    if st.button("Next", key="tab2_next_btn"):
-        st.session_state.trigger_rerun = True
-        st.experimental_rerun()  # Safe after state is updated
+
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        if st.button("Check answer", key="tab2_check"):
+            if choice == st.session_state.answer:
+                st.success("✅ Correct!")
+            else:
+                st.error("❌ Try again.")
+    with col2:
+        if st.button("Next", key="tab2_next"):
+            new_question()
+            st.experimental_rerun()
+
 
     if 'current_question' not in st.session_state:
         st.session_state.current_question = None
