@@ -62,6 +62,12 @@ with tab1:
 with tab2:
     st.header("🎲 Identify the Correct IPA Symbol")
 
+    if "trigger_rerun" not in st.session_state:
+        st.session_state.trigger_rerun = False
+    if st.button("Next", key="tab2_next_btn"):
+        st.session_state.trigger_rerun = True
+        st.experimental_rerun()  # Safe after state is updated
+
     if 'current_question' not in st.session_state:
         st.session_state.current_question = None
         st.session_state.options = []
