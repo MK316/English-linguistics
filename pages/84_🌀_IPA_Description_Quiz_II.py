@@ -134,7 +134,7 @@ with tab2:
                     [c for c in consonants if c['symbol'] != st.session_state.answer], 4
                 ) + [st.session_state.current_question]
                 random.shuffle(st.session_state.options)
-                st.experimental_rerun()
+                st.experimental_run()
 
 
 # ----------------- TAB 3 -----------------
