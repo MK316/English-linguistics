@@ -33,7 +33,7 @@ th {
     vertical-align: middle;
     font-weight: bold;
 }
-/* Custom class to push vowels to bottom */
+/* Bottom-align only specific cells */
 .bottomcell {
     vertical-align: bottom;
     height: 4em;
@@ -64,7 +64,7 @@ th {
         </tr>
         <tr>
             <td class="rowlabel">Low</td>
-            <td class="bottomcell">æ</td>
+            <td>æ</td>
             <td class="bottomcell"><span class="orange">a</span></td>
             <td class="bottomcell">ɑ</td>
         </tr>
