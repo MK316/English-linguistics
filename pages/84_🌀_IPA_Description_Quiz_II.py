@@ -183,6 +183,10 @@ with tab2:
                     st.success("✅ Correct!")
                 else:
                     st.error("❌ Try again.")
+
+                        # 🎉 Trigger balloons if user reaches 20/20
+                if st.session_state.tab2_score == 20 and st.session_state.tab2_total == 20:
+                    st.balloons()
         
         with col2:
             if st.button("Next", key="tab2_next_btn"):
@@ -265,6 +269,9 @@ with tab3:
                 st.success("✅ Correct! The key difference is indeed: " + tab3_choice)
             else:
                 st.error("❌ Incorrect. Try again.")
+                        # 🎉 Trigger balloons if user reaches 20/20
+            if st.session_state.tab2_score == 20 and st.session_state.tab2_total == 20:
+                st.balloons()
     
     with col2:
         if st.button("Next", key="tab3_next_btn"):
