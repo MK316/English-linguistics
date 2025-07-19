@@ -36,27 +36,43 @@ tab1, tab2, tab3 = st.tabs(["Explore Sounds", "Identify Symbol", "Identify Featu
 
 # ----------------- TAB 1 -----------------
 with tab1:
-    st.header("🎛️ Explore Consonants by Features")
-    voicing = st.selectbox("Select voicing:", ["All", "voiced", "voiceless"])
-    place = st.selectbox("Select place of articulation:", ["All"] + sorted(set(c['place'] for c in consonants)))
-    oro_nasal = st.selectbox("Select oro-nasal process:", ["All"] + sorted(set(c['oro_nasal'] for c in consonants)))
-    centrality = st.selectbox("Select centrality:", ["All"] + sorted(set(c['centrality'] for c in consonants)))
-    manner = st.selectbox("Select manner of articulation:", ["All"] + sorted(set(c['manner'] for c in consonants)))
+    st.header("🔎 IPA Sound Filter")
 
-    filtered = consonants
-    if voicing != "All":
-        filtered = [c for c in filtered if c['voicing'] == voicing]
-    if place != "All":
-        filtered = [c for c in filtered if c['place'] == place]
-    if oro_nasal != "All":
-        filtered = [c for c in filtered if c['oro_nasal'] == oro_nasal]
-    if centrality != "All":
-        filtered = [c for c in filtered if c['centrality'] == centrality]
-    if manner != "All":
-        filtered = [c for c in filtered if c['manner'] == manner]
+    voicing = st.selectbox("Voicing", ["Any", "voiced", "voiceless"])
+    place = st.selectbox("Place of articulation", ["Any", "bilabial", "labiodental", "dental", "alveolar", "post-alveolar", "palatal", "labio-velar", "velar", "glottal"])
+    oro_nasal = st.selectbox("Oro-nasal process", ["Any", "oral", "nasal"])
+    centrality = st.selectbox("Centrality", ["Any", "(central)", "lateral"])
+    manner = st.selectbox("Manner of articulation", ["Any", "plosive", "nasal", "fricative", "affricate", "approximant (lateral)", "approximant (non-lateral)", "glide"])
 
-    st.write(f"### 🎯 {len(filtered)} sound(s) match your selection")
-    st.write(", ".join(c['symbol'] for c in filtered))
+    # Define place articulation order
+    place_order = {
+        "bilabial": 1,
+        "labiodental": 2,
+        "dental": 3,
+        "alveolar": 4,
+        "post-alveolar": 5,
+        "palatal": 6,
+        "labio-velar": 7,
+        "velar": 8,
+        "glottal": 9
+    }
+
+    # Filter consonants
+    filtered = [
+        c for c in consonants
+        if (voicing == "Any" or c["voicing"] == voicing)
+        and (place == "Any" or c["place"] == place)
+        and (oro_nasal == "Any" or c["oro_nasal"] == oro_nasal)
+        and (centrality == "Any" or c["centrality"] == centrality)
+        and (manner == "Any" or c["manner"] == manner)
+    ]
+
+    # Sort by place of articulation
+    filtered.sort(key=lambda c: place_order.get(c["place"], 99))
+
+    st.markdown(f"### 🎯 {len(filtered)} result(s):")
+    st.write(" ".join([c["symbol"] for c in filtered]))
+
 
 # ----------------- TAB 2 -----------------
 with tab2:
