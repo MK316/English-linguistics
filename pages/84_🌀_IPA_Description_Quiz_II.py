@@ -89,17 +89,30 @@ with tab2:
     question = st.session_state.current_question
     
     if question:
-        # Safely construct the description
+        # Determine manner label
         manner_display = "nasal (stop)" if question["manner"] == "nasal" else question["manner"]
+    
+        # If manner already includes "lateral", drop centrality
+        centrality_display = "" if "lateral" in manner_display else question["centrality"]
+    
         if question["oro_nasal"] == "nasal":
-            desc = f"{question['place']} ({question['oro_nasal']}) {question['manner'] if question['manner'] != 'nasal' else 'nasal (stop)'}"
+            desc = f"{question['place']} ({question['oro_nasal']}) {manner_display}"
         else:
-            manner_display = "nasal (stop)" if question["manner"] == "nasal" else question["manner"]
-            desc = f"{question['voicing']} {question['place']} ({question['oro_nasal']}) {question['centrality']} {manner_display}"
+            desc_parts = [
+                question["voicing"],
+                question["place"],
+                f"({question['oro_nasal']})",
+                centrality_display,
+                manner_display
+            ]
+            # Filter out empty strings and join
+            desc = " ".join([part for part in desc_parts if part])
+    
+        # Gray out anything in parentheses
+        import re
+        desc_html = re.sub(r"\((.*?)\)", r"<span style='color:gray'>(\1)</span>", desc)
+        st.markdown(f"#### Which symbol matches: *{desc_html}*?", unsafe_allow_html=True)
 
-            # Highlight anything in parentheses with <span style="color:#E0E0E0">
-            desc_html = re.sub(r"\((.*?)\)", r"<span style='color:gray'>(\1)</span>", desc)
-            st.markdown(f"#### Which symbol matches: *{desc_html}*?", unsafe_allow_html=True)
 
 
     
