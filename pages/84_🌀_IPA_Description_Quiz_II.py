@@ -2,6 +2,20 @@ import streamlit as st
 import random
 import re
 
+# ---- Score display
+
+# Initialize per-session score tracking
+if "tab2_score" not in st.session_state:
+    st.session_state.tab2_score = 0
+if "tab2_total" not in st.session_state:
+    st.session_state.tab2_total = 0
+if "tab3_score" not in st.session_state:
+    st.session_state.tab3_score = 0
+if "tab3_total" not in st.session_state:
+    st.session_state.tab3_total = 0
+
+
+
 # --- IPA Consonant Dictionary ---
 consonants = [
     {"symbol": "p", "voicing": "voiceless", "place": "bilabial", "oro_nasal": "oral", "centrality": "(central)", "manner": "plosive"},
@@ -29,6 +43,11 @@ consonants = [
     {"symbol": "j", "voicing": "voiced", "place": "palatal", "oro_nasal": "oral", "centrality": "(central)", "manner": "glide"},
     {"symbol": "w", "voicing": "voiced", "place": "labio-velar", "oro_nasal": "oral", "centrality": "(central)", "manner": "glide"},
 ]
+
+def display_score(tab_label):
+    score = st.session_state[f"{tab_label}_score"]
+    total = st.session_state[f"{tab_label}_total"]
+    st.markdown(f"**Score: {score} / {total}**")
 
 
 # --- UI Layout ---
@@ -99,7 +118,10 @@ with tab1:
 
 # ----------------- TAB 2 -----------------
 with tab2:
+    
     st.header("🌳 Identify the Correct IPA Symbol")
+
+    display_score("tab2")
 
     # Initialize session state
     if "current_question" not in st.session_state:
@@ -153,10 +175,13 @@ with tab2:
         col1, col2 = st.columns([1, 1])
         with col1:
             if st.button("Check answer", key="tab2_check_btn"):
+                st.session_state.tab2_total += 1
                 if choice == st.session_state.answer:
+                    st.session_state.tab2_score += 1
                     st.success("✅ Correct!")
                 else:
                     st.error("❌ Try again.")
+
         with col2:
             if st.button("Next", key="tab2_next_btn"):
                 new_question()
@@ -166,6 +191,8 @@ with tab2:
 # ----------------- TAB 3 -----------------
 with tab3:
     st.header("🧩 Find the Key Feature Difference")
+
+    display_score("tab3")
 
     # Fixed options for difference types
     diff_options = [
@@ -221,10 +248,13 @@ with tab3:
     col1, col2 = st.columns(2)
     with col1:
         if st.button("Check answer", key="tab3_check"):
+            st.session_state.tab3_total += 1
             if tab3_choice == st.session_state.key_diff:
+                st.session_state.tab3_score += 1
                 st.success("✅ Correct! The key difference is indeed: " + tab3_choice)
             else:
                 st.error("❌ Incorrect. Try again.")
+
     with col2:
         if st.button("Next", key="tab3_next"):
             # Get a new pair with one distinct feature
