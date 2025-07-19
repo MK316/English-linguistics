@@ -73,3 +73,12 @@ th {
 """
 
 st.markdown(html_table, unsafe_allow_html=True)
+
+st.markdown("""
+    #### Notes:
+
+    1. /e, o/ are coonsidered as monophthongs or part of diphthong depending on dialects.
+
+    2. /ɒ/ is a rounded version of /ɑ/.
+
+    3. /ɜ/ is a contextual variant: e.g., in r-colored vowel or after r-deletion in some dialects.
