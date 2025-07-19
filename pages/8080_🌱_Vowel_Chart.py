@@ -75,7 +75,9 @@ th {
 st.markdown(html_table, unsafe_allow_html=True)
 
 st.markdown("""
-#### Notes: Vowel inventories vary significantly depending on English dialects.
+#### 🚩 Notes: 
+
+Vowel inventories vary significantly depending on English dialects.
 
 1. /e/ and /o/ are considered either monophthongs or parts of diphthongs depending on the dialect — e.g., /eɪ/, /oʊ/.
 
