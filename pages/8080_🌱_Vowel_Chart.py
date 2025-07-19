@@ -59,7 +59,7 @@ th {
         <tr>
             <td class="rowlabel">(Mid)</td>
             <td><span class="orange">e</span><br>ɛ</td>
-            <td>ə</td>
+            <td>ə<br>ʌ</td>
             <td><span class="orange">o</span><br>ɔ</td>
         </tr>
         <tr>
