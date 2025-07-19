@@ -62,58 +62,37 @@ with tab1:
 with tab2:
     st.header("🎲 Identify the Correct IPA Symbol")
 
-    if "trigger_rerun" not in st.session_state:
-        st.session_state.trigger_rerun = False
-
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        if st.button("Check answer", key="tab2_check"):
-            if choice == st.session_state.answer:
-                st.success("✅ Correct!")
-            else:
-                st.error("❌ Try again.")
-    with col2:
-        if st.button("Next", key="tab2_next"):
-            new_question()
-            st.experimental_rerun()
-
-
-    if 'current_question' not in st.session_state:
+    # Initialize session state
+    if "current_question" not in st.session_state:
         st.session_state.current_question = None
+    if "options" not in st.session_state:
         st.session_state.options = []
+    if "answer" not in st.session_state:
         st.session_state.answer = None
-        st.session_state.feedback = ""
 
     def new_question():
         st.session_state.current_question = random.choice(consonants)
-        distractors = random.sample([c for c in consonants if c != st.session_state.current_question], 4)
-        options = distractors + [st.session_state.current_question]
+        correct = st.session_state.current_question
+        distractors = random.sample([c for c in consonants if c != correct], 4)
+        options = distractors + [correct]
         random.shuffle(options)
         st.session_state.options = options
-        st.session_state.answer = st.session_state.current_question['symbol']
-        st.session_state.feedback = ""
+        st.session_state.answer = correct['symbol']
 
-# Ensure a new question is assigned at the start or when clicking "Next"
-    if 'current_question' not in st.session_state or st.session_state.current_question is None:
-        st.session_state.current_question = random.choice(consonants)
-        st.session_state.answer = st.session_state.current_question['symbol']
-        st.session_state.options = random.sample(
-            [c for c in consonants if c['symbol'] != st.session_state.answer], 4
-        ) + [st.session_state.current_question]
-        random.shuffle(st.session_state.options)
-    
+    # Trigger new question at start or after "Next"
+    if st.session_state.current_question is None:
+        new_question()
+
     question = st.session_state.current_question
-    
+
     if question:
-        # Determine manner label
-        manner_display = "nasal (stop)" if question["manner"] == "nasal" else question["manner"]
-    
-        # If manner already includes "lateral", drop centrality
-        centrality_display = "" if "lateral" in manner_display else question["centrality"]
-    
-        if question["oro_nasal"] == "nasal":
-            desc = f"{question['place']} ({question['oro_nasal']}) {manner_display}"
+        # Format manner
+        if question["manner"] == "nasal":
+            desc = f"{question['place']} ({question['oro_nasal']}) nasal (stop)"
         else:
+            manner_display = question["manner"]
+            # Drop centrality if manner includes 'lateral'
+            centrality_display = "" if "lateral" in manner_display else question["centrality"]
             desc_parts = [
                 question["voicing"],
                 question["place"],
@@ -121,36 +100,28 @@ with tab2:
                 centrality_display,
                 manner_display
             ]
-            # Filter out empty strings and join
             desc = " ".join([part for part in desc_parts if part])
-    
-        # Gray out anything in parentheses
+
+        # Style bracketed text gray
         import re
         desc_html = re.sub(r"\((.*?)\)", r"<span style='color:gray'>(\1)</span>", desc)
         st.markdown(f"#### Which symbol matches: *{desc_html}*?", unsafe_allow_html=True)
 
+        # Show options
+        choice = st.radio("Choose one:", [c['symbol'] for c in st.session_state.options], key="tab2_choice_radio")
 
-
-    
-        choice = st.radio("Choose one:", [c['symbol'] for c in st.session_state.options], key="tab2_choice")
-    
+        # Buttons
         col1, col2 = st.columns([1, 1])
         with col1:
-            if st.button("Check answer", key="tab2_check"):
+            if st.button("Check answer", key="tab2_check_btn"):
                 if choice == st.session_state.answer:
                     st.success("✅ Correct!")
                 else:
                     st.error("❌ Try again.")
         with col2:
             if st.button("Next", key="tab2_next_btn"):
-                # Set a new question safely
-                st.session_state.current_question = random.choice(consonants)
-                st.session_state.answer = st.session_state.current_question['symbol']
-                st.session_state.options = random.sample(
-                    [c for c in consonants if c['symbol'] != st.session_state.answer], 4
-                ) + [st.session_state.current_question]
-                random.shuffle(st.session_state.options)
-                st.experimental_run()
+                new_question()
+                st.rerun()
 
 
 # ----------------- TAB 3 -----------------
