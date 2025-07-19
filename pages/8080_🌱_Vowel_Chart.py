@@ -59,11 +59,10 @@ th {
         </tr>
         <tr>
             <td class="rowlabel">Low</td>
-            <td>æ</td>
-            <td><span class="orange">a</span></td>
-            <td>ɑ</td>
+            <td>æ<br>&nbsp;</td>
+            <td><span class="orange">a</span><br>&nbsp;</td>
+            <td>ɑ<br>&nbsp;</td>
         </tr>
-
     </tbody>
 </table>
 """
