@@ -73,10 +73,27 @@ with tab1:
     st.markdown(f"### 🎯 {len(filtered)} result(s):")
 
     if filtered:
-        formatted = ", ".join([f"<span style='font-size:1.8em'>{c['symbol']}</span>" for c in filtered])
-        st.markdown(formatted, unsafe_allow_html=True)
+        # Sort by place of articulation (following typical order)
+        place_order = [
+            "bilabial", "labiodental", "dental", "alveolar",
+            "post-alveolar", "palatal", "labio-velar", "velar", "glottal"
+        ]
+
+        place_groups = {}
+        for c in filtered:
+            place = c["place"]
+            if place not in place_groups:
+                place_groups[place] = []
+            place_groups[place].append(c["symbol"])
+
+        # Display grouped sounds by place in the defined order
+        for place in place_order:
+            if place in place_groups:
+                symbols = ", ".join([f"<span style='font-size:1.6em'>{s}</span>" for s in place_groups[place]])
+                st.markdown(f"{symbols} <span style='color:gray'>({place})</span><br>", unsafe_allow_html=True)
     else:
         st.info("No matching sounds found.")
+
 
 
 
