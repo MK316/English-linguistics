@@ -97,7 +97,7 @@ with tab2:
             manner_display = "nasal (stop)" if question["manner"] == "nasal" else question["manner"]
             desc = f"{question['voicing']} {question['place']} ({question['oro_nasal']}) {question['centrality']} {manner_display}"
 
-            # Highlight anything in parentheses with <span style="color:gray">
+            # Highlight anything in parentheses with <span style="color:#E0E0E0">
             desc_html = re.sub(r"\((.*?)\)", r"<span style='color:gray'>(\1)</span>", desc)
             st.markdown(f"#### Which symbol matches: *{desc_html}*?", unsafe_allow_html=True)
 
