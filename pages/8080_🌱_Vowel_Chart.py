@@ -61,6 +61,7 @@ th {
             <td class="rowlabel">Low</td>
             <td>æ</td>
             <td><span class="orange">a</span></td>
+            <td></td>
             <td>ɑ</td>
         </tr>
     </tbody>
