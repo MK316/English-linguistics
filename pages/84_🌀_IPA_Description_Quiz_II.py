@@ -71,7 +71,13 @@ with tab1:
     filtered.sort(key=lambda c: place_order.get(c["place"], 99))
 
     st.markdown(f"### 🎯 {len(filtered)} result(s):")
-    st.write(" ".join([c["symbol"] for c in filtered]))
+
+    if filtered:
+        formatted = ", ".join([f"<span style='font-size:1.8em'>{c['symbol']}</span>" for c in filtered])
+        st.markdown(formatted, unsafe_allow_html=True)
+    else:
+        st.info("No matching sounds found.")
+
 
 
 # ----------------- TAB 2 -----------------
