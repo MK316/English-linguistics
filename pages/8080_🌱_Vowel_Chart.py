@@ -1,8 +1,8 @@
 import streamlit as st
 
-st.set_page_config(page_title="Clean IPA Vowel Chart")
+st.set_page_config(page_title="Final IPA Vowel Chart")
 
-st.title("🌱 Clean IPA Vowel Chart")
+st.title("📘 Final IPA Vowel Chart")
 
 html_table = """
 <style>
@@ -19,8 +19,9 @@ td, th {
     font-size: 1.3em;
 }
 thead th {
-    background-color: transparent;
     font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
 }
 .orange {
     color: orange;
@@ -46,7 +47,7 @@ thead th {
         <tr>
             <td class="rowlabel">high</td>
             <td>i<br>ɪ</td>
-            <td></td>
+            <td>ɨ</td>
             <td>u<br>ʊ</td>
         </tr>
         <tr>
