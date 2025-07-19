@@ -203,10 +203,10 @@ with tab3:
     st.markdown(
         f"""
         <div style='display: flex; justify-content: center; gap: 40px; margin-top: 1em; margin-bottom: 1em;'>
-            <div style='padding: 0.5em 1em; background-color: #f0f0f0; border-radius: 8px; font-size: 2em; border: 2px solid #ccc;'>
+            <div style='padding: 0.5em 1em; background-color: #CCEOFF; border-radius: 8px; font-size: 2em; border: 2px solid #ccc;'>
                 {c1['symbol']}
             </div>
-            <div style='padding: 0.5em 1em; background-color: #f0f0f0; border-radius: 8px; font-size: 2em; border: 2px solid #ccc;'>
+            <div style='padding: 0.5em 1em; background-color: #CCCCFF; border-radius: 8px; font-size: 2em; border: 2px solid #ccc;'>
                 {c2['symbol']}
             </div>
         </div>
