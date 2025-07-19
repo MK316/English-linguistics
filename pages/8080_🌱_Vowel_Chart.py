@@ -2,9 +2,9 @@ import streamlit as st
 
 st.set_page_config(page_title="Static IPA Vowel Chart")
 
-st.title("💐 Static IPA Vowel Chart")
+st.title("🌳 Static IPA Vowel Chart")
 
-# HTML table for static vowel chart
+# Define custom CSS for orange
 html_table = """
 <style>
 table {
@@ -19,6 +19,10 @@ td, th {
 }
 thead th {
     background-color: #f2f2f2;
+}
+.orange {
+    color: orange;
+    font-weight: bold;
 }
 </style>
 
@@ -40,14 +44,14 @@ thead th {
         </tr>
         <tr>
             <th>mid</th>
-            <td>e<br>ɛ</td>
+            <td><span class="orange">e</span><br>ɛ</td>
             <td>ə</td>
-            <td>o<br>ɔ</td>
+            <td><span class="orange">o</span><br>ɔ</td>
         </tr>
         <tr>
             <th>low</th>
             <td>æ</td>
-            <td>a</td>
+            <td><span class="orange">a</span></td>
             <td>ɑ</td>
         </tr>
     </tbody>
