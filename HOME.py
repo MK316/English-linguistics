@@ -25,7 +25,6 @@ st.caption("This page will get ready for Fall 2025 semester.")
 # Image placed at the bottom of the page
 st.image("https://github.com/MK316/GNUET/raw/main/images/bg3.png")
 
-st.image("https://github.com/MK316/English-linguistics/raw/main/images/engllinghome.png", caption="QR to Enter", width=100)
 st.markdown(
     """
     <div style="text-align: center;">
