@@ -45,7 +45,7 @@ selected_col = st.selectbox("Highlight Consonant (column)", [""] + list(df.colum
 # --- Styling Function ---
 def style_matrix(val, row, col):
     if val == "+":
-        return "background-color: yello; color: black"
+        return "background-color: yellow; color: black"
     elif row == selected_row or col == selected_col:
         return "background-color: lightblue"
     return ""
