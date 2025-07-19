@@ -75,15 +75,24 @@ with tab2:
         st.session_state.answer = st.session_state.current_question['symbol']
         st.session_state.feedback = ""
 
-    if st.button("Next") or st.session_state.current_question is None:
-        new_question()
-
+# Ensure a new question is assigned at the start or when clicking "Next"
+    if 'current_question' not in st.session_state or st.session_state.current_question is None:
+        st.session_state.current_question = random.choice(consonants)
+        st.session_state.answer = st.session_state.current_question['symbol']
+        st.session_state.options = random.sample(
+            [c for c in consonants if c['symbol'] != st.session_state.answer], 4
+        ) + [st.session_state.current_question]
+        random.shuffle(st.session_state.options)
+    
     question = st.session_state.current_question
+    
     if question:
-        desc = f"{question['voicing']} {question['place']} ({question['oro_nasal']}) {question['centrality']} {question['manner']}"
+        # Safely construct the description
+        desc = f"{question.get('voicing', '?')} {question.get('place', '?')} ({question.get('oro_nasal', '?')}) {question.get('centrality', '?')} {question.get('manner', '?')}"
         st.subheader(f"Which symbol matches: *{desc}*?")
+    
         choice = st.radio("Choose one:", [c['symbol'] for c in st.session_state.options], key="tab2_choice")
-
+    
         col1, col2 = st.columns([1, 1])
         with col1:
             if st.button("Check answer", key="tab2_check"):
@@ -92,7 +101,16 @@ with tab2:
                 else:
                     st.error("❌ Try again.")
         with col2:
-            st.button("Next", key="tab2_next_btn", on_click=new_question)
+            if st.button("Next", key="tab2_next_btn"):
+                # Set a new question safely
+                st.session_state.current_question = random.choice(consonants)
+                st.session_state.answer = st.session_state.current_question['symbol']
+                st.session_state.options = random.sample(
+                    [c for c in consonants if c['symbol'] != st.session_state.answer], 4
+                ) + [st.session_state.current_question]
+                random.shuffle(st.session_state.options)
+                st.experimental_rerun()
+
 
 # ----------------- TAB 3 -----------------
 with tab3:
