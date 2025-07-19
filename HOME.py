@@ -12,6 +12,8 @@ title_html = """
     <span style='color: gray;'>eacher</span>
     <span style='color: #00e5ff;'>C</span>
     <span style='color: gray;'>ertification </span>
+    <span style='color: #66CC00;'>E</span>
+    <span style='color: gray;'>xam </span>
 </h1>
 """
 
