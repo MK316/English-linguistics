@@ -26,3 +26,11 @@ st.caption("This page will get ready for Fall 2025 semester.")
 st.image("https://github.com/MK316/GNUET/raw/main/images/bg3.png")
 
 st.image("https://github.com/MK316/English-linguistics/raw/main/images/engllinghome.png", caption="QR to Enter", width=100)
+st.markdown(
+    """
+    <div style="text-align: center;">
+        <img src="https://github.com/MK316/English-linguistics/raw/main/images/engllinghome.png", width=100>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
