@@ -2,7 +2,7 @@ import streamlit as st
 
 st.set_page_config(page_title="Final IPA Vowel Chart")
 
-st.title("📘 Final IPA Vowel Chart")
+st.title("🌱 Final IPA Vowel Chart")
 
 html_table = """
 <style>
@@ -46,19 +46,19 @@ th {
     </thead>
     <tbody>
         <tr>
-            <td class="rowlabel">high</td>
+            <td class="rowlabel">High</td>
             <td>i<br>ɪ</td>
-            <td>ɨ</td>
+            <td></td>
             <td>u<br>ʊ</td>
         </tr>
         <tr>
-            <td class="rowlabel">mid</td>
+            <td class="rowlabel">Mid</td>
             <td><span class="orange">e</span><br>ɛ</td>
             <td>ə</td>
             <td><span class="orange">o</span><br>ɔ</td>
         </tr>
         <tr>
-            <td class="rowlabel">low</td>
+            <td class="rowlabel">Low</td>
             <td>æ</td>
             <td><span class="orange">a</span></td>
             <td>ɑ</td>
