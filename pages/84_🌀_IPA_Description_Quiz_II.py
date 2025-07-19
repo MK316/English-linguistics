@@ -172,7 +172,9 @@ with tab2:
         choice = st.radio("Choose one:", [c['symbol'] for c in st.session_state.options], key="tab2_choice_radio")
 
         # Buttons
-        col1, col2 = st.columns([1, 1])
+# Buttons
+        col1, col2, col3 = st.columns([1, 1, 1])
+        
         with col1:
             if st.button("Check answer", key="tab2_check_btn"):
                 st.session_state.tab2_total += 1
@@ -181,11 +183,18 @@ with tab2:
                     st.success("✅ Correct!")
                 else:
                     st.error("❌ Try again.")
-
+        
         with col2:
             if st.button("Next", key="tab2_next_btn"):
                 new_question()
                 st.rerun()
+        
+        with col3:
+            if st.button("🔁 Reset Session", key="tab2_reset_btn"):
+                for key in list(st.session_state.keys()):
+                    del st.session_state[key]
+                st.rerun()
+           
 
 
 # ----------------- TAB 3 -----------------
