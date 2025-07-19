@@ -75,12 +75,12 @@ th {
 st.markdown(html_table, unsafe_allow_html=True)
 
 st.markdown("""
-    #### Notes:
+#### Notes: Vowel inventories vary significantly depending on English dialects.
 
-    1. /e, o/ are coonsidered as monophthongs or part of diphthong depending on dialects.
+1. /e/ and /o/ are considered either monophthongs or parts of diphthongs depending on the dialect — e.g., /eɪ/, /oʊ/.
 
-    2. /ɒ/ is a rounded version of /ɑ/.
+2. /ɒ/ is a rounded version of /ɑ/.
 
-    3. /ɜ/ is a contextual variant: e.g., in r-colored vowel or after r-deletion in some dialects.
+3. /ɜ/ is a contextual variant — for example, it appears in r-colored vowels or after r-deletion in some dialects.
+""")
 
-    """)
