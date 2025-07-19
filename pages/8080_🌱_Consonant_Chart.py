@@ -3,7 +3,7 @@ import streamlit as st
 
 st.set_page_config(page_title="Final IPA Vowel Chart")
 
-st.title("🌱 IPA English Vowel Chart")
+st.title("🌱 IPA English Consonant Chart")
 
 tab1, tab2, tab3 = st.tabs(["English Consonants", "Allophones", "Diacritics"])
 
