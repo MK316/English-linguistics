@@ -254,18 +254,20 @@ with tab3:
 
     tab3_choice = st.radio("Choose one:", diff_options, key="tab3_choice")
 
-    col1, col2 = st.columns(2)
+    # Buttons
+    col1, col2, col3 = st.columns([1, 1, 1])
+    
     with col1:
-        if st.button("Check answer", key="tab3_check"):
+        if st.button("Check answer", key="tab3_check_btn"):
             st.session_state.tab3_total += 1
             if tab3_choice == st.session_state.key_diff:
                 st.session_state.tab3_score += 1
                 st.success("✅ Correct! The key difference is indeed: " + tab3_choice)
             else:
                 st.error("❌ Incorrect. Try again.")
-
+    
     with col2:
-        if st.button("Next", key="tab3_next"):
+        if st.button("Next", key="tab3_next_btn"):
             # Get a new pair with one distinct feature
             while True:
                 c1, c2 = random.sample(consonants, 2)
@@ -274,4 +276,10 @@ with tab3:
                     st.session_state.pair = (c1, c2)
                     st.session_state.key_diff = key_diff
                     break
+            st.rerun()
+    
+    with col3:
+        if st.button("🔁 Reset Session", key="tab3_reset_btn"):
+            for key in list(st.session_state.keys()):
+                del st.session_state[key]
             st.rerun()
