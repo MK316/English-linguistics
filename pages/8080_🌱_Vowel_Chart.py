@@ -1,29 +1,35 @@
 import streamlit as st
 
-st.set_page_config(page_title="Static IPA Vowel Chart")
+st.set_page_config(page_title="Clean IPA Vowel Chart")
 
-st.title("🌳 Static IPA Vowel Chart")
+st.title("🌱 Clean IPA Vowel Chart")
 
-# Define custom CSS for orange
 html_table = """
 <style>
 table {
-    width: 600px;
     border-collapse: collapse;
     margin-top: 1rem;
+    width: 600px;
 }
 td, th {
-    border: 1px solid #999;
-    padding: 0.5em 0.8em;
+    border: none;
+    padding: 0.8em;
     text-align: center;
+    vertical-align: middle;
     font-size: 1.3em;
 }
 thead th {
-    background-color: #f2f2f2;
+    background-color: transparent;
+    font-weight: bold;
 }
 .orange {
     color: orange;
     font-weight: bold;
+}
+.rowlabel {
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
 }
 </style>
 
@@ -31,26 +37,26 @@ thead th {
     <thead>
         <tr>
             <th></th>
-            <th>front</th>
-            <th>central</th>
-            <th>back</th>
+            <th>Front</th>
+            <th>Central</th>
+            <th>Back</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <th>high</th>
+            <td class="rowlabel">high</td>
             <td>i<br>ɪ</td>
             <td></td>
             <td>u<br>ʊ</td>
         </tr>
         <tr>
-            <th>mid</th>
+            <td class="rowlabel">mid</td>
             <td><span class="orange">e</span><br>ɛ</td>
             <td>ə</td>
             <td><span class="orange">o</span><br>ɔ</td>
         </tr>
         <tr>
-            <th>low</th>
+            <td class="rowlabel">low</td>
             <td>æ</td>
             <td><span class="orange">a</span></td>
             <td>ɑ</td>
