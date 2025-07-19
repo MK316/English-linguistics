@@ -45,7 +45,7 @@ th {
         <tr>
             <th style="text-align:center; vertical-align:middle;"></th>
             <th style="text-align:center; vertical-align:middle;">Front</th>
-            <th style="text-align:center; vertical-align:middle;">Central</th>
+            <th style="text-align:center; vertical-align:middle;">(Central)</th>
             <th style="text-align:center; vertical-align:middle;">Back</th>
         </tr>
     </thead>
@@ -57,7 +57,7 @@ th {
             <td>u<br>ʊ</td>
         </tr>
         <tr>
-            <td class="rowlabel">Mid</td>
+            <td class="rowlabel">(Mid)</td>
             <td><span class="orange">e</span><br>ɛ</td>
             <td>ə</td>
             <td><span class="orange">o</span><br>ɔ</td>
