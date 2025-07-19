@@ -11,36 +11,37 @@ table {
     margin-top: 1rem;
     width: 600px;
 }
-td, th {
+td {
     border: none;
     padding: 0.8em;
     text-align: center;
     vertical-align: middle;
     font-size: 1.3em;
 }
-thead th {
+th {
+    border: none;
+    padding: 0.8em;
+    font-size: 1.3em;
     font-weight: bold;
-    text-align: center;
-    vertical-align: middle;
 }
 .orange {
     color: orange;
     font-weight: bold;
 }
 .rowlabel {
-    font-weight: bold;
     text-align: center;
     vertical-align: middle;
+    font-weight: bold;
 }
 </style>
 
 <table>
     <thead>
         <tr>
-            <th></th>
-            <th>Front</th>
-            <th>Central</th>
-            <th>Back</th>
+            <th style="text-align:center; vertical-align:middle;"></th>
+            <th style="text-align:center; vertical-align:middle;">Front</th>
+            <th style="text-align:center; vertical-align:middle;">Central</th>
+            <th style="text-align:center; vertical-align:middle;">Back</th>
         </tr>
     </thead>
     <tbody>
