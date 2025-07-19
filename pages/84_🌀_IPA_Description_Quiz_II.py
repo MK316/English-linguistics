@@ -99,7 +99,7 @@ with tab1:
 
 # ----------------- TAB 2 -----------------
 with tab2:
-    st.header("🎲 Identify the Correct IPA Symbol")
+    st.header("🌳 Identify the Correct IPA Symbol")
 
     # Initialize session state
     if "current_question" not in st.session_state:
@@ -165,7 +165,7 @@ with tab2:
 
 # ----------------- TAB 3 -----------------
 with tab3:
-    st.header("🧠 Identify the Distinctive Feature")
+    st.header("🌳 Identify the Distinctive Feature")
 
     if 'contrast_pair' not in st.session_state:
         st.session_state.contrast_pair = None
