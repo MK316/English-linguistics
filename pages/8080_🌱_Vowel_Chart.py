@@ -82,3 +82,5 @@ st.markdown("""
     2. /ɒ/ is a rounded version of /ɑ/.
 
     3. /ɜ/ is a contextual variant: e.g., in r-colored vowel or after r-deletion in some dialects.
+
+    """)
