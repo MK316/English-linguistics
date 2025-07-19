@@ -29,6 +29,7 @@ consonants = [
     {"symbol": "w", "voicing": "voiced", "place": "labio-velar", "oro_nasal": "oral", "centrality": "(central)", "manner": "glide"},
 ]
 
+
 # --- UI Layout ---
 tab1, tab2, tab3 = st.tabs(["Explore Sounds", "Identify Symbol", "Identify Feature"])
 
