@@ -1,10 +1,15 @@
 import streamlit as st
 
-st.set_page_config(page_title="Final IPA Vowel Chart")
+from PIL import Image
+from io import BytesIO
+import requests
 
-st.title("🌱 Final IPA Vowel Chart")
+st.set_page_config(page_title="Final IPA Vowel Chart", layout="wide")
 
-tab1, tab2, tab3 = st.tabs(["Monophthongs", "Tense/Lax", "Diphthongs"])
+
+st.title("🌱 IPA Vowel Chart")
+
+tab1, tab2, tab3 = st.tabs(["🚦 Monophthongs", "🚦 Tense/Lax", "🚦 Diphthongs"])
 
 with tab1:
     st.markdown("""
@@ -84,6 +89,8 @@ with tab1:
     2. /ɒ/ is a rounded version of /ɑ/.
 
     3. /ɜ/ is a contextual variant — for example, it appears in r-colored vowels or after r-deletion in some dialects.
+
+    4. /a/ is part of the diphthongs /aɪ/ and /aʊ/, and is not used as a simple vowel on its own.
     """)
 
 with tab2:
@@ -154,5 +161,19 @@ with tab2:
     </table>
     """, unsafe_allow_html=True)
 
+# Move this to the very top of your file
+st.set_page_config(layout="wide")
+
+# Inside tab3
 with tab3:
-    st.markdown("📌 You can add more vowel visualizations or explanation notes here.")
+    st.caption("📍 Keep in mind that each vowel's placement is illustrative and can vary depending on the dialect.")
+
+    image_url = "https://github.com/MK316/APP4U/raw/main/images/diphthongs.png"
+
+    try:
+        response = requests.get(image_url)
+        response.raise_for_status()
+        image = Image.open(BytesIO(response.content))
+        st.image(image, caption="Vowel chart to draw diphthongs", use_container_width=True)
+    except Exception as e:
+        st.error(f"❌ Failed to load the image: {e}")
