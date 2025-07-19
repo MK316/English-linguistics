@@ -66,7 +66,7 @@ th {
             <td class="rowlabel">Low</td>
             <td>æ</td>
             <td class="bottomcell"><span class="orange">a</span></td>
-            <td class="bottomcell">ɑ</td>
+            <td class="bottomcell">ɑ / ɒ</td>
         </tr>
     </tbody>
 </table>
