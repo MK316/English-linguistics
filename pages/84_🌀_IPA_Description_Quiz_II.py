@@ -89,7 +89,9 @@ with tab2:
     
     if question:
         # Safely construct the description
-        desc = f"{question.get('voicing', '?')} {question.get('place', '?')} ({question.get('oro_nasal', '?')}) {question.get('centrality', '?')} {question.get('manner', '?')}"
+        manner_display = "nasal (stop)" if question["manner"] == "nasal" else question["manner"]
+        desc = f"{question['voicing']} {question['place']} ({question['oro_nasal']}) {question['centrality']} {manner_display}"
+
         st.subheader(f"Which symbol matches: *{desc}*?")
     
         choice = st.radio("Choose one:", [c['symbol'] for c in st.session_state.options], key="tab2_choice")
