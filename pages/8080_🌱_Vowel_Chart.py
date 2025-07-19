@@ -8,6 +8,7 @@ st.title("🌳 Static IPA Vowel Chart")
 html_table = """
 <style>
 table {
+    width: 600px;
     border-collapse: collapse;
     margin-top: 1rem;
 }
@@ -39,7 +40,7 @@ thead th {
         <tr>
             <th>high</th>
             <td>i<br>ɪ</td>
-            <td>ɨ</td>
+            <td></td>
             <td>u<br>ʊ</td>
         </tr>
         <tr>
