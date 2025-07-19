@@ -265,4 +265,4 @@ with tab3:
                     st.session_state.pair = (c1, c2)
                     st.session_state.key_diff = key_diff
                     break
-            st.experimental_rerun()
+            st.rerun()
