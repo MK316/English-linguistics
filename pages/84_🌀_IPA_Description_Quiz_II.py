@@ -1,5 +1,6 @@
 import streamlit as st
 import random
+import re
 
 # --- IPA Consonant Dictionary ---
 consonants = [
@@ -96,7 +97,11 @@ with tab2:
             manner_display = "nasal (stop)" if question["manner"] == "nasal" else question["manner"]
             desc = f"{question['voicing']} {question['place']} ({question['oro_nasal']}) {question['centrality']} {manner_display}"
 
-        st.subheader(f"Which symbol matches: *{desc}*?")
+            # Highlight anything in parentheses with <span style="color:gray">
+            desc_html = re.sub(r"\((.*?)\)", r"<span style='color:gray'>(\1)</span>", desc)
+            st.markdown(f"#### Which symbol matches: *{desc_html}*?", unsafe_allow_html=True)
+
+
     
         choice = st.radio("Choose one:", [c['symbol'] for c in st.session_state.options], key="tab2_choice")
     
