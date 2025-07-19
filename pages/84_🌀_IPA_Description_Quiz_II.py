@@ -187,8 +187,7 @@ with tab3:
                 st.session_state.feature_feedback = ""
                 break
 
-    if st.button("Next", key="tab3_next") or st.session_state.contrast_pair is None:
-        new_pair()
+
 
     pair = st.session_state.contrast_pair
     if pair:
