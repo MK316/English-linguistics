@@ -63,6 +63,7 @@ th {
             <td><span class="orange">a</span><br>&nbsp;</td>
             <td>ɑ<br>&nbsp;</td>
         </tr>
+
     </tbody>
 </table>
 """
