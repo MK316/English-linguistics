@@ -5,8 +5,6 @@ import io
 import os
 from PIL import Image
 
-st.set_page_config(page_title="Final IPA Vowel Chart")
-
 st.title("🌱 IPA English Consonant Chart")
 
 tab1, tab2 = st.tabs(["English Consonants", "Diacritics"])
