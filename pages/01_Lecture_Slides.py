@@ -18,7 +18,7 @@ st.markdown("""
 
 # Set up the path to the slides folder
 slides_path = "pages/Slides/"  # Ensure this is correct relative to your app's location
-slide_files = sorted([f for f in os.listdir(slides_path) if f.endswith(".png")])
+slide_files = sorted([f for f in os.listdir(slides_path) if f.endswith(".jpeg")])
 num_slides = len(slide_files)
 
 # Initialize session state variables if they do not exist
