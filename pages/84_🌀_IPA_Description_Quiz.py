@@ -9,10 +9,6 @@ if "tab2_score" not in st.session_state:
     st.session_state.tab2_score = 0
 if "tab2_total" not in st.session_state:
     st.session_state.tab2_total = 0
-if "tab3_score" not in st.session_state:
-    st.session_state.tab3_score = 0
-if "tab3_total" not in st.session_state:
-    st.session_state.tab3_total = 0
 
 
 
@@ -205,6 +201,3 @@ with tab2:
                     del st.session_state[key]
                 st.rerun()
            
-
-
-# ----------------- TAB 3 -----------------
