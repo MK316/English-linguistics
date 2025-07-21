@@ -53,7 +53,7 @@ def display_score(tab_label):
 
 
 # --- UI Layout ---
-tab1, tab2 = st.tabs(["[1] Explore Sounds", "[2] Identify Symbol"])
+tab1, tab2, tab3 = st.tabs(["[1] Explore Sounds", "[2] Identify Symbol", "[3] TBA"])
 
 # ----------------- TAB 1 -----------------
 with tab1:
@@ -200,4 +200,6 @@ with tab2:
                 for key in list(st.session_state.keys()):
                     del st.session_state[key]
                 st.rerun()
-           
+
+with tab3:
+    st.write("This app is under revision.")
