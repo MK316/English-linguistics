@@ -5,6 +5,7 @@ import io
 import os
 from PIL import Image
 
+st.set_page_config(page_title="Reference List", layout="wide")
 tab1, tab2 = st.tabs(["🌀 Lecture Slides", "🌀 References"])
 
 # CSS to adjust the alignment of the dropdown to match the buttons
@@ -93,7 +94,6 @@ with tab1:
 
 with tab2:
     
-    st.set_page_config(page_title="Reference List", layout="wide")
     st.markdown("#### 📚 Reference List (Phonetics & Phonology)")
     
     books = [
