@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Define tab navigation
-tab1, tab2 = st.tabs(["🌀 TCE Searching Application", "🍎 Overview"])
+tab1, tab2, tab3 = st.tabs(["🌀 TCE Searching Application", "🍎 Overview", "Name song"])
 
 
 with tab1:
@@ -95,3 +95,9 @@ with tab2:
     <div style="color: #0066CC;">This tool supports teachers and students preparing for certification exams in phonetics and phonology,
     continually updating to enhance its functionality and user experience.</div>
     """, unsafe_allow_html=True)
+
+with tab3:
+    st.write("2025 Name song question")
+
+    st.markdown("#### 🎬 Video Reference: Voicing and Phonological Rules")
+    st.video("https://youtu.be/s9AlgDyeO74?si=SvbrS8rv0ZTeArZ5")
