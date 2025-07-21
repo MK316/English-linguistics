@@ -38,7 +38,7 @@ consonants = [
     {"symbol": "m", "voicing": "voiced", "place": "bilabial", "oro_nasal": "nasal", "centrality": "(central)", "manner": "nasal"},
     {"symbol": "n", "voicing": "voiced", "place": "alveolar", "oro_nasal": "nasal", "centrality": "(central)", "manner": "nasal"},
     {"symbol": "ŋ", "voicing": "voiced", "place": "velar", "oro_nasal": "nasal", "centrality": "(central)", "manner": "nasal"},
-    {"symbol": "l", "voicing": "voiced", "place": "alveolar", "oro_nasal": "oral", "centrality": "lateral", "manner": "approximant "},
+    {"symbol": "l", "voicing": "voiced", "place": "alveolar", "oro_nasal": "oral", "centrality": "lateral", "manner": "approximant"},
     {"symbol": "ɹ", "voicing": "voiced", "place": "alveolar", "oro_nasal": "oral", "centrality": "(central)", "manner": "approximant"},
     {"symbol": "j", "voicing": "voiced", "place": "palatal", "oro_nasal": "oral", "centrality": "(central)", "manner": "glide"},
     {"symbol": "w", "voicing": "voiced", "place": "labio-velar", "oro_nasal": "oral", "centrality": "(central)", "manner": "glide"},
@@ -226,9 +226,10 @@ with tab3:
             diffs.append("Oro-nasal process (oral vs. nasal)")
         if c1["centrality"] != c2["centrality"]:
             diffs.append("Centrality (central vs. lateral)")
-        if c1["manner"] != c2["manner"]:
+        if c1["manner"].strip() != c2["manner"].strip():  # Some entries had a space!
             diffs.append("Manner")
         return diffs
+
     
 
     if "pair" not in st.session_state:
