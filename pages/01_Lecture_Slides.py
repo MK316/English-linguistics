@@ -86,8 +86,10 @@ with tab1:
     display_image()
 
     st.markdown("---")
-    st.caption("Introduction: Slides 1~8")
-    st.caption("Chapter 01: Slides 9~52")
+    st.caption("Part II: Slides 127~ Diachrony, Phonotactices, Rhotacism")
+    st.caption("Part II: Slides 152~ Stress, foot")
+    st.caption("Part III: Slides 164~ Phonology & Morphology")
+    st.caption("Part IV: Slides 180~ Morphology")
 
 
 # ------------ Tab2
