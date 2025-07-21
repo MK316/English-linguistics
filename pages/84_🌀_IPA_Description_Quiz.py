@@ -44,6 +44,12 @@ consonants = [
     {"symbol": "w", "voicing": "voiced", "place": "labio-velar", "oro_nasal": "oral", "centrality": "(central)", "manner": "glide"},
 ]
 
+# Clean all trailing spaces from data
+for c in consonants:
+    for k in c:
+        if isinstance(c[k], str):
+            c[k] = c[k].strip()
+
 def display_score(tab_label):
     score = st.session_state[f"{tab_label}_score"]
     total = st.session_state[f"{tab_label}_total"]
@@ -231,20 +237,19 @@ with tab3:
         return diffs
 
     
-
     if "pair" not in st.session_state:
-        max_attempts = 500  # just in case
-        for _ in range(max_attempts):
+        for _ in range(1000):
             c1, c2 = random.sample(consonants, 2)
+            if c1["symbol"] == c2["symbol"]:
+                continue
             key_diffs = get_key_differences(c1, c2)
             if len(key_diffs) == 1:
                 st.session_state.pair = (c1, c2)
-                st.session_state.key_diff = key_diffs[0]  # single string
+                st.session_state.key_diff = key_diffs[0]
                 break
         else:
-            st.error("⚠️ Could not find a minimal pair with one feature difference.")
-    
-        
+            st.error("⚠️ No minimal pair found after 1000 tries.")
+          
 
     c1, c2 = st.session_state.pair
     key_diffs = st.session_state.key_diffs
