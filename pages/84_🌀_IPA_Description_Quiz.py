@@ -265,6 +265,18 @@ with tab3:
     # Load current pair
     c1, c2 = st.session_state.pair
     key_diff = st.session_state.key_diff
+    
+    # 🔒 Validate again
+    if len(get_key_differences(c1, c2)) != 1 or key_diff not in get_key_differences(c1, c2):
+        c1, c2, key_diff = get_minimal_pair()
+        if c1 is None:
+            st.error("⚠️ No valid minimal pair found.")
+            st.stop()
+        st.session_state.pair = (c1, c2)
+        st.session_state.key_diff = key_diff
+        c1, c2 = st.session_state.pair
+        key_diff = st.session_state.key_diff
+
 
     # Revalidate pair (optional but safe)
     current_diffs = get_key_differences(c1, c2)
