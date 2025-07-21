@@ -232,14 +232,18 @@ with tab3:
     
 
     if "pair" not in st.session_state:
-        while True:
+        max_attempts = 500  # just in case
+        for _ in range(max_attempts):
             c1, c2 = random.sample(consonants, 2)
             key_diffs = get_key_differences(c1, c2)
             if len(key_diffs) == 1:
                 st.session_state.pair = (c1, c2)
-                st.session_state.key_diff = key_diffs[0]
+                st.session_state.key_diff = key_diffs[0]  # single string
                 break
+        else:
+            st.error("⚠️ Could not find a minimal pair with one feature difference.")
     
+        
 
     c1, c2 = st.session_state.pair
     key_diffs = st.session_state.key_diffs
