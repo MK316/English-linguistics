@@ -18,13 +18,13 @@ books = [
     },
     {
         "title": "*English Phonetics and Phonology* (Philip Carr)",
-        "intro": "An introductory guide to English phonology with a focus on theory and analysis. Useful for students studying linguistics or English language.",
+        "intro": "An introductory guide to English phonology with a focus on theory and analysis. Useful for students studying linguistics or English language. It includes chapters on stress and foot structure.",
         "link": "https://www.wiley.com/en-us/English+Phonetics+and+Phonology%3A+An+Introduction%2C+3rd+Edition-p-9781118511808",
         "image": "https://github.com/MK316/English-linguistics/raw/main/pages/images/Carr.png"
     },
     {
         "title": "*Introducing Phonetics and Phonology* (M. Davenport & Hannah S. J.)",
-        "intro": "Covers both the descriptive and theoretical aspects of English phonetics and phonology, with helpful exercises and diagrams.",
+        "intro": "Covers both the descriptive and theoretical aspects of English phonetics and phonology, with helpful exercises and diagrams. This book provides a clear introduction to distinctive features.",
         "link": "https://www.cambridge.org/core/books/english-phonetics-and-phonology/0C0DC6BD95A785BE3BE4E3F6E91AEF20",
         "image": "https://github.com/MK316/English-linguistics/raw/main/pages/images/feature.png"
     }
