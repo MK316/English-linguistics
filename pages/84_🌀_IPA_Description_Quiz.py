@@ -226,7 +226,7 @@ with tab3:
             diffs.append("Oro-nasal process (oral vs. nasal)")
         if c1["centrality"] != c2["centrality"]:
             diffs.append("Centrality (central vs. lateral)")
-        if c1["manner"].strip() != c2["manner"].strip():  # Some entries had a space!
+        if c1["manner"] != c2["manner"]:
             diffs.append("Manner")
         return diffs
 
