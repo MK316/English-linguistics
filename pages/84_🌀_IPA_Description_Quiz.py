@@ -220,7 +220,13 @@ with tab3:
         "Manner"
     ]
 
-    # Function to get key difference
+    # Clean trailing whitespace in feature values
+    for c in consonants:
+        for k in c:
+            if isinstance(c[k], str):
+                c[k] = c[k].strip()
+
+    # Define difference checker
     def get_key_differences(c1, c2):
         diffs = []
         if c1["voicing"] != c2["voicing"]:
@@ -235,13 +241,7 @@ with tab3:
             diffs.append("Manner")
         return diffs
 
-    # Ensure clean consonant list
-    for c in consonants:
-        for k in c:
-            if isinstance(c[k], str):
-                c[k] = c[k].strip()
-
-    # Random minimal pair with one difference
+    # Generate minimal pair with exactly one difference
     def get_minimal_pair():
         import random
         for _ in range(1000):
@@ -253,18 +253,33 @@ with tab3:
                 return c1, c2, diffs[0]
         return None, None, None
 
-    if "pair" not in st.session_state or "key_diff" not in st.session_state:
+    # Always validate current pair
+    if "pair" not in st.session_state:
         c1, c2, key_diff = get_minimal_pair()
-        if c1:
-            st.session_state.pair = (c1, c2)
-            st.session_state.key_diff = key_diff
-        else:
-            st.error("❗ No minimal pair found.")
+        if c1 is None:
+            st.error("⚠️ No valid pair found.")
             st.stop()
+        st.session_state.pair = (c1, c2)
+        st.session_state.key_diff = key_diff
 
+    # Load current pair
     c1, c2 = st.session_state.pair
     key_diff = st.session_state.key_diff
 
+    # Revalidate pair (optional but safe)
+    current_diffs = get_key_differences(c1, c2)
+    if len(current_diffs) != 1:
+        # Force a reset if the pair became invalid
+        c1, c2, key_diff = get_minimal_pair()
+        if c1 is None:
+            st.error("⚠️ No valid pair found.")
+            st.stop()
+        st.session_state.pair = (c1, c2)
+        st.session_state.key_diff = key_diff
+        c1, c2 = st.session_state.pair
+        key_diff = st.session_state.key_diff
+
+    # UI
     st.markdown("### Which feature distinguishes the following two sounds?")
     st.markdown(
         f"""
@@ -298,12 +313,12 @@ with tab3:
     with col2:
         if st.button("Next", key="tab3_next_btn"):
             c1, c2, key_diff = get_minimal_pair()
-            if c1:
-                st.session_state.pair = (c1, c2)
-                st.session_state.key_diff = key_diff
-                st.rerun()
-            else:
-                st.error("⚠️ Could not find a new valid pair.")
+            if c1 is None:
+                st.error("⚠️ No valid pair found.")
+                st.stop()
+            st.session_state.pair = (c1, c2)
+            st.session_state.key_diff = key_diff
+            st.rerun()
 
     with col3:
         if st.button("🔁 Reset Session", key="tab3_reset_btn"):
