@@ -248,8 +248,6 @@ with tab3:
             c1, c2 = random.sample(consonants, 2)
             if c1["symbol"] == c2["symbol"]:
                 continue
-            if c1["voicing"] == "" or c2["voicing"] == "":
-                continue  # skip incomplete
             diffs = get_key_differences(c1, c2)
             if len(diffs) == 1:
                 return c1, c2, diffs[0]
@@ -257,11 +255,11 @@ with tab3:
 
     if "pair" not in st.session_state or "key_diff" not in st.session_state:
         c1, c2, key_diff = get_minimal_pair()
-        if c1 and c2 and key_diff:
+        if c1:
             st.session_state.pair = (c1, c2)
             st.session_state.key_diff = key_diff
         else:
-            st.error("❗ Unable to find a valid minimal pair.")
+            st.error("❗ No minimal pair found.")
             st.stop()
 
     c1, c2 = st.session_state.pair
@@ -305,7 +303,7 @@ with tab3:
                 st.session_state.key_diff = key_diff
                 st.rerun()
             else:
-                st.error("❗ Unable to find a new minimal pair.")
+                st.error("⚠️ Could not find a new valid pair.")
 
     with col3:
         if st.button("🔁 Reset Session", key="tab3_reset_btn"):
