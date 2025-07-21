@@ -229,15 +229,17 @@ with tab3:
         if c1["manner"] != c2["manner"]:
             diffs.append("Manner")
         return diffs
+    
 
     if "pair" not in st.session_state:
         while True:
             c1, c2 = random.sample(consonants, 2)
             key_diffs = get_key_differences(c1, c2)
-            if key_diffs:
+            if len(key_diffs) == 1:
                 st.session_state.pair = (c1, c2)
-                st.session_state.key_diffs = key_diffs
+                st.session_state.key_diff = key_diffs[0]
                 break
+    
 
     c1, c2 = st.session_state.pair
     key_diffs = st.session_state.key_diffs
