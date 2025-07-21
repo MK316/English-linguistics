@@ -204,7 +204,8 @@ with tab2:
 # ----------------- TAB 3 -----------------
 with tab3:
     st.header("🧩 Find the Key Feature Differences")
-
+    st.write("This app is currently under revision. It doesn't allow multiple selections. Please wait a while :-)")
+    st.markdonw("---")
     display_score("tab3")
 
     diff_options = [
