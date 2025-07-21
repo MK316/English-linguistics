@@ -256,7 +256,8 @@ with tab3:
         unsafe_allow_html=True
     )
 
-    tab3_choices = st.multiselect("Select all that apply:", diff_options, key="tab3_multi")
+    tab3_choices = st.multiselect("Select all that apply:", diff_options)
+
 
     col1, col2, col3 = st.columns([1, 1, 1])
 
