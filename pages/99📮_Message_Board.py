@@ -15,8 +15,8 @@ st.caption("💙 Leave feedback, suggestions, or messages here. I’ll check the
 st.write("➡️ Click the **+** to post.")
 
 # Use Padlet's EMBED URL: https://padlet.com/embed/<slug>
-PADLET_SLUG = "F25_engling"
-PADLET_EMBED = f"https://padlet.com/embed/{PADLET_SLUG}"
+# PADLET_SLUG = "F25_engling"
+PADLET_EMBED = "https://padlet.com/mirankim316/F25_engling"
 
 html = f"""
 <div style="display:flex; justify-content:center; width:100%;">
