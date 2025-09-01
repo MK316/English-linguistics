@@ -5,9 +5,11 @@ import io
 import os
 from PIL import Image
 import base64
-
+# ---------------- Page setup ----------------
 # st.set_page_config(page_title="Reference List", layout="wide")
 st.set_page_config(page_title="Lecture Slide Player - Chapter 1", layout="wide")
+
+# ----------------- Tabs -----------------------
 tab1, tab2 = st.tabs(["🌀 Lecture Slides", "🌀 References"])
 
 # CSS to adjust the alignment of the dropdown to match the buttons
@@ -20,9 +22,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 
-# ---------------- Page setup ----------------
 
-st.markdown("#### 📗 Chapter 1: Articulation and Acoustics")
 
 # --------- SLIDES FOLDER (edit if needed) ----------
 slides_path = "pages/Slides/"  # Ensure this is correct relative to your app's location
