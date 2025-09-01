@@ -19,12 +19,6 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 
-import os
-import io
-import base64
-from PIL import Image
-import streamlit as st
-
 # ---------------- Page setup ----------------
 st.set_page_config(page_title="Lecture Slide Player - Chapter 1", layout="wide")
 st.markdown("#### 📗 Chapter 1: Articulation and Acoustics")
@@ -106,7 +100,7 @@ def display_image_fixed_width(img_path: str, width_px: int = 1200):
     resized_image = image.resize((width_px, new_height), Image.LANCZOS)
     st.image(resized_image, caption=f"Slide {st.session_state.slide_index + 1} of {num_slides}")
 
-with st.tabs("Slides"):
+with st.tab("Slides"):
     # View controls
     colA, colB = st.columns([2, 3])
     with colA:
