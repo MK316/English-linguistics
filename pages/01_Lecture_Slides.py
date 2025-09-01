@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import io
 import os
 from PIL import Image
+import base64
 
 # st.set_page_config(page_title="Reference List", layout="wide")
 st.set_page_config(page_title="Lecture Slide Player - Chapter 1", layout="wide")
