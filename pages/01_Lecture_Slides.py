@@ -5,8 +5,8 @@ import io
 import os
 from PIL import Image
 
-st.set_page_config(page_title="Reference List", layout="wide")
-
+# st.set_page_config(page_title="Reference List", layout="wide")
+st.set_page_config(page_title="Lecture Slide Player - Chapter 1", layout="wide")
 tab1, tab2 = st.tabs(["🌀 Lecture Slides", "🌀 References"])
 
 # CSS to adjust the alignment of the dropdown to match the buttons
@@ -20,7 +20,7 @@ st.markdown("""
 
 
 # ---------------- Page setup ----------------
-st.set_page_config(page_title="Lecture Slide Player - Chapter 1", layout="wide")
+
 st.markdown("#### 📗 Chapter 1: Articulation and Acoustics")
 
 # --------- SLIDES FOLDER (edit if needed) ----------
@@ -52,7 +52,7 @@ def display_image_fit_height(img_path: str, vh_percent: int = 88):
     """Embed as a responsive <img> that fits viewport height (no vertical scrolling)."""
     with open(img_path, "rb") as f:
         raw = f.read()
-    # Convert to JPEG (smaller) for faster inline transfer
+    # Convert to JPEG for faster inline transfer when possible
     try:
         im = Image.open(io.BytesIO(raw))
         if im.mode in ("RGBA", "LA"):
@@ -100,7 +100,9 @@ def display_image_fixed_width(img_path: str, width_px: int = 1200):
     resized_image = image.resize((width_px, new_height), Image.LANCZOS)
     st.image(resized_image, caption=f"Slide {st.session_state.slide_index + 1} of {num_slides}")
 
-with st.tab("Slides"):
+# -------- Tabs --------
+tabs = st.tabs(["Slides"])
+with tabs[0]:
     # View controls
     colA, colB = st.columns([2, 3])
     with colA:
