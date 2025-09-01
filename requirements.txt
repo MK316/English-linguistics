@@ -3,3 +3,12 @@ streamlit-aggrid
 pandas
 numpy
 matplotlib
+gtts
+tabulate
+
+qrcode
+wordcloud
+streamlit-drawable-canvas
+openpyxl
+nltk
+requests
