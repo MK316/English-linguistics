@@ -106,7 +106,7 @@ def display_image_fixed_width(img_path: str, width_px: int = 1200):
     resized_image = image.resize((width_px, new_height), Image.LANCZOS)
     st.image(resized_image, caption=f"Slide {st.session_state.slide_index + 1} of {num_slides}")
 
-with st.tab("Slides"):
+with st.tabs("Slides"):
     # View controls
     colA, colB = st.columns([2, 3])
     with colA:
