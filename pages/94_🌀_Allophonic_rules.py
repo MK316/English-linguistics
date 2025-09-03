@@ -1,70 +1,46 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="Allophonic Rules — CSV-driven Quiz", page_icon="🔤", layout="centered")
+st.set_page_config(page_title="Allophonic Rules — CSV Quiz", page_icon="🔤", layout="centered")
 st.title("English Allophonic Rules — CSV-driven Quiz")
-st.caption("Load the dataset from a GitHub Raw URL or upload a CSV. Then pick a rule and practice.")
+st.caption("Choose a rule, select all items that exemplify it, then submit. Click “Show me another set of words” for new items.")
 
 # --------------------------
-# Data loading
+# 1) Load the fixed CSV (set your RAW URL here)
 # --------------------------
-default_url = ""  # paste your Raw GitHub CSV URL here when ready
-url = st.text_input("GitHub RAW CSV URL (optional)", value=default_url, placeholder="https://raw.githubusercontent.com/MK316/classmaterial/refs/heads/main/Phonetics/allophonic_rules_dataset.csv")
-uploaded = st.file_uploader("Or upload the CSV", type=["csv"])
+RAW_URL = "https://raw.githubusercontent.com/MK316/classmaterial/refs/heads/main/Phonetics/allophonic_rules_dataset.csv"
 
 @st.cache_data
-def load_df_from_url(u: str):
-    return pd.read_csv(u)
+def load_rules(url: str):
+    df = pd.read_csv(url)
+    required = {"rule_label","description","set","option","item_text","is_correct"}
+    if not required.issubset(df.columns):
+        raise ValueError(f"CSV missing required columns. Found: {list(df.columns)}")
 
-@st.cache_data
-def load_df_from_bytes(b):
-    return pd.read_csv(b)
+    # Normalize types
+    df["set"] = df["set"].astype(int)
+    df["option"] = df["option"].astype(int)
+    df["is_correct"] = df["is_correct"].astype(int)
 
-df = None
-if url:
-    try:
-        df = load_df_from_url(url)
-        st.success("Loaded CSV from URL.")
-    except Exception as e:
-        st.warning(f"Could not load from URL: {e}")
-if df is None and uploaded is not None:
-    try:
-        df = load_df_from_bytes(uploaded)
-        st.success("Loaded CSV from upload.")
-    except Exception as e:
-        st.error(f"Could not read uploaded CSV: {e}")
+    # Build RULES dict in memory
+    rules = {}
+    for rule_label, g in df.groupby("rule_label", sort=False):
+        desc = g["description"].iloc[0]
+        sets = []
+        for s, sg in g.sort_values(["set","option"]).groupby("set", sort=True):
+            items = [{"text": row["item_text"], "is_correct": bool(row["is_correct"])} for _, row in sg.iterrows()]
+            sets.append(items)
+        rules[rule_label] = {"desc": desc, "sets": sets}
+    return rules
 
-if df is None:
-    st.info("Provide a GitHub RAW URL or upload the CSV to begin.")
-    st.stop()
-
-# Validate schema
-required_cols = {"rule_label","description","set","option","item_text","is_correct"}
-if not required_cols.issubset(set(df.columns)):
-    st.error(f"CSV missing required columns. Found: {list(df.columns)}")
-    st.stop()
-
-# Normalize types
-df["set"] = df["set"].astype(int)
-df["option"] = df["option"].astype(int)
-df["is_correct"] = df["is_correct"].astype(int)
+RULES = load_rules(RAW_URL)
 
 # --------------------------
-# Build in-memory dataset
-# --------------------------
-RULES = {}
-for rule_label, g in df.groupby("rule_label", sort=False):
-    desc = g["description"].iloc[0]
-    sets = []
-    for s, sg in g.sort_values(["set","option"]).groupby("set", sort=True):
-        items = [{"text": row["item_text"], "is_correct": bool(row["is_correct"])} for _, row in sg.iterrows()]
-        sets.append(items)
-    RULES[rule_label] = {"desc": desc, "sets": sets}
-
-# --------------------------
-# State & callbacks
+# 2) State & helpers
 # --------------------------
 def ensure_state():
+    if "started" not in st.session_state:
+        st.session_state.started = False
     if "rule_key" not in st.session_state:
         st.session_state.rule_key = list(RULES.keys())[0]
     if "set_idx" not in st.session_state:
@@ -74,6 +50,7 @@ def ensure_state():
 
 def on_rule_change():
     rk = st.session_state.rule_key
+    # reset to first set when rule changes
     st.session_state.set_idx[rk] = 0
     st.session_state.nonce += 1
 
@@ -87,23 +64,37 @@ def evaluate_selection(items, selected_flags):
     correct_flags = [it["is_correct"] for it in items]
     perfect = all(s == c for s, c in zip(selected_flags, correct_flags))
     must_select = [it["text"] for i, it in enumerate(items) if correct_flags[i] and not selected_flags[i]]
-    should_uncheck = [it["text"] for i, it in enumerate(items) if not correct_flags[i] and selected_flags[i]]
+    should_uncheck = [it["text"] for i, it in enumerate(items) if (not correct_flags[i]) and selected_flags[i]]
     return perfect, must_select, should_uncheck
 
 ensure_state()
 
 # --------------------------
-# UI: select rule + next set button
+# 3) Start button (no upload/UI)
+# --------------------------
+if not st.session_state.started:
+    if st.button("Start ▶️"):
+        st.session_state.started = True
+    st.stop()
+
+# --------------------------
+# 4) Rule dropdown (numbers + keywords come from CSV rule_label)
 # --------------------------
 rule_options = list(RULES.keys())
-st.selectbox("Rule", rule_options,
-             index=rule_options.index(st.session_state.rule_key),
-             key="rule_key",
-             on_change=on_rule_change)
+st.selectbox(
+    "Rule",
+    options=rule_options,
+    index=rule_options.index(st.session_state.rule_key),
+    key="rule_key",
+    on_change=on_rule_change
+)
 
+# Button BEFORE reading set_idx/items (updates state first)
 st.button("Show me another set of words", key="next_set_btn", on_click=next_set)
 
-# Read current set and render
+# --------------------------
+# 5) Render current set
+# --------------------------
 rk = st.session_state.rule_key
 si = st.session_state.set_idx[rk]
 items = RULES[rk]["sets"][si]
@@ -113,9 +104,11 @@ st.caption(f"Set {si + 1} of {len(RULES[rk]['sets'])}")
 
 selected = []
 for i, it in enumerate(items):
-    selected.append(st.checkbox(it["text"], key=f"chk_{rk}_{si}_{i}_{st.session_state.nonce}"))
+    selected.append(
+        st.checkbox(it["text"], key=f"chk_{rk}_{si}_{i}_{st.session_state.nonce}")
+    )
 
-# Submit & feedback
+st.divider()
 colA, colB = st.columns([1,1])
 with colA:
     if st.button("Submit"):
@@ -123,11 +116,13 @@ with colA:
         if perfect:
             st.success("🎉 Well done!")
         else:
-            st.error("Not quite. Check the feedback below.")
+            st.error("Not quite. See feedback:")
             if must_select:
                 st.write("**You missed these correct items:** " + ", ".join(must_select))
             if should_uncheck:
                 st.write("**These should not be selected:** " + ", ".join(should_uncheck))
 
 with colB:
-    st.caption("Tip: Change the rule or click 'Show me another set of words' for fresh items.")
+    if st.button("Reset selections"):
+        # just bump nonce so checkbox keys change (clears checks)
+        st.session_state.nonce += 1
