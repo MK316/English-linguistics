@@ -67,12 +67,12 @@ with tabs[1]:
     """, height=600)
 
 # Grouping tab
+
 with tabs[2]:
     st.subheader("👥 Grouping Tool")
     st.caption("Your CSV should have at least the columns `Course` and `Name_ori`.")
 
     default_url = "https://raw.githubusercontent.com/MK316/english-phonetics/refs/heads/main/pages/data/F25-roster-total-0901.csv"
-#    st.markdown(f"[📎 Sample File: S25DL-roster.csv]({default_url})")
 
     uploaded_file = st.file_uploader("🌱 Step1: Upload your CSV file (optional)", type=["csv"])
 
@@ -90,58 +90,178 @@ with tabs[2]:
         course_list = df['Course'].dropna().unique().tolist()
         selected_course = st.selectbox("🌱 Step 2: Select Course for Grouping", course_list)
 
+        # Get current roster for selected course for dynamic info
+        course_df = df[df['Course'] == selected_course]
+        total_students = course_df['Name_ori'].dropna().shape[0]
+        st.caption(f"Currently **{total_students}** students in {selected_course}.")
+
         # Step 2: Group size input
-        st.markdown("##### 🌱 Step3: Group Settings (Currently 18 students: 2G (3 members) and 3G (4 members))")
-        num_group3 = st.number_input("Number of 3-member groups", min_value=0, step=1)
-        num_group4 = st.number_input("Number of 4-member groups", min_value=0, step=1)
+        st.markdown("##### 🌱 Step3: Group Settings")
+        num_group3 = st.number_input("Number of 3-member groups", min_value=0, step=1, value=0)
+        num_group4 = st.number_input("Number of 4-member groups", min_value=0, step=1, value=0)
 
         if st.button("🌱 Step 4: Generate Groups"):
-            # Filter by course
-            course_df = df[df['Course'] == selected_course]
-            names = course_df['Name_ori'].dropna().tolist()
-            random.shuffle(names)
-
-            total_needed = num_group3 * 3 + num_group4 * 4
-
-            if total_needed > len(names):
-                st.error(f"❗ Not enough students in {selected_course}. Requested {total_needed}, available {len(names)}.")
+            # Validate at least one group type
+            if num_group3 == 0 and num_group4 == 0:
+                st.error("❗ Please request at least one group.")
             else:
-                grouped_data = []
-                group_num = 1
+                # Prepare names
+                names = course_df['Name_ori'].dropna().tolist()
+                random.shuffle(names)
 
-                # Make 3-member groups
-                for _ in range(num_group3):
-                    members = names[:3]
-                    names = names[3:]
-                    grouped_data.append([f"Group {group_num}"] + members)
-                    group_num += 1
+                total_needed = num_group3 * 3 + num_group4 * 4
+                min_requested_size = min([s for s, n in [(3, num_group3), (4, num_group4)] if n > 0])
 
-                # Make 4-member groups
-                for _ in range(num_group4):
-                    members = names[:4]
-                    names = names[4:]
-                    grouped_data.append([f"Group {group_num}"] + members)
-                    group_num += 1
+                if total_needed > len(names):
+                    st.error(
+                        f"❗ Not enough students in {selected_course}. "
+                        f"Requested {total_needed}, available {len(names)}."
+                    )
+                else:
+                    grouped_data = []
+                    group_num = 1
 
-                # Prepare final DataFrame
-                max_members = max(len(group) - 1 for group in grouped_data)
-                columns = ['Group'] + [f'Member{i+1}' for i in range(max_members)]
-                grouped_df = pd.DataFrame(grouped_data, columns=columns)
+                    # Make 3-member groups
+                    for _ in range(num_group3):
+                        members = names[:3]
+                        names = names[3:]
+                        grouped_data.append([f"Group {group_num}"] + members)
+                        group_num += 1
 
-                st.success(f"✅ {selected_course}: Grouping complete!")
-                st.write(grouped_df)
+                    # Make 4-member groups
+                    for _ in range(num_group4):
+                        members = names[:4]
+                        names = names[4:]
+                        grouped_data.append([f"Group {group_num}"] + members)
+                        group_num += 1
 
-                # Download button
-                csv_buffer = io.StringIO()
-                grouped_df.to_csv(csv_buffer, index=False)
-                st.download_button(
-                    label="📥 Download Grouped CSV",
-                    data=csv_buffer.getvalue().encode('utf-8'),
-                    file_name=f"grouped_{selected_course.replace(' ', '_')}.csv",
-                    mime="text/csv"
-                )
+                    # Handle leftovers according to your rule
+                    leftovers = names[:]  # whatever remains after requested groups
+                    if len(leftovers) == 0:
+                        pass  # perfect fit
+                    elif len(leftovers) < min_requested_size:
+                        # Allow one extra small group
+                        grouped_data.append([f"Group {group_num}"] + leftovers)
+                        st.info(
+                            f"ℹ️ Created **Group {group_num}** with {len(leftovers)} member(s) "
+                            f"(smaller than the requested group size) to include everyone."
+                        )
+                        names = []  # consumed
+                        group_num += 1
+                    else:
+                        # Do NOT auto-make additional full groups; list unassigned
+                        st.warning(
+                            f"⚠️ {len(leftovers)} student(s) remain unassigned. "
+                            f"Increase the number of groups to include them."
+                        )
+                        with st.expander("Show unassigned students"):
+                            st.write(pd.DataFrame({"Unassigned": leftovers}))
+
+                    # Prepare final DataFrame (pad rows to equal length)
+                    if grouped_data:
+                        max_members = max(len(group) - 1 for group in grouped_data)
+                        columns = ['Group'] + [f'Member{i+1}' for i in range(max_members)]
+                        # Pad member lists so DataFrame columns align
+                        normalized = []
+                        for row in grouped_data:
+                            padded = row + [''] * (len(columns) - len(row))
+                            normalized.append(padded)
+                        grouped_df = pd.DataFrame(normalized, columns=columns)
+
+                        st.success(f"✅ {selected_course}: Grouping complete!")
+                        st.write(grouped_df)
+
+                        # Download button
+                        csv_buffer = io.StringIO()
+                        grouped_df.to_csv(csv_buffer, index=False)
+                        st.download_button(
+                            label="📥 Download Grouped CSV",
+                            data=csv_buffer.getvalue().encode('utf-8'),
+                            file_name=f"grouped_{selected_course.replace(' ', '_')}.csv",
+                            mime="text/csv"
+                        )
+                    else:
+                        st.error("No groups were created. Please adjust your settings and try again.")
     else:
         st.error("The file must contain both `Course` and `Name_ori` columns.")
+
+
+# # Grouping tab
+# with tabs[2]:
+#     st.subheader("👥 Grouping Tool")
+#     st.caption("Your CSV should have at least the columns `Course` and `Name_ori`.")
+
+#     default_url = "https://raw.githubusercontent.com/MK316/english-phonetics/refs/heads/main/pages/data/F25-roster-total-0901.csv"
+# #    st.markdown(f"[📎 Sample File: S25DL-roster.csv]({default_url})")
+
+#     uploaded_file = st.file_uploader("🌱 Step1: Upload your CSV file (optional)", type=["csv"])
+
+#     if uploaded_file is not None:
+#         df = pd.read_csv(uploaded_file)
+#         source_label = "✅ File uploaded"
+#     else:
+#         df = pd.read_csv(default_url)
+#         source_label = "📂 Using default GitHub data"
+
+#     if all(col in df.columns for col in ['Course', 'Name_ori']):
+#         st.success(source_label)
+
+#         # Step 1: Select Course
+#         course_list = df['Course'].dropna().unique().tolist()
+#         selected_course = st.selectbox("🌱 Step 2: Select Course for Grouping", course_list)
+
+#         # Step 2: Group size input
+#         st.markdown("##### 🌱 Step3: Group Settings (Currently 18 students: 4G (4 members) + 2 students)")
+#         num_group3 = st.number_input("Number of 3-member groups", min_value=0, step=1)
+#         num_group4 = st.number_input("Number of 4-member groups", min_value=0, step=1)
+
+#         if st.button("🌱 Step 4: Generate Groups"):
+#             # Filter by course
+#             course_df = df[df['Course'] == selected_course]
+#             names = course_df['Name_ori'].dropna().tolist()
+#             random.shuffle(names)
+
+#             total_needed = num_group3 * 3 + num_group4 * 4
+
+#             if total_needed > len(names):
+#                 st.error(f"❗ Not enough students in {selected_course}. Requested {total_needed}, available {len(names)}.")
+#             else:
+#                 grouped_data = []
+#                 group_num = 1
+
+#                 # Make 3-member groups
+#                 for _ in range(num_group3):
+#                     members = names[:3]
+#                     names = names[3:]
+#                     grouped_data.append([f"Group {group_num}"] + members)
+#                     group_num += 1
+
+#                 # Make 4-member groups
+#                 for _ in range(num_group4):
+#                     members = names[:4]
+#                     names = names[4:]
+#                     grouped_data.append([f"Group {group_num}"] + members)
+#                     group_num += 1
+
+#                 # Prepare final DataFrame
+#                 max_members = max(len(group) - 1 for group in grouped_data)
+#                 columns = ['Group'] + [f'Member{i+1}' for i in range(max_members)]
+#                 grouped_df = pd.DataFrame(grouped_data, columns=columns)
+
+#                 st.success(f"✅ {selected_course}: Grouping complete!")
+#                 st.write(grouped_df)
+
+#                 # Download button
+#                 csv_buffer = io.StringIO()
+#                 grouped_df.to_csv(csv_buffer, index=False)
+#                 st.download_button(
+#                     label="📥 Download Grouped CSV",
+#                     data=csv_buffer.getvalue().encode('utf-8'),
+#                     file_name=f"grouped_{selected_course.replace(' ', '_')}.csv",
+#                     mime="text/csv"
+#                 )
+#     else:
+#         st.error("The file must contain both `Course` and `Name_ori` columns.")
 
 #--------Tab 3
 
