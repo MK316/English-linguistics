@@ -113,9 +113,9 @@ with c2:
 rk = st.session_state.rule_key
 si = st.session_state.set_idx[rk]
 items = RULES[rk]["sets"][si]
-
-st.markdown(f"**Description:** {RULES[rk]['desc']}")
 st.caption(f"Set {si + 1} of {len(RULES[rk]['sets'])}")
+
+st.markdown(f"#### Rule Description: {RULES[rk]['desc']}")
 
 # Arrange options horizontally in N columns (wraps to next row)
 N_COLS = 3
