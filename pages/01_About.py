@@ -21,6 +21,7 @@ with tab1:
 # --- Tab 2: Schedule (Markdown table) ---
 with tab2:
     st.header("7-Week Schedule")
+    st.markdown("#### Wednesdays (2~5PM)")
     st.markdown(
         """
 | Week | Date | Slide   | Reading     | Quiz      |
