@@ -728,8 +728,11 @@ def init_state():
         st.session_state.nonce = 0
 
 def next_set(rule_key: str):
-    st.session_state.set_idx[rule_key] = (st.session_state.set_idx[rule_key] + 1) % len(RULES[rule_key]["sets"])
-    st.session_state.nonce += 1  # force new checkbox keys
+    st.session_state.set_idx[rule_key] = (
+        st.session_state.set_idx[rule_key] + 1
+    ) % len(RULES[rule_key]["sets"])
+    st.session_state.nonce = st.session_state.get("nonce", 0) + 1  # different checkbox keys
+
 
 def reset_set(rule_key: str):
     st.session_state.set_idx[rule_key] = 0
@@ -754,22 +757,27 @@ if rule_key != st.session_state.rule_select:
     st.session_state.rule_select = rule_key
     reset_set(rule_key)
 
-rule = RULES[rule_key]
+# ---------- PLACE THIS BUTTON HERE (before computing set_idx) ----------
+st.button(
+    "Show me another set of words",
+    key="next_set_btn",
+    on_click=next_set,
+    args=(rule_key,),
+)
+
+# --- NOW read the current set and render ---
 set_idx = st.session_state.set_idx[rule_key]
-items = rule["sets"][set_idx]
+items = RULES[rule_key]["sets"][set_idx]
 
-st.markdown(f"**Description:** {rule['desc']}")
-st.caption(f"Set {set_idx + 1} of {len(rule['sets'])}")
+st.markdown(f"**Description:** {RULES[rule_key]['desc']}")
+st.caption(f"Set {set_idx + 1} of {len(RULES[rule_key]['sets'])}")
 
-st.divider()
-st.markdown("**Select all items that exemplify the rule:**")
-
-# Render checkboxes (stable unique keys using nonce)
+# Checkboxes (use nonce so keys change when set changes)
 selected = []
 for i, it in enumerate(items):
-    key = f"chk_{rule_key}_{set_idx}_{i}_{st.session_state.nonce}"
-    selected.append(st.checkbox(it["text"], key=key))
-
+    selected.append(
+        st.checkbox(it["text"], key=f"chk_{rule_key}_{set_idx}_{i}_{st.session_state.nonce}")
+    )
 st.divider()
 colA, colB = st.columns([1,1])
 
