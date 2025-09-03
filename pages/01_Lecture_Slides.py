@@ -199,4 +199,8 @@ with tab2:
 
 with tab3:
     st.markdown("#### 📚 More reading (Phonetics & Phonology)")
-    st.write("To be updated in time.")
+    st.divider()
+    st.markdown("+ [Reading 1](https://drive.google.com/file/d/1m811NW_A-JP6byFHA5bRK-6SmGynGROn/view?usp=sharing): Stress")
+    st.markdown("+ [Reading 2](https://drive.google.com/file/d/1esJjtujLGfVE0LMlERg-sX52uCm8HJ8G/view?usp=sharing): Rhythm")
+    st.markdown("+ [Reading 3](https://drive.google.com/file/d/1esJjtujLGfVE0LMlERg-sX52uCm8HJ8G/view?usp=sharing): Intonation")
+    st.markdown("+ [Reading 4](https://drive.google.com/file/d/1esJjtujLGfVE0LMlERg-sX52uCm8HJ8G/view?usp=sharing): Distinctive features")
