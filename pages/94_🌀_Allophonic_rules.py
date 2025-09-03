@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import math
 
 st.set_page_config(page_title="Allophonic Rules — CSV Quiz", page_icon="🔤", layout="centered")
 st.title("English Allophonic Rules — CSV-driven Quiz")
@@ -107,7 +108,7 @@ with c2:
     st.button("Reset selections", key="reset_btn", on_click=reset_current_set)
 
 # --------------------------
-# 6) Render current set
+# 6) Render current set — HORIZONTAL layout
 # --------------------------
 rk = st.session_state.rule_key
 si = st.session_state.set_idx[rk]
@@ -116,11 +117,17 @@ items = RULES[rk]["sets"][si]
 st.markdown(f"**Description:** {RULES[rk]['desc']}")
 st.caption(f"Set {si + 1} of {len(RULES[rk]['sets'])}")
 
+# Arrange options horizontally in N columns (wraps to next row)
+N_COLS = 3
+cols = st.columns(N_COLS)
+
 selected = []
 for i, it in enumerate(items):
-    selected.append(
-        st.checkbox(it["text"], key=f"chk_{rk}_{si}_{i}_{st.session_state.nonce}")
-    )
+    col = cols[i % N_COLS]  # distribute left→right, wrap
+    with col:
+        selected.append(
+            st.checkbox(it["text"], key=f"chk_{rk}_{si}_{i}_{st.session_state.nonce}")
+        )
 
 st.divider()
 colA, colB = st.columns([1, 1])
