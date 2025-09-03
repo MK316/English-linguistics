@@ -50,7 +50,6 @@ def ensure_state():
 
 def on_rule_change():
     rk = st.session_state.rule_key
-    # reset to first set when rule changes
     st.session_state.set_idx[rk] = 0
     st.session_state.nonce += 1
 
@@ -58,6 +57,10 @@ def next_set():
     rk = st.session_state.rule_key
     total = len(RULES[rk]["sets"])
     st.session_state.set_idx[rk] = (st.session_state.set_idx[rk] + 1) % total
+    st.session_state.nonce += 1
+
+def reset_current_set():
+    # bump nonce so checkbox keys change -> clears selections on next render
     st.session_state.nonce += 1
 
 def evaluate_selection(items, selected_flags):
@@ -70,28 +73,20 @@ def evaluate_selection(items, selected_flags):
 ensure_state()
 
 # --------------------------
-# 3) Start button (no upload/UI)
+# 3) Start gate (one click)
 # --------------------------
-# ---- START GATE (one click) ----
-if "started" not in st.session_state:
-    st.session_state.started = False
-
 start_clicked = st.button("Start ▶️", disabled=st.session_state.started)
 if start_clicked and not st.session_state.started:
     st.session_state.started = True
-    # immediate re-render so content appears on this same click
-    if hasattr(st, "rerun"):
-        st.rerun()
-    elif hasattr(st, "experimental_rerun"):
-        st.experimental_rerun()
+    if hasattr(st, "rerun"): st.rerun()
+    elif hasattr(st, "experimental_rerun"): st.experimental_rerun()
 
 if not st.session_state.started:
     st.info("Click **Start** to begin.")
     st.stop()
-# --------------------------------
 
 # --------------------------
-# 4) Rule dropdown (numbers + keywords come from CSV rule_label)
+# 4) Rule dropdown (from CSV rule_label)
 # --------------------------
 rule_options = list(RULES.keys())
 st.selectbox(
@@ -102,11 +97,17 @@ st.selectbox(
     on_change=on_rule_change
 )
 
-# Button BEFORE reading set_idx/items (updates state first)
-st.button("Show me another set of words", key="next_set_btn", on_click=next_set)
+# --------------------------
+# 5) Controls BEFORE rendering items (one-click behavior)
+# --------------------------
+c1, c2 = st.columns([1, 1])
+with c1:
+    st.button("Show me another set of words", key="next_set_btn", on_click=next_set)
+with c2:
+    st.button("Reset selections", key="reset_btn", on_click=reset_current_set)
 
 # --------------------------
-# 5) Render current set
+# 6) Render current set
 # --------------------------
 rk = st.session_state.rule_key
 si = st.session_state.set_idx[rk]
@@ -122,7 +123,7 @@ for i, it in enumerate(items):
     )
 
 st.divider()
-colA, colB = st.columns([1,1])
+colA, colB = st.columns([1, 1])
 with colA:
     if st.button("Submit"):
         perfect, must_select, should_uncheck = evaluate_selection(items, selected)
@@ -136,6 +137,4 @@ with colA:
                 st.write("**These should not be selected:** " + ", ".join(should_uncheck))
 
 with colB:
-    if st.button("Reset selections"):
-        # just bump nonce so checkbox keys change (clears checks)
-        st.session_state.nonce += 1
+    st.caption("Tip: Use the buttons above to switch sets or clear selections.")
