@@ -3,7 +3,7 @@ import pandas as pd
 import math
 
 st.set_page_config(page_title="Allophonic Rules — CSV Quiz", page_icon="🔤", layout="centered")
-st.title("English Allophonic Rules — CSV-driven Quiz")
+st.markdown("#### (Not yet working) English Allophonic Rule practice")
 st.caption("Choose a rule, select all items that exemplify it, then submit. Click “Show me another set of words” for new items.")
 
 # --------------------------
