@@ -136,7 +136,7 @@ for i, it in enumerate(items):
 st.divider()
 colA, colB = st.columns([1, 1])
 with colA:
-    if st.button("Submit"):
+    if st.button("Check the answer"):
         perfect, must_select, should_uncheck = evaluate_selection(items, selected)
         if perfect:
             st.success("🎉 Well done!")
