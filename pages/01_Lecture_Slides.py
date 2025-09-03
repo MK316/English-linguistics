@@ -10,7 +10,7 @@ import base64
 st.set_page_config(page_title="Lecture Slide Player - Chapter 1", layout="wide")
 
 # ----------------- Tabs -----------------------
-tab1, tab2 = st.tabs(["🌀 Lecture Slides", "🌀 References", "🌀 More Reading"])
+tab1, tab2, tab3 = st.tabs(["🌀 Lecture Slides", "🌀 References", "🌀 More Reading"])
 
 # CSS to adjust the alignment of the dropdown to match the buttons
 st.markdown("""
