@@ -148,4 +148,4 @@ with colA:
                 st.write("**These should not be selected:** " + ", ".join(should_uncheck))
 
 with colB:
-    st.caption("Tip: Use the buttons above to switch sets or clear selections.")
+    st.caption("💡 Tip: Use the buttons above to switch sets or clear selections.")
