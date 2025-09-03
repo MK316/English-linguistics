@@ -105,7 +105,7 @@ st.selectbox(
 rk = st.session_state.rule_key
 si = st.session_state.set_idx[rk]
 items = RULES[rk]["sets"][si]
-st.caption(f"Set {si + 1} of {len(RULES[rk]['sets'])}")
+
 
 st.markdown(f"#### Rule Description: {RULES[rk]['desc']}")
 
@@ -117,7 +117,7 @@ with c1:
     st.button("✅ Show me another set of words", key="next_set_btn", on_click=next_set)
 with c2:
     st.button("⁉️ Reset selections", key="reset_btn", on_click=reset_current_set)
-
+st.caption(f"Set {si + 1} of {len(RULES[rk]['sets'])}")
 
 # Arrange options horizontally in N columns (wraps to next row)
 N_COLS = 3
