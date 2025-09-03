@@ -737,12 +737,11 @@ def reset_set(rule_key: str):
 
 def evaluate_selection(items, selected_flags):
     correct_flags = [it["is_correct"] for it in items]
-    # Perfect if exact match: all and only correct items checked
-    perfect = (selected_flags == correct_flags)
-    # Build feedback lists
-    must_select = [it["text"] for it, c in zip(items, correct_flags) if c and not selected_flags[items.index(it)]]
-    should_uncheck = [it["text"] for it, c in zip(items, correct_flags) if (not c) and selected_flags[items.index(it)]]
+    perfect = all(s == c for s, c in zip(selected_flags, correct_flags))
+    must_select = [it["text"] for i, it in enumerate(items) if correct_flags[i] and not selected_flags[i]]
+    should_uncheck = [it["text"] for i, it in enumerate(items) if not correct_flags[i] and selected_flags[i]]
     return perfect, must_select, should_uncheck
+
 
 # -----------------------
 # App UI
@@ -790,7 +789,8 @@ with colA:
 
 with colB:
     if st.button("Show me another set of words"):
-        next_set(rule_key)
-        st.experimental_rerun()
+        next_set(rule_key)     # updates session_state
+        # no rerun call needed
+
 
 st.caption("Tip: Use the dropdown to switch to another rule. Each rule has 5 different sets.")
