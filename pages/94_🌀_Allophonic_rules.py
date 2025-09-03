@@ -98,14 +98,6 @@ st.selectbox(
     on_change=on_rule_change
 )
 
-# --------------------------
-# 5) Controls BEFORE rendering items (one-click behavior)
-# --------------------------
-c1, c2 = st.columns([1, 1])
-with c1:
-    st.button("✅ Show me another set of words", key="next_set_btn", on_click=next_set)
-with c2:
-    st.button("⁉️ Reset selections", key="reset_btn", on_click=reset_current_set)
 
 # --------------------------
 # 6) Render current set — HORIZONTAL layout
@@ -128,6 +120,16 @@ for i, it in enumerate(items):
         selected.append(
             st.checkbox(it["text"], key=f"chk_{rk}_{si}_{i}_{st.session_state.nonce}")
         )
+
+# --------------------------
+# 5) Controls BEFORE rendering items (one-click behavior)
+# --------------------------
+c1, c2 = st.columns([1, 1])
+with c1:
+    st.button("✅ Show me another set of words", key="next_set_btn", on_click=next_set)
+with c2:
+    st.button("⁉️ Reset selections", key="reset_btn", on_click=reset_current_set)
+
 
 st.divider()
 colA, colB = st.columns([1, 1])
