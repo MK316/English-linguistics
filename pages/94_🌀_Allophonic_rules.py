@@ -72,10 +72,23 @@ ensure_state()
 # --------------------------
 # 3) Start button (no upload/UI)
 # --------------------------
+# ---- START GATE (one click) ----
+if "started" not in st.session_state:
+    st.session_state.started = False
+
+start_clicked = st.button("Start ▶️", disabled=st.session_state.started)
+if start_clicked and not st.session_state.started:
+    st.session_state.started = True
+    # immediate re-render so content appears on this same click
+    if hasattr(st, "rerun"):
+        st.rerun()
+    elif hasattr(st, "experimental_rerun"):
+        st.experimental_rerun()
+
 if not st.session_state.started:
-    if st.button("Start ▶️"):
-        st.session_state.started = True
+    st.info("Click **Start** to begin.")
     st.stop()
+# --------------------------------
 
 # --------------------------
 # 4) Rule dropdown (numbers + keywords come from CSV rule_label)
