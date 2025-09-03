@@ -103,9 +103,9 @@ st.selectbox(
 # --------------------------
 c1, c2 = st.columns([1, 1])
 with c1:
-    st.button("Show me another set of words", key="next_set_btn", on_click=next_set)
+    st.button("✅ Show me another set of words", key="next_set_btn", on_click=next_set)
 with c2:
-    st.button("Reset selections", key="reset_btn", on_click=reset_current_set)
+    st.button("⁉️ Reset selections", key="reset_btn", on_click=reset_current_set)
 
 # --------------------------
 # 6) Render current set — HORIZONTAL layout
