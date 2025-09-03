@@ -35,3 +35,13 @@ with tab2:
 | 7    | TBA  | Slide 7 | Review Pack | Quiz #5 (Final Quiz)|
         """
     )
+    st.divider()
+    st.markdown("""
+
+    ### Course evaluation
+
+    + Attendance & class participation (5%)
+    + Assignment (10%): Readings & question-making
+    + Quizzes (35%): 5 quizzes
+
+    """)
