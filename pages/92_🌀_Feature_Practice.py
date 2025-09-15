@@ -186,17 +186,30 @@ with tab3:
 
 
 # Function to generate question sets
+# Updated function: only selects sound groups, not a fixed answer
 def generate_questions(num_sets):
-    questions = []
-    for _ in range(num_sets):
-        feature, sounds = random.choice(list(grouped_features.items()))
-        if len(sounds) > 5:
-            sound_group = random.sample(sounds, 5)
-        else:
-            sound_group = sounds
-        questions.append((sound_group, feature))
-    return questions
-    
+    all_sets = []
+    used_sets = set()
+    features = list(grouped_features.items())
+
+    while len(all_sets) < num_sets:
+        feature, sounds = random.choice(features)
+        if len(sounds) >= 3:
+            selected = tuple(sorted(random.sample(sounds, min(4, len(sounds)))))
+            if selected not in used_sets:
+                all_sets.append(selected)
+                used_sets.add(selected)
+    return all_sets
+
+
+def get_all_matching_features(sound_list):
+    matches = []
+    for feature, group in grouped_features.items():
+        if all(sound in group for sound in sound_list):
+            matches.append(feature)
+    return matches
+
+
 with tab4:
     with st.expander("**Instructions**"):
         st.info("""
@@ -207,6 +220,7 @@ with tab4:
         """)
     st.caption("📌 Do not use [+consonantal], [-nasal], or [-lateral], most of which are uninformative to group sounds")
     st.markdown("---")
+
     # Initialize session state
     if 'questions' not in st.session_state:
         st.session_state['questions'] = []
@@ -216,8 +230,8 @@ with tab4:
         st.session_state['score'] = 0
     if 'answered' not in st.session_state:
         st.session_state['answered'] = False
-    
-    # Step 1: Ask the user how many sets they want to practice
+
+    # Ask user how many sets
     if not st.session_state['questions']:
         num_sets = st.number_input("How many sets would you like to practice?", min_value=1, max_value=10, value=5)
         if st.button("Start Practice"):
@@ -226,40 +240,29 @@ with tab4:
             st.session_state['score'] = 0
             st.session_state['answered'] = False
             st.rerun()
-    
-    # Step 2: Display the question
+
+    # Main question loop
     if st.session_state['questions']:
-        current_set = st.session_state['questions'][st.session_state['current_question']]
-        sounds, correct_answer = current_set
-        
+        sounds = st.session_state['questions'][st.session_state['current_question']]
+        possible_answers = get_all_matching_features(sounds)
+
         st.markdown(f"#### 🐳 **Identify ONE Common Feature.**")
         st.write(f"⚪ **Sounds:** [{', '.join(sounds)}]")
-    
-        # Step 3: Ask the user for input
-        st.write("⚪ Question: Which distinctive feature naturally groups these sounds?")
+
         user_answer = st.text_input("Write feature with +/- value (e.g., [+voice], [-nasal]):", value="")
-    
-        # Step 4: Check answer and give feedback
+
         if st.button("Check Answer"):
-            # Clean user answer and correct answer formatting
-            cleaned_user_answer = user_answer.strip().replace(" ", "")
-            cleaned_correct_answers = [ans.strip().replace(" ", "") for ans in correct_answer.split(",")]
-    
-            # Ensure all correct answers have square brackets
-            cleaned_correct_answers = [
-                f"[{ans}]" if not ans.startswith("[") else ans for ans in cleaned_correct_answers
-            ]
-    
-            # Allow space variation and ensure both answers are in square brackets
-            if cleaned_user_answer in cleaned_correct_answers:
+            cleaned_user = user_answer.strip().replace(" ", "")
+            cleaned_valids = [f.strip().replace(" ", "") for f in possible_answers]
+
+            if cleaned_user in cleaned_valids:
+                st.success(f"✅ Correct! **{cleaned_user}** is one of the possible correct answers.")
                 st.session_state['score'] += 1
-                st.success(f"✅ Correct! The shared feature is **{cleaned_user_answer}**.")
             else:
-                st.error(f"❌ Incorrect. The correct answer(s) are: {', '.join(cleaned_correct_answers)}")
-    
+                st.error(f"❌ Incorrect. The correct answers could be: {', '.join(possible_answers)}")
+
             st.session_state['answered'] = True
-    
-        # Step 5: Next question button
+
         if st.session_state['answered']:
             if st.session_state['current_question'] < len(st.session_state['questions']) - 1:
                 if st.button("Next Question"):
@@ -267,13 +270,11 @@ with tab4:
                     st.session_state['answered'] = False
                     st.rerun()
             else:
-                st.write("✅ **Practice Completed!**")
-                st.write(f"**Your score: {st.session_state['score']}/{len(st.session_state['questions'])}**")
+                st.success("🎉 **Practice Completed!**")
+                st.write(f"**Your score: {st.session_state['score']} / {len(st.session_state['questions'])}**")
                 if st.button("Restart Practice"):
                     st.session_state['questions'] = []
                     st.session_state['current_question'] = 0
                     st.session_state['score'] = 0
                     st.session_state['answered'] = False
                     st.rerun()
-#########################
-
