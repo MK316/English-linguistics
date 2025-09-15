@@ -195,7 +195,8 @@ def generate_questions(num_sets):
     while len(all_sets) < num_sets:
         feature, sounds = random.choice(features)
         if len(sounds) >= 3:
-            selected = tuple(sorted(random.sample(sounds, min(4, len(sounds)))))
+            selected = sorted(random.sample(sounds, min(4, len(sounds))))
+
             if selected not in used_sets:
                 all_sets.append(selected)
                 used_sets.add(selected)
