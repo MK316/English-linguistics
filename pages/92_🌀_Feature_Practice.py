@@ -285,19 +285,23 @@ with tab4:
         #         st.error(f"❌ Incorrect. The correct answers could be: {', '.join(possible_answers)}")
 
         #     st.session_state['answered'] = True
-
+        
         if st.button("Check Answer"):
-            cleaned_user = user_answer.strip().replace(" ", "")
+            # Clean user input: split by comma, strip spaces
+            user_inputs = [ans.strip().replace(" ", "") for ans in user_answer.split(",") if ans.strip()]
+            # Clean possible answers
             cleaned_valids = [f.strip().replace(" ", "") for f in possible_answers]
         
-            if cleaned_user in cleaned_valids:
-                st.success(f"✅ Correct! {cleaned_user} is one of the possible answers.")
-                st.info(f"Other possible correct answers: {', '.join(possible_answers)}")
+            # Check if ALL user answers are in valid list
+            if all(ans in cleaned_valids for ans in user_inputs):
+                st.success(f"✅ Correct! Your answer(s): {', '.join(user_inputs)}")
+                st.info(f"All possible correct answers: {', '.join(possible_answers)}")
                 st.session_state['score'] += 1
             else:
                 st.error(f"❌ Incorrect. The correct answers could be: {', '.join(possible_answers)}")
         
             st.session_state['answered'] = True
+
 
         
         
@@ -307,13 +311,18 @@ with tab4:
                     st.session_state['current_question'] += 1
                     st.session_state['answered'] = False
                     st.rerun()
-            else:
-                st.success("🎉 **Practice Completed!**")
-                st.write(f"**Your score: {st.session_state['score']} / {len(st.session_state['questions'])}**")
-                st.balloons()
-                if st.button("Restart Practice"):
-                    st.session_state['questions'] = []
-                    st.session_state['current_question'] = 0
-                    st.session_state['score'] = 0
-                    st.session_state['answered'] = False
-                    st.rerun()
+                else:
+                    st.success("🎉 **Practice Completed!**")
+                    st.write(f"**Your score: {st.session_state['score']} / {len(st.session_state['questions'])}**")
+                
+                    # 🎈 Balloons only if all correct
+                    if st.session_state['score'] == len(st.session_state['questions']):
+                        st.balloons()
+                
+                    if st.button("Restart Practice"):
+                        st.session_state['questions'] = []
+                        st.session_state['current_question'] = 0
+                        st.session_state['score'] = 0
+                        st.session_state['answered'] = False
+                        st.rerun()
+
