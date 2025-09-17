@@ -308,7 +308,8 @@ with tab4:
                 # score stays the same (no points added)
         
             # Always show current score after each check
-            st.write(f"**Current score: {st.session_state['score']} / {len(st.session_state['questions'])}**")
+            st.write(f"**Current score: {st.session_state['score']} / {st.session_state['current_question'] + 1}**")
+
         
             # Allow next or completion
             st.session_state['answered'] = True
@@ -323,6 +324,7 @@ with tab4:
             else:
                 st.success("🎉 **Practice Completed!**")
                 st.write(f"**Your final score: {st.session_state['score']} / {len(st.session_state['questions'])}**")
+
         
                 # 🎈 Balloons only if perfect score
                 if st.session_state['score'] == len(st.session_state['questions']):
