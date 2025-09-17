@@ -289,18 +289,29 @@ with tab4:
         if st.button("Check Answer"):
             # Clean user input: split by comma, strip spaces
             user_inputs = [ans.strip().replace(" ", "") for ans in user_answer.split(",") if ans.strip()]
-            # Clean possible answers
             cleaned_valids = [f.strip().replace(" ", "") for f in possible_answers]
         
-            # Check if ALL user answers are in valid list
-            if all(ans in cleaned_valids for ans in user_inputs):
-                st.success(f"✅ Correct! Your answer(s): {', '.join(user_inputs)}")
+            # Count correct answers
+            correct_answers = [ans for ans in user_inputs if ans in cleaned_valids]
+            incorrect_answers = [ans for ans in user_inputs if ans not in cleaned_valids]
+        
+            if correct_answers and not incorrect_answers:
+                # All user answers are correct
+                st.success(f"✅ Correct! Your answer(s): {', '.join(correct_answers)}")
                 st.info(f"All possible correct answers: {', '.join(possible_answers)}")
-                st.session_state['score'] += 1
+                st.session_state['score'] += len(correct_answers)   # add points for each
+            elif correct_answers and incorrect_answers:
+                # Mixed case: some right, some wrong
+                st.warning(f"⚠️ Partially correct. You got {len(correct_answers)} right, "
+                           f"but these were wrong: {', '.join(incorrect_answers)}")
+                st.info(f"All possible correct answers: {', '.join(possible_answers)}")
+                st.session_state['score'] += len(correct_answers)   # still add points for correct ones
             else:
+                # All wrong
                 st.error(f"❌ Incorrect. The correct answers could be: {', '.join(possible_answers)}")
         
             st.session_state['answered'] = True
+
 
 
         
