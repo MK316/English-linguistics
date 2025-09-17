@@ -287,31 +287,28 @@ with tab4:
         #     st.session_state['answered'] = True
         
         if st.button("Check Answer"):
-            # Clean user input: split by comma, strip spaces
             user_inputs = [ans.strip().replace(" ", "") for ans in user_answer.split(",") if ans.strip()]
             cleaned_valids = [f.strip().replace(" ", "") for f in possible_answers]
         
-            # Count correct answers
             correct_answers = [ans for ans in user_inputs if ans in cleaned_valids]
             incorrect_answers = [ans for ans in user_inputs if ans not in cleaned_valids]
         
             if correct_answers and not incorrect_answers:
-                # All user answers are correct
                 st.success(f"✅ Correct! Your answer(s): {', '.join(correct_answers)}")
                 st.info(f"All possible correct answers: {', '.join(possible_answers)}")
-                st.session_state['score'] += len(correct_answers)   # add points for each
+                st.session_state['score'] += len(set(correct_answers))  # avoid double points
             elif correct_answers and incorrect_answers:
-                # Mixed case: some right, some wrong
-                st.warning(f"⚠️ Partially correct. You got {len(correct_answers)} right, "
+                st.warning(f"⚠️ Partially correct. You got {len(set(correct_answers))} right, "
                            f"but these were wrong: {', '.join(incorrect_answers)}")
                 st.info(f"All possible correct answers: {', '.join(possible_answers)}")
-                st.session_state['score'] += len(correct_answers)   # still add points for correct ones
+                st.session_state['score'] += len(set(correct_answers))
             else:
-                # All wrong
                 st.error(f"❌ Incorrect. The correct answers could be: {', '.join(possible_answers)}")
+                st.info(f"All possible correct answers: {', '.join(possible_answers)}")
+                # Score stays the same (0 added)
         
+            # Always mark as answered → allows progression/completion message
             st.session_state['answered'] = True
-
 
 
         
