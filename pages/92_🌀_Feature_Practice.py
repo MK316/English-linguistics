@@ -310,6 +310,7 @@ with tab4:
             else:
                 st.success("🎉 **Practice Completed!**")
                 st.write(f"**Your score: {st.session_state['score']} / {len(st.session_state['questions'])}**")
+                st.balloon()
                 if st.button("Restart Practice"):
                     st.session_state['questions'] = []
                     st.session_state['current_question'] = 0
