@@ -296,41 +296,41 @@ with tab4:
             if correct_answers and not incorrect_answers:
                 st.success(f"✅ Correct! Your answer(s): {', '.join(correct_answers)}")
                 st.info(f"All possible correct answers: {', '.join(possible_answers)}")
-                st.session_state['score'] += len(set(correct_answers))  # avoid double points
+                st.session_state['score'] += len(set(correct_answers))
             elif correct_answers and incorrect_answers:
                 st.warning(f"⚠️ Partially correct. You got {len(set(correct_answers))} right, "
                            f"but these were wrong: {', '.join(incorrect_answers)}")
                 st.info(f"All possible correct answers: {', '.join(possible_answers)}")
                 st.session_state['score'] += len(set(correct_answers))
             else:
-                st.error(f"❌ Incorrect. The correct answers could be: {', '.join(possible_answers)}")
+                st.error(f"❌ Incorrect. None of your answers matched.")
                 st.info(f"All possible correct answers: {', '.join(possible_answers)}")
-                # Score stays the same (0 added)
+                # score stays the same (no points added)
         
-            # Always mark as answered → allows progression/completion message
+            # Always show current score after each check
+            st.write(f"**Current score: {st.session_state['score']} / {len(st.session_state['questions'])}**")
+        
+            # Allow next or completion
             st.session_state['answered'] = True
-
-
         
-        
+        # Navigation & Completion
         if st.session_state['answered']:
             if st.session_state['current_question'] < len(st.session_state['questions']) - 1:
                 if st.button("Next Question"):
                     st.session_state['current_question'] += 1
                     st.session_state['answered'] = False
                     st.rerun()
-                else:
-                    st.success("🎉 **Practice Completed!**")
-                    st.write(f"**Your score: {st.session_state['score']} / {len(st.session_state['questions'])}**")
-                
-                    # 🎈 Balloons only if all correct
-                    if st.session_state['score'] == len(st.session_state['questions']):
-                        st.balloons()
-                
-                    if st.button("Restart Practice"):
-                        st.session_state['questions'] = []
-                        st.session_state['current_question'] = 0
-                        st.session_state['score'] = 0
-                        st.session_state['answered'] = False
-                        st.rerun()
-
+            else:
+                st.success("🎉 **Practice Completed!**")
+                st.write(f"**Your final score: {st.session_state['score']} / {len(st.session_state['questions'])}**")
+        
+                # 🎈 Balloons only if perfect score
+                if st.session_state['score'] == len(st.session_state['questions']):
+                    st.balloons()
+        
+                if st.button("Restart Practice"):
+                    st.session_state['questions'] = []
+                    st.session_state['current_question'] = 0
+                    st.session_state['score'] = 0
+                    st.session_state['answered'] = False
+                    st.rerun()
