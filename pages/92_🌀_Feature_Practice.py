@@ -216,7 +216,6 @@ def generate_questions(num_sets, sounds_per_set=4):
     return all_sets
 
 
-
 def get_all_matching_features(sound_list):
     if not sound_list:
         return []
@@ -228,8 +227,8 @@ def get_all_matching_features(sound_list):
     for sound in sound_list[1:]:
         common &= set(ipa_features[sound].items())
 
-    # Only return those with [+] marking
-    return [f"[{feat}]" for feat, val in common if val == '+']
+    # Return BOTH [+] and [-] features
+    return [f"[{val}{feat}]" for feat, val in common]
 
 
 with tab4:
@@ -255,7 +254,7 @@ with tab4:
 
     # Ask user how many sets
     if not st.session_state['questions']:
-        num_sets = st.number_input("How many sets would you like to practice?", min_value=1, max_value=10, value=5)
+        num_sets = st.number_input("How many sets would you like to practice?", min_value=1, max_value=10, value=1)
         sounds_per_set = st.number_input("How many sounds per set?", min_value=2, max_value=6, value=4)
         
         if st.button("Start Practice"):
