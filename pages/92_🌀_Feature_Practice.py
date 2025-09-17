@@ -187,15 +187,29 @@ with tab3:
 
 # Function to generate question sets
 # Updated function: only selects sound groups, not a fixed answer
-def generate_questions(num_sets):
+# def generate_questions(num_sets):
+#     all_sets = []
+#     used_sets = set()
+#     features = list(grouped_features.items())
+
+#     while len(all_sets) < num_sets:
+#         feature, sounds = random.choice(features)
+#         if len(sounds) >= 3:
+#             selected = sorted(random.sample(sounds, min(4, len(sounds))))
+#             if tuple(selected) not in used_sets:
+#                 all_sets.append(selected)
+#                 used_sets.add(tuple(selected))
+#     return all_sets
+
+def generate_questions(num_sets, sounds_per_set=4):
     all_sets = []
     used_sets = set()
     features = list(grouped_features.items())
 
     while len(all_sets) < num_sets:
         feature, sounds = random.choice(features)
-        if len(sounds) >= 3:
-            selected = sorted(random.sample(sounds, min(4, len(sounds))))
+        if len(sounds) >= sounds_per_set:
+            selected = sorted(random.sample(sounds, sounds_per_set))
             if tuple(selected) not in used_sets:
                 all_sets.append(selected)
                 used_sets.add(tuple(selected))
@@ -204,11 +218,18 @@ def generate_questions(num_sets):
 
 
 def get_all_matching_features(sound_list):
-    matches = []
-    for feature, group in grouped_features.items():
-        if all(sound in group for sound in sound_list):
-            matches.append(feature)
-    return matches
+    if not sound_list:
+        return []
+
+    # Start with features of the first sound
+    common = set(ipa_features[sound_list[0]].items())
+
+    # Intersect with features of the rest
+    for sound in sound_list[1:]:
+        common &= set(ipa_features[sound].items())
+
+    # Only return those with [+] marking
+    return [f"[{feat}]" for feat, val in common if val == '+']
 
 
 with tab4:
@@ -235,8 +256,10 @@ with tab4:
     # Ask user how many sets
     if not st.session_state['questions']:
         num_sets = st.number_input("How many sets would you like to practice?", min_value=1, max_value=10, value=5)
+        sounds_per_set = st.number_input("How many sounds per set?", min_value=2, max_value=6, value=4)
+        
         if st.button("Start Practice"):
-            st.session_state['questions'] = generate_questions(num_sets)
+            st.session_state['questions'] = generate_questions(num_sets, sounds_per_set)
             st.session_state['current_question'] = 0
             st.session_state['score'] = 0
             st.session_state['answered'] = False
@@ -250,7 +273,7 @@ with tab4:
         st.markdown(f"#### 🐳 **Identify ONE Common Feature.**")
         st.write(f"⚪ **Sounds:** [{', '.join(sounds)}]")
 
-        user_answer = st.text_input("Write feature with +/- value (e.g., [+voice], [-nasal]):", value="")
+        user_answer = st.text_input("Write feature with +/- value (e.g., [+voice], [+nasal]):", value="")
 
         if st.button("Check Answer"):
             cleaned_user = user_answer.strip().replace(" ", "")
