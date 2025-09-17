@@ -275,18 +275,33 @@ with tab4:
 
         user_answer = st.text_input("Write feature with +/- value (e.g., [+voice], [+nasal]):", value="")
 
+        # if st.button("Check Answer"):
+        #     cleaned_user = user_answer.strip().replace(" ", "")
+        #     cleaned_valids = [f.strip().replace(" ", "") for f in possible_answers]
+
+        #     if cleaned_user in cleaned_valids:
+        #         st.success(f"✅ Correct! **{cleaned_user}** is one of the possible correct answers.")
+        #         st.session_state['score'] += 1
+        #     else:
+        #         st.error(f"❌ Incorrect. The correct answers could be: {', '.join(possible_answers)}")
+
+        #     st.session_state['answered'] = True
+
         if st.button("Check Answer"):
             cleaned_user = user_answer.strip().replace(" ", "")
             cleaned_valids = [f.strip().replace(" ", "") for f in possible_answers]
-
+        
             if cleaned_user in cleaned_valids:
-                st.success(f"✅ Correct! **{cleaned_user}** is one of the possible correct answers.")
+                st.success(f"✅ Correct! {cleaned_user} is one of the possible answers.")
+                st.info(f"Other possible correct answers: {', '.join(possible_answers)}")
                 st.session_state['score'] += 1
             else:
                 st.error(f"❌ Incorrect. The correct answers could be: {', '.join(possible_answers)}")
-
+        
             st.session_state['answered'] = True
 
+        
+        
         if st.session_state['answered']:
             if st.session_state['current_question'] < len(st.session_state['questions']) - 1:
                 if st.button("Next Question"):
