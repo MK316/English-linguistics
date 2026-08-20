@@ -2,7 +2,7 @@ import streamlit as st
 
 
 
-tab1, tab2 = st.tabs(["🍰 Overview", "🍋 Schedule"])
+tab1, tab2 = st.tabs(["🍰 Overview", "🍋 Schedule & assignments"])
 
 # --- Tab 1: Overview ---
 with tab1:
