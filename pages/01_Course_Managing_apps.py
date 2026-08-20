@@ -68,124 +68,144 @@ with tabs[1]:
 
 # Grouping tab
 
+# Grouping tab
 with tabs[2]:
     st.subheader("👥 Grouping Tool")
     st.caption("Your CSV should have at least the columns `Course` and `Name_ori`.")
-
     default_url = "https://raw.githubusercontent.com/MK316/mk316files/refs/heads/main/roster/roster_fall26_0820.csv"
-
+#    st.markdown(f"[📎 Sample File: S25DL-roster.csv]({default_url})")
     uploaded_file = st.file_uploader("🌱 Step1: Upload your CSV file (optional)", type=["csv"])
-
     if uploaded_file is not None:
         df = pd.read_csv(uploaded_file)
         source_label = "✅ File uploaded"
     else:
         df = pd.read_csv(default_url)
         source_label = "📂 Using default GitHub data"
-
     if all(col in df.columns for col in ['Course', 'Name_ori']):
         st.success(source_label)
-
         # Step 1: Select Course
         course_list = df['Course'].dropna().unique().tolist()
         selected_course = st.selectbox("🌱 Step 2: Select Course for Grouping", course_list)
 
-        # Get current roster for selected course for dynamic info
-        course_df = df[df['Course'] == selected_course]
-        total_students = course_df['Name_ori'].dropna().shape[0]
-        st.caption(f"Currently **{total_students}** students in {selected_course}.")
+        SPECIAL_COURSE = '디지털리터러시와영어교육'
+        is_special = (selected_course == SPECIAL_COURSE) and ('Year' in df.columns)
 
-        # Step 2: Group size input
-        st.markdown("##### 🌱 Step3: Group Settings")
-        num_group3 = st.number_input("Number of 3-member groups", min_value=0, step=1, value=0)
-        num_group4 = st.number_input("Number of 4-member groups", min_value=0, step=1, value=0)
+        # Step 2: Group size info
+        if is_special:
+            st.markdown("##### 🌱 Step3: Group Settings (4 members per group; last group takes the remainder; "
+                         "each group has 1–2 second-year students)")
+        else:
+            st.markdown("##### 🌱 Step3: Group Settings (4 members per group; the last group takes the remainder)")
 
         if st.button("🌱 Step 4: Generate Groups"):
-            # Validate at least one group type
-            if num_group3 == 0 and num_group4 == 0:
-                st.error("❗ Please request at least one group.")
+            # Filter by course
+            course_df = df[df['Course'] == selected_course]
+            group_size = 4
+            grouped_data = []
+
+            if is_special:
+                # --- Year-aware grouping for 디지털리터러시와영어교육 ---
+                try:
+                    course_df = course_df.copy()
+                    course_df['Year'] = course_df['Year'].astype(int)
+                except Exception:
+                    st.error("❗ The `Year` column must contain integer values (1 or 2).")
+                    st.stop()
+
+                year1 = course_df.loc[course_df['Year'] == 1, 'Name_ori'].dropna().tolist()
+                year2 = course_df.loc[course_df['Year'] == 2, 'Name_ori'].dropna().tolist()
+                total_students = len(year1) + len(year2)
+
+                if total_students == 0:
+                    st.error(f"❗ No students found in {selected_course}.")
+                    st.stop()
+
+                # Same floor-division rule: remainder folds into the last group
+                num_groups = max(1, total_students // group_size)
+                n2 = len(year2)
+
+                # Each group must have 1 or 2 second-year students
+                if n2 < num_groups:
+                    st.error(
+                        f"❗ Only {n2} second-year students available, but {num_groups} groups need "
+                        f"at least 1 each. Not enough second-year students for this grouping."
+                    )
+                    st.stop()
+                if n2 > num_groups * 2:
+                    st.error(
+                        f"❗ {n2} second-year students is too many for {num_groups} groups "
+                        f"(max 2 per group). Consider adjusting the roster."
+                    )
+                    st.stop()
+
+                random.shuffle(year1)
+                random.shuffle(year2)
+
+                # Target overall size per group (4 each, last group absorbs remainder)
+                group_target_sizes = [group_size] * (num_groups - 1)
+                group_target_sizes.append(total_students - group_size * (num_groups - 1))
+
+                groups = [[] for _ in range(num_groups)]
+
+                # Distribute 2nd-years round-robin, 1 or 2 per group
+                base, extra = divmod(n2, num_groups)
+                idx = 0
+                for g in range(num_groups):
+                    take = base + (1 if g < extra else 0)
+                    for _ in range(take):
+                        groups[g].append(year2[idx])
+                        idx += 1
+
+                # Fill remaining slots per group with 1st-years
+                idx = 0
+                for g in range(num_groups):
+                    remaining = group_target_sizes[g] - len(groups[g])
+                    groups[g].extend(year1[idx:idx + remaining])
+                    idx += remaining
+
+                for grp in groups:
+                    random.shuffle(grp)
+
+                for i, grp in enumerate(groups, start=1):
+                    grouped_data.append([f"Group {i}"] + grp)
+
             else:
-                # Prepare names
+                # --- Standard grouping (no Year constraint) ---
                 names = course_df['Name_ori'].dropna().tolist()
                 random.shuffle(names)
 
-                total_needed = num_group3 * 3 + num_group4 * 4
-                min_requested_size = min([s for s, n in [(3, num_group3), (4, num_group4)] if n > 0])
+                total_students = len(names)
+                if total_students == 0:
+                    st.error(f"❗ No students found in {selected_course}.")
+                    st.stop()
 
-                if total_needed > len(names):
-                    st.error(
-                        f"❗ Not enough students in {selected_course}. "
-                        f"Requested {total_needed}, available {len(names)}."
-                    )
-                else:
-                    grouped_data = []
-                    group_num = 1
-
-                    # Make 3-member groups
-                    for _ in range(num_group3):
-                        members = names[:3]
-                        names = names[3:]
-                        grouped_data.append([f"Group {group_num}"] + members)
-                        group_num += 1
-
-                    # Make 4-member groups
-                    for _ in range(num_group4):
-                        members = names[:4]
-                        names = names[4:]
-                        grouped_data.append([f"Group {group_num}"] + members)
-                        group_num += 1
-
-                    # Handle leftovers according to your rule
-                    leftovers = names[:]  # whatever remains after requested groups
-                    if len(leftovers) == 0:
-                        pass  # perfect fit
-                    elif len(leftovers) < min_requested_size:
-                        # Allow one extra small group
-                        grouped_data.append([f"Group {group_num}"] + leftovers)
-                        st.info(
-                            f"ℹ️ Created **Group {group_num}** with {len(leftovers)} member(s) "
-                            f"(smaller than the requested group size) to include everyone."
-                        )
-                        names = []  # consumed
-                        group_num += 1
+                num_groups = max(1, total_students // group_size)
+                pos = 0
+                for group_num in range(1, num_groups + 1):
+                    if group_num < num_groups:
+                        members = names[pos:pos + group_size]
+                        pos += group_size
                     else:
-                        # Do NOT auto-make additional full groups; list unassigned
-                        st.warning(
-                            f"⚠️ {len(leftovers)} student(s) remain unassigned. "
-                            f"Increase the number of groups to include them."
-                        )
-                        with st.expander("Show unassigned students"):
-                            st.write(pd.DataFrame({"Unassigned": leftovers}))
+                        members = names[pos:]
+                    grouped_data.append([f"Group {group_num}"] + members)
 
-                    # Prepare final DataFrame (pad rows to equal length)
-                    if grouped_data:
-                        max_members = max(len(group) - 1 for group in grouped_data)
-                        columns = ['Group'] + [f'Member{i+1}' for i in range(max_members)]
-                        # Pad member lists so DataFrame columns align
-                        normalized = []
-                        for row in grouped_data:
-                            padded = row + [''] * (len(columns) - len(row))
-                            normalized.append(padded)
-                        grouped_df = pd.DataFrame(normalized, columns=columns)
-
-                        st.success(f"✅ {selected_course}: Grouping complete!")
-                        st.write(grouped_df)
-
-                        # Download button
-                        csv_buffer = io.StringIO()
-                        grouped_df.to_csv(csv_buffer, index=False)
-                        st.download_button(
-                            label="📥 Download Grouped CSV",
-                            data=csv_buffer.getvalue().encode('utf-8'),
-                            file_name=f"grouped_{selected_course.replace(' ', '_')}.csv",
-                            mime="text/csv"
-                        )
-                    else:
-                        st.error("No groups were created. Please adjust your settings and try again.")
+            # Prepare final DataFrame
+            max_members = max(len(group) - 1 for group in grouped_data)
+            columns = ['Group'] + [f'Member{i+1}' for i in range(max_members)]
+            grouped_df = pd.DataFrame(grouped_data, columns=columns)
+            st.success(f"✅ {selected_course}: Grouping complete!")
+            st.write(grouped_df)
+            # Download button
+            csv_buffer = io.StringIO()
+            grouped_df.to_csv(csv_buffer, index=False)
+            st.download_button(
+                label="📥 Download Grouped CSV",
+                data=csv_buffer.getvalue().encode('utf-8'),
+                file_name=f"grouped_{selected_course.replace(' ', '_')}.csv",
+                mime="text/csv"
+            )
     else:
         st.error("The file must contain both `Course` and `Name_ori` columns.")
-
-
 # # Grouping tab
 # with tabs[2]:
 #     st.subheader("👥 Grouping Tool")
