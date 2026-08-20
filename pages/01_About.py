@@ -8,7 +8,7 @@ tab1, tab2 = st.tabs(["🍰 Overview", "🍋 Schedule"])
 with tab1:
     st.header("Overview")
     st.write("This platform will offer interactive apps and resources designed to help English education majors prepare for the Teacher Certification Exam.")
-    st.caption("Since July 10, 2025")
+    st.caption("Last updated: Aug. 20, 2026")
     st.divider()
     st.markdown(
         """
