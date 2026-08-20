@@ -20,7 +20,7 @@ title_html = """
 # Initial content
 st.markdown(title_html, unsafe_allow_html=True)
 st.write("English Linguistics: Phonetics & Phonology")
-st.caption("This page will get ready for Fall 2025 semester.")
+st.caption("This web-app will be updated throught the semester.")
 
 # Image placed at the bottom of the page
 st.image("https://github.com/MK316/GNUET/raw/main/images/bg3.png")
