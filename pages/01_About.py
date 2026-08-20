@@ -20,28 +20,14 @@ with tab1:
 
 # --- Tab 2: Schedule (Markdown table) ---
 with tab2:
-    st.markdown("### 🍒 7-Week Schedule")
-    st.markdown("#### Wednesdays (2~5PM)")
-    st.markdown(
-        """
-| Week | Date | Slide   | Reading     | Quiz      |
-|-----:|:-----|:--------|:------------|:----------|
-| 1    | Sept. 3  | Slides 1~45 |   | —         |
-| 2    | Sept. 10  | Slides 46~ | AEP Ch. 1&2   | Quiz #1 (Group 1)    |
-| 3    | Sept. 17  | Slides  | AEP Ch. 3   | Quiz #2 (Group 2)        |
-| 4    | Sept. 24  | Slides  | AEP Ch. 4   |  Quiz #3 (Group 3)   |
-| 5    | Oct. 1*  | Slides  | AEP Ch. 6   | Quiz #4 (Group 4)        |
-| 6    | TBA  | Slide 6 | AEP Ch. 7   | ---   |
-| 7    | TBA  | Slide 7 | Review Pack | Quiz #5 (Final Quiz)|
-        """
-    )
-    st.divider()
-    st.markdown("""
+    st.markdown("### 🍒 [Course Schedule](https://docs.google.com/spreadsheets/d/1DlN2eMmgFDrhfuHu0iaGX6_EYoEQfOUDJKI72zJs0VA/edit?usp=sharing)")
+
 
     ### 🍒 Course evaluation
 
-    + Attendance & class participation (5%)
-    + Assignment (10%): Readings & question-making
-    + Quizzes (35%): 5 quizzes
+    + Attendance & class participation (10%)
+    + Assignment (20%): quiz-making + TCE question review
+    + Quizzes (20%): 5 quizzes
+    + Exam (50%)
 
     """)
