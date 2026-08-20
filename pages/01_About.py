@@ -20,7 +20,7 @@ with tab1:
 
 # --- Tab 2: Schedule (Markdown table) ---
 with tab2:
-    st.markdown("### 🍒 [Course Schedule](https://docs.google.com/spreadsheets/d/1DlN2eMmgFDrhfuHu0iaGX6_EYoEQfOUDJKI72zJs0VA/edit?usp=sharing)")
+    st.markdown("""### 🍒 [Course Schedule](https://docs.google.com/spreadsheets/d/1DlN2eMmgFDrhfuHu0iaGX6_EYoEQfOUDJKI72zJs0VA/edit?usp=sharing")
 
 
     ### 🍒 Course evaluation
