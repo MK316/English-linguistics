@@ -24,6 +24,7 @@ with tab2:
     
     ### 🍒 [Course Schedule](https://docs.google.com/spreadsheets/d/1DlN2eMmgFDrhfuHu0iaGX6_EYoEQfOUDJKI72zJs0VA/edit?usp=sharing")
 
+    Weekly schedule will be updated in the above link. (Google sheet)
 
     ### 🍒 Course evaluation
 
