@@ -36,6 +36,7 @@ with tab2:
     #### Assignment details (Group assignments)
 
     + [Session 1] Quiz-making (10%): Keyword quiz (20 items) + Quiz review
+    + [Session 2] Lecture
     + [Session 3] TCE (2~3 items): Solve previous TCE exam items and explain the relevant background information
 
     """)
