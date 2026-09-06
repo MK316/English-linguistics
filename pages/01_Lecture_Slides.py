@@ -7,7 +7,7 @@ from PIL import Image
 import base64
 # ---------------- Page setup ----------------
 # st.set_page_config(page_title="Reference List", layout="wide")
-st.set_page_config(page_title="Lecture Slide Player - Chapter 1", layout="wide")
+st.set_page_config(page_title="Lecture Slide Player", layout="wide")
 
 # ----------------- Tabs -----------------------
 tab1, tab2, tab3 = st.tabs(["🌀 Lecture Slides", "🌀 References", "🌀 More Reading"])
@@ -25,7 +25,7 @@ st.markdown("""
 
 
 # --------- SLIDES FOLDER (edit if needed) ----------
-slides_path = "pages/Slides/"  # Ensure this is correct relative to your app's location
+slides_path = "pages/Slides/F26/"  # Ensure this is correct relative to your app's location
 slide_files = sorted([f for f in os.listdir(slides_path) if f.lower().endswith((".jpeg", ".jpg", ".png", ".webp"))])
 num_slides = len(slide_files)
 # ---------------------------------------------------
