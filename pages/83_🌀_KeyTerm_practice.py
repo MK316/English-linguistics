@@ -7,7 +7,7 @@ import streamlit.components.v1 as components
 
 # pages/ 폴더 방식이면 페이지마다 둘 수 있습니다.
 # st.navigation 방식이면 이 줄은 지우고 메인 파일에서만 설정하세요.
-st.set_page_config(page_title="TCE Terminology", page_icon="📚", layout="wide")
+st.set_page_config(page_title="99 Phonology Term Practice", page_icon="📚", layout="wide")
 
 ASSETS = Path(__file__).resolve().parent.parent / "assets"
 PLAYER_PATH = ASSETS / "tce_terms_player.html"   # 플래시카드·퀴즈 화면 (99개 용어 내장)
