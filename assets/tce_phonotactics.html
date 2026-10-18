@@ -60,6 +60,8 @@
     margin: 0 0 4px; letter-spacing: -0.01em;
   }
   .sub { font-family: "Noto Sans", system-ui, sans-serif; color: var(--muted); font-size: 0.9rem; margin: 0; }
+  .ipa-tip { margin-top: 6px; }
+  .ipa-tip a { color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
   .picker {
     display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 18px 0 0;
     font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.95rem;
@@ -171,6 +173,7 @@
   <header>
     <h1>TCE Mock-Exam Questions (Phonotactics)</h1>
     <p class="sub">Choose a question, write your own generalization, then complete the frame sentence and check your answers.</p>
+    <p class="sub ipa-tip">Need IPA symbols in your answer? <a href="https://ipa.typeit.org/" target="_blank" rel="noopener noreferrer">Type IPA online (ipa.typeit.org) ↗</a> and paste the result here.</p>
     <div class="picker">
       <label for="qselect">Question</label>
       <select id="qselect"></select>
@@ -230,7 +233,8 @@ const ITEMS = [
   "frame": "Every syllable must have a {1}. When it is not a vowel, it must be a {2}, such as [n] or [l], rather than an obstruent, such as [s] or [k].",
   "answers": {
    "1": [
-    "nucleus"
+    "nucleus",
+    "peak"
    ],
    "2": [
     "sonorant"
@@ -242,7 +246,7 @@ const ITEMS = [
    "A syllable nucleus must be a vowel or a syllabic sonorant.",
    "Obstruents cannot serve as syllable nuclei.",
    "A syllable without a vowel needs a syllabic nasal or liquid.",
-   "Only vowels and sonorants can form the nucleus of a syllable."
+   "Only vowels and sonorants can form the peak of a syllable."
   ]
  },
  {
