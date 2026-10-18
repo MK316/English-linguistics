@@ -271,6 +271,6 @@ with tab3:
     st.caption("The following list recommends readings from other textbooks to supplement areas that are not covered or are insufficiently treated in our textbook.")
     st.divider()
     st.markdown("+ [Reading 1](https://drive.google.com/file/d/1m811NW_A-JP6byFHA5bRK-6SmGynGROn/view?usp=sharing): Stress")
-    st.markdown("+ [Reading 2](https://drive.google.com/file/d/1esJjtujLGfVE0LMlERg-sX52uCm8HJ8G/view?usp=sharing): Rhythm")
+    st.markdown("+ [Reading 2](https://drive.google.com/file/d/1YJ4NQ8TXmzBkvmbvQ7iRbNiDHzbZFvkf/view?usp=drive_link): Rhythm")
     st.markdown("+ [Reading 3](https://drive.google.com/file/d/1esJjtujLGfVE0LMlERg-sX52uCm8HJ8G/view?usp=sharing): Intonation")
     st.markdown("+ [Reading 4](https://drive.google.com/file/d/1esJjtujLGfVE0LMlERg-sX52uCm8HJ8G/view?usp=sharing): Distinctive features")
