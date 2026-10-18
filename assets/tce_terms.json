@@ -1,0 +1,398 @@
+[
+ {
+  "n": 1,
+  "label": "affix (prefix, infix, suffix)"
+ },
+ {
+  "n": 2,
+  "label": "affricate"
+ },
+ {
+  "n": 3,
+  "label": "allophone"
+ },
+ {
+  "n": 4,
+  "label": "alternation"
+ },
+ {
+  "n": 5,
+  "label": "alveolar"
+ },
+ {
+  "n": 6,
+  "label": "ambisyllabicity"
+ },
+ {
+  "n": 7,
+  "label": "aspiration"
+ },
+ {
+  "n": 8,
+  "label": "assimilation (vs. dissimilation)"
+ },
+ {
+  "n": 9,
+  "label": "bilabial (labial, labial-velar, labio-dental)"
+ },
+ {
+  "n": 10,
+  "label": "clear 'l' (vs. dark 'l')"
+ },
+ {
+  "n": 11,
+  "label": "closed syllable (vs. open syllable)"
+ },
+ {
+  "n": 12,
+  "label": "coda"
+ },
+ {
+  "n": 13,
+  "label": "complementary distribution"
+ },
+ {
+  "n": 14,
+  "label": "marked, unmarked"
+ },
+ {
+  "n": 15,
+  "label": "default rule"
+ },
+ {
+  "n": 16,
+  "label": "dental"
+ },
+ {
+  "n": 17,
+  "label": "derivation"
+ },
+ {
+  "n": 18,
+  "label": "devoiced / devoicing"
+ },
+ {
+  "n": 19,
+  "label": "diachronic / diachronic changes (vs. synchronic / synchrony)"
+ },
+ {
+  "n": 20,
+  "label": "diphthong (vs. monophthong)"
+ },
+ {
+  "n": 21,
+  "label": "dual articulation (secondary articulation)"
+ },
+ {
+  "n": 22,
+  "label": "elision"
+ },
+ {
+  "n": 23,
+  "label": "elsewhere condition"
+ },
+ {
+  "n": 24,
+  "label": "epenthesis (insertion)"
+ },
+ {
+  "n": 25,
+  "label": "eurhythmy"
+ },
+ {
+  "n": 26,
+  "label": "extrametrical (extrametricality)"
+ },
+ {
+  "n": 27,
+  "label": "feature (binary, major class, unary feature)"
+ },
+ {
+  "n": 28,
+  "label": "feature matrix"
+ },
+ {
+  "n": 29,
+  "label": "flap, flapping (cf. tap, tapping)"
+ },
+ {
+  "n": 30,
+  "label": "foot (feet)"
+ },
+ {
+  "n": 31,
+  "label": "free variation"
+ },
+ {
+  "n": 32,
+  "label": "fricative"
+ },
+ {
+  "n": 33,
+  "label": "fundamental frequency (pitch)"
+ },
+ {
+  "n": 34,
+  "label": "geminates (true / fake gemination)"
+ },
+ {
+  "n": 35,
+  "label": "generative phonology"
+ },
+ {
+  "n": 36,
+  "label": "glide"
+ },
+ {
+  "n": 37,
+  "label": "glottal (glottal stop, glottalisation, glottis)"
+ },
+ {
+  "n": 38,
+  "label": "heavy syllable (light syllable)"
+ },
+ {
+  "n": 39,
+  "label": "heterosyllabic (vs. tautosyllabic)"
+ },
+ {
+  "n": 40,
+  "label": "homophone (homophonous)"
+ },
+ {
+  "n": 41,
+  "label": "homorganic"
+ },
+ {
+  "n": 42,
+  "label": "iamb / iambic (trochee / trochaic)"
+ },
+ {
+  "n": 43,
+  "label": "intonation"
+ },
+ {
+  "n": 44,
+  "label": "intrusive 'r'"
+ },
+ {
+  "n": 45,
+  "label": "International Phonetic Alphabet (IPA)"
+ },
+ {
+  "n": 46,
+  "label": "'l' velarization"
+ },
+ {
+  "n": 47,
+  "label": "lateral"
+ },
+ {
+  "n": 48,
+  "label": "larynx"
+ },
+ {
+  "n": 49,
+  "label": "lax vowel (tense vowel)"
+ },
+ {
+  "n": 50,
+  "label": "lenition"
+ },
+ {
+  "n": 51,
+  "label": "level of representation (underlying and surface representation)"
+ },
+ {
+  "n": 52,
+  "label": "lexical rule"
+ },
+ {
+  "n": 53,
+  "label": "linking 'r'"
+ },
+ {
+  "n": 54,
+  "label": "liquid"
+ },
+ {
+  "n": 55,
+  "label": "manner of articulation (place of articulation)"
+ },
+ {
+  "n": 56,
+  "label": "metathesis"
+ },
+ {
+  "n": 57,
+  "label": "minimal pair (near minimal pair)"
+ },
+ {
+  "n": 58,
+  "label": "nasal (stop), nasalized vowel, nasalization"
+ },
+ {
+  "n": 59,
+  "label": "natural class (naturalness)"
+ },
+ {
+  "n": 60,
+  "label": "neutralization, neutralized"
+ },
+ {
+  "n": 61,
+  "label": "node"
+ },
+ {
+  "n": 62,
+  "label": "nucleus"
+ },
+ {
+  "n": 63,
+  "label": "obstruent"
+ },
+ {
+  "n": 64,
+  "label": "onset"
+ },
+ {
+  "n": 65,
+  "label": "opacity (opaque)"
+ },
+ {
+  "n": 66,
+  "label": "oral tract"
+ },
+ {
+  "n": 67,
+  "label": "palatal"
+ },
+ {
+  "n": 68,
+  "label": "palato-alveolar"
+ },
+ {
+  "n": 69,
+  "label": "post-alveolar"
+ },
+ {
+  "n": 70,
+  "label": "phoneme"
+ },
+ {
+  "n": 71,
+  "label": "phonetic form"
+ },
+ {
+  "n": 72,
+  "label": "phonetics vs. phonology"
+ },
+ {
+  "n": 73,
+  "label": "phonotactics"
+ },
+ {
+  "n": 74,
+  "label": "plosive (~stop)"
+ },
+ {
+  "n": 75,
+  "label": "plural formation"
+ },
+ {
+  "n": 76,
+  "label": "post-lexical rule"
+ },
+ {
+  "n": 77,
+  "label": "rhotic (rhoticisation, rhoticised vowels)"
+ },
+ {
+  "n": 78,
+  "label": "rhyme"
+ },
+ {
+  "n": 79,
+  "label": "rounding (lip rounding)"
+ },
+ {
+  "n": 80,
+  "label": "rule ordering (extrinsic vs. intrinsic order)"
+ },
+ {
+  "n": 81,
+  "label": "schwa"
+ },
+ {
+  "n": 82,
+  "label": "semi-vowel"
+ },
+ {
+  "n": 83,
+  "label": "sibilants (~stridents)"
+ },
+ {
+  "n": 84,
+  "label": "sonorant (sonority, sonority hierarchy)"
+ },
+ {
+  "n": 85,
+  "label": "spoonerism"
+ },
+ {
+  "n": 86,
+  "label": "spreading (feature spreading)"
+ },
+ {
+  "n": 87,
+  "label": "palatalization (palatalized)"
+ },
+ {
+  "n": 88,
+  "label": "stress (function, primary, secondary, placement)"
+ },
+ {
+  "n": 89,
+  "label": "superscript (subscript, diacritic)"
+ },
+ {
+  "n": 90,
+  "label": "suppletion"
+ },
+ {
+  "n": 91,
+  "label": "syllabic (syllabicity)"
+ },
+ {
+  "n": 92,
+  "label": "synchrony vs. diachrony"
+ },
+ {
+  "n": 93,
+  "label": "unreleased (stop); unexploded"
+ },
+ {
+  "n": 94,
+  "label": "velar (velum, velarization)"
+ },
+ {
+  "n": 95,
+  "label": "vocal tract"
+ },
+ {
+  "n": 96,
+  "label": "voiced (voiceless, voicing, vocal cords = vocal folds)"
+ },
+ {
+  "n": 97,
+  "label": "voice onset time (VOT)"
+ },
+ {
+  "n": 98,
+  "label": "vowel (height, backness, reduction)"
+ },
+ {
+  "n": 99,
+  "label": "Great Vowel Shift"
+ }
+]
