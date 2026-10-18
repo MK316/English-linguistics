@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import streamlit as st
@@ -7,9 +8,9 @@ import streamlit.components.v1 as components
 # st.navigation 방식이면 이 줄은 지우고 메인 파일에서만 설정하세요.
 st.set_page_config(page_title="Allophonic Rules", page_icon="🔤", layout="centered")
 
-# 앱 루트/assets/allophonic_rules.html
-# 이 HTML은 실행할 때 GitHub의 최신 CSV를 불러오고, 실패하면 내장된 사본을 씁니다.
-HTML_PATH = Path(__file__).resolve().parent.parent / "assets" / "allophonic_rules.html"
+ASSETS = Path(__file__).resolve().parent.parent / "assets"
+HTML_PATH = ASSETS / "allophonic_rules.html"            # 화면
+CSV_PATH = ASSETS / "allophonic_rules_dataset.csv"      # 데이터 (이 파일만 고치면 앱에 반영됨)
 
 
 def embed(html: str, height: int) -> None:
@@ -21,8 +22,13 @@ def embed(html: str, height: int) -> None:
 
 
 @st.cache_data
-def load_html(path: str) -> str:
-    return Path(path).read_text(encoding="utf-8")
+def load_text(path: str, mtime: float) -> str:
+    # mtime을 인자로 넣어 두면 파일을 고칠 때마다 캐시가 자동으로 새로 고쳐집니다.
+    return Path(path).read_text(encoding="utf-8-sig")
 
 
-embed(load_html(str(HTML_PATH)), 900)
+html = load_text(str(HTML_PATH), HTML_PATH.stat().st_mtime)
+csv_text = load_text(str(CSV_PATH), CSV_PATH.stat().st_mtime)
+html = html.replace('/*__CSV__*/""', json.dumps(csv_text, ensure_ascii=False))
+
+embed(html, 900)
