@@ -56,7 +56,7 @@ def reshuffle() -> None:
     ss.term_seed += 1
 
 
-st.title("TCE Terminology")
+st.title("Phonology Key Terminology")
 tab1, tab2, tab3 = st.tabs(["🐾 Select terms", "🐾 Flashcards", "🐾 Quiz"])
 
 with tab1:
