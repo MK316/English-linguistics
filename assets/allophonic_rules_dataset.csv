@@ -1,0 +1,451 @@
+rule_label,description,set,option,item_text,is_correct
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",1,1,pie,1
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",1,2,tie,1
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",1,3,kite,1
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",1,4,spy,0
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",1,5,sty,0
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",1,6,sky,0
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",2,1,pool,1
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",2,2,tool,1
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",2,3,cool,1
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",2,4,school,0
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",2,5,stool,0
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",2,6,spool,0
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",3,1,panda,1
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",3,2,taco,1
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",3,3,cabin,1
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",3,4,spray,0
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",3,5,stare,0
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",3,6,scare,0
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",4,1,pie,1
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",4,2,port,1
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",4,3,team,1
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",4,4,spy,0
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",4,5,sport,0
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",4,6,steam,0
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",5,1,cream,1
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",5,2,tall,1
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",5,3,king,1
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",5,4,screen,0
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",5,5,stall,0
+R#1 — Aspirated voiceless stops (except after /s/),"Voiceless stops /p, t, k/ are aspirated when they are stressed, except when they follow /s/.",5,6,skit,0
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",1,1,leaden,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",1,2,chasm,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",1,3,film,0
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",1,4,kiln,0
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",1,5,open,0
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",1,6,lemon,0
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",2,1,hidden,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",2,2,sadden,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",2,3,seven,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",2,4,cabin,0
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",2,5,siren,0
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",2,6,oven,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",3,1,prism,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",3,2,chasm,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",3,3,prison,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",3,4,salmon,0
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",3,5,human,0
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",3,6,wagon,0
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",4,1,leaden,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",4,2,burden,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",4,3,happen,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",4,4,garden,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",4,5,autumn,0
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",4,6,woman,0
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",5,1,chasm,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",5,2,rhythm,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",5,3,column,0
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",5,4,basin,1
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",5,5,siren,0
+R#2a — Syllabic nasals after obstruent (word-final),"Nasals /m, n/ are syllabic at the end of a word when immediately after an obstruent.",5,6,cumin,0
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",1,1,little,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",1,2,bottle,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",1,3,razor,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",1,4,real,0
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",1,5,allow,0
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",1,6,lily,0
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",2,1,whistle,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",2,2,paddle,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",2,3,hammer,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",2,4,yellow,0
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",2,5,early,0
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",2,6,ruler,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",3,1,kennel,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",3,2,channel,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",3,3,tailor,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",3,4,royal,0
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",3,5,alloy,0
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",3,6,oral,0
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",4,1,barrel,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",4,2,snarl,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",4,3,solder,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",4,4,solar,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",4,5,rely,0
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",4,6,relay,0
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",5,1,little,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",5,2,bottle,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",5,3,tailor,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",5,4,lunar,1
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",5,5,rural,0
+"R#2b — Syllabic liquids /l, r/ after consonant (word-final)","Liquids /l, r/ are syllabic at the end of a word when immediately after a consonant.",5,6,real,0
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,1,1,feel,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,1,2,milk,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,1,3,silk,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,1,4,leaf,0
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,1,5,lady,0
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,1,6,lily,0
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,2,1,full,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,2,2,cold,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,2,3,bold,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,2,4,light,0
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,2,5,allow,0
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,2,6,loyal,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,3,1,pearl,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,3,2,paddle,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,3,3,whistle,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,3,4,leafy,0
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,3,5,alone,0
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,3,6,lunar,0
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,4,1,meal,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,4,2,cool,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,4,3,coal,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,4,4,lean,0
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,4,5,laser,0
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,4,6,level,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,5,1,real,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,5,2,dull,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,5,3,pale,1
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,5,4,lute,0
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,5,5,leaf,0
+R#3 — Velarized (dark) /l/ in coda or syllabic /l/,The lateral /l/ is velarized after a vowel or before a consonant at the end of a word (coda) or when /l/ is syllabic.,5,6,lilt,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",1,1,butter,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",1,2,city,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",1,3,water,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",1,4,attack,0
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",1,5,detail,0
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",1,6,hotel,0
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",2,1,rider,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",2,2,writer,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",2,3,witty,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",2,4,retire,0
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",2,5,Italian,0
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",2,6,routine,0
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",3,1,cater,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",3,2,data,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",3,3,ladder,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",3,4,rotate,0
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",3,5,edit,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",3,6,attain,0
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",4,1,credit,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",4,2,editor,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",4,3,petal,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",4,4,today,0
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",4,5,canoe,0
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",4,6,detail,0
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",5,1,beauty,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",5,2,duty,1
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",5,3,petite,0
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",5,4,attack,0
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",5,5,retake,0
+R#4 — Alveolar stop → tap between vowels (2nd unstressed),"Alveolar stops /t, d/ become a voiced tap between vowels when the second vowel is unstressed.",5,6,debate,0
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,1,1,apt,1
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,1,2,act,1
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,1,3,packed,1
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,1,4,cap,0
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,1,5,bag,0
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,1,6,tap,0
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,2,1,kept,1
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,2,2,fact,1
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,2,3,doctor,1
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,2,4,back,0
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,2,5,tack,0
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,2,6,cave,0
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,3,1,script,1
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,3,2,abduct,1
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,3,3,uptake,1
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,3,4,cab,0
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,3,5,sad,0
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,3,6,buy,0
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,4,1,hotdog,1
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,4,2,subpar,1
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,4,3,laptop,1
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,4,4,topic,0
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,4,5,rapid,0
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,4,6,paper,0
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,5,1,kept quiet,1
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,5,2,act fast,1
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,5,3,apt choice,1
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,5,4,cap it,0
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,5,5,bag it,0
+R#5 — Unreleased stop before another stop,Consecutive stops overlap; a stop is often unreleased when it occurs immediately before another stop.,5,6,pop it,0
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",1,1,cat,1
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",1,2,tip,1
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",1,3,back,1
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",1,4,cab,0
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",1,5,bad,0
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",1,6,bag,0
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",2,1,kick,1
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",2,2,hat,1
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",2,3,pack,1
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",2,4,had,0
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",2,5,rag,0
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",2,6,jog,0
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",3,1,fit,1
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",3,2,cup,1
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",3,3,cook,1
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",3,4,rid,0
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",3,5,rob,0
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",3,6,code,0
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",4,1,pack,1
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",4,2,pit,1
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",4,3,pick,1
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",4,4,pad,0
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",4,5,bid,0
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",4,6,pig,0
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",5,1,cat,1
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",5,2,hat,1
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",5,3,kick,1
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",5,4,mad,0
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",5,5,rib,0
+R#6 — Final voiceless stop with glottalization,"In many accents, syllable-final voiceless stops /p, t, k/ are accompanied by an overlapping glottal stop; final /t/ may surface as a pure glottal stop.",5,6,log,0
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",1,1,button,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",1,2,kitten,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",1,3,mountain,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",1,4,captain,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",1,5,batman,0
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",1,6,atlas,0
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",2,1,beaten,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",2,2,written,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",2,3,curtain,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",2,4,mutton,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",2,5,biting,0
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",2,6,metal,0
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",3,1,rotten,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",3,2,cotton,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",3,3,eaten,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",3,4,forgotten,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",3,5,pattern,0
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",3,6,Latin,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",4,1,mountain,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",4,2,curtain,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",4,3,Britain,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",4,4,written,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",4,5,detail,0
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",4,6,attain,0
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",5,1,button,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",5,2,kitten,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",5,3,beaten,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",5,4,mitten,1
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",5,5,batman,0
+R#7 — /t/ → [ʔ] before alveolar nasal (same word),"In many accents, /t/ is replaced by a glottal stop before an alveolar nasal within the same word.",5,6,metal,0
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,1,1,eighth,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,1,2,tenth,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,1,3,wealth,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,1,4,at this,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,1,5,nice thing,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,1,6,eat soup,0
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,2,1,width,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,2,2,at that,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,2,3,said that,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,2,4,with them,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,2,5,add this,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,2,6,add on,0
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,3,1,tenth place,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,3,2,eighth note,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,3,3,at three,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,3,4,bad thing,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,3,5,red tape,0
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,3,6,eat now,0
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,4,1,at this,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,4,2,at those,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,4,3,said thanks,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,4,4,meet them,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,4,5,get this,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,4,6,eat apples,0
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,5,1,tenth,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,5,2,wealth,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,5,3,width,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,5,4,bath towel,0
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,5,5,with those,1
+R#8 — Alveolars → dentals before dental consonants,Alveolar consonants become dental before dental consonants (place assimilation).,5,6,red apple,0
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,1,1,key,1
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,1,2,keep,1
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,1,3,kid,1
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,1,4,cool,0
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,1,5,caught,0
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,1,6,caw,0
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,2,1,cap,1
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,2,2,kit,1
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,2,3,kitchen,1
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,2,4,cough,0
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,2,5,cord,0
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,2,6,coo,0
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,3,1,keg,1
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,3,2,cane,1
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,3,3,candy,1
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,3,4,coal,0
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,3,5,cone,0
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,3,6,cool,0
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,4,1,kiss,1
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,4,2,kidney,1
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,4,3,cabin,1
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,4,4,coffee,0
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,4,5,cob,0
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,4,6,cog,0
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,5,1,caper,1
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,5,2,keeper,1
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,5,3,kiddo,1
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,5,4,cocoa,0
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,5,5,caulk,0
+R#9 — Velars more front before front vowels,Velar stops become more front before more front vowels (non-distinctive quality change).,5,6,coarse,0
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,1,1,painter,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,1,2,splinter,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,1,3,winter,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,1,4,pantry,0
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,1,5,enter,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,1,6,antenna,0
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,2,1,center,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,2,2,dental,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,2,3,planetary,0
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,2,4,monetary,0
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,2,5,continental,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,2,6,intern,0
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,3,1,wintering,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,3,2,painterly,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,3,3,splintering,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,3,4,pantryman,0
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,3,5,entering,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,3,6,intense,0
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,4,1,Santa Ana,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,4,2,center of,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,4,3,winter is,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,4,4,pantry of,0
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,4,5,intend it,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,4,6,dinner is,0
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,5,1,painter,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,5,2,winter,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,5,3,enter,1
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,5,4,country,0
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,5,5,interest,0
+R#10 — Tap from alveolar stop or /n/ + stop between vowels (2nd unstressed),Alveolar stops and alveolar nasal + stop sequences become a voiced tap between vowels when the second vowel is unstressed.,5,6,panther,0
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,1,1,most people,1
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,1,2,best game,1
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,1,3,west bank,1
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,1,4,best actor,0
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,1,5,lost it,0
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,1,6,post office,0
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,2,1,first prize,1
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,2,2,last man,1
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,2,3,guest book,1
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,2,4,best album,0
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,2,5,past event,0
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,2,6,post area,0
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,3,1,cold cuts,1
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,3,2,wild card,1
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,3,3,old boy,1
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,3,4,old apple,0
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,3,5,lost item,0
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,3,6,most orange,0
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,4,1,next train,1
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,4,2,last straw,1
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,4,3,first time,1
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,4,4,best idea,0
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,4,5,past era,0
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,4,6,lost art,0
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,5,1,frost bite,1
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,5,2,guest speaker,1
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,5,3,act plan,1
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,5,4,post office,0
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,5,5,lost apple,0
+R#11 — Alveolar stop deletion/reduction between two consonants,Alveolar stops are reduced or omitted when between two consonants.,5,6,best artist,0
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,1,1,something,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,1,2,youngster,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,1,3,prince,0
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,1,4,sunfish,0
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,1,5,answer,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,1,6,sandstorm,0
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,2,1,hamster,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,2,2,minstrel,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,2,3,prints,0
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,2,4,pencil,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,2,5,sunset,0
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,2,6,insight,0
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,3,1,princely,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,3,2,youngster,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,3,3,something,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,3,4,sense,0
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,3,5,insist,0
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,3,6,unsaid,0
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,4,1,prince,0
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,4,2,hamster,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,4,3,youngster,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,4,4,monsoon,0
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,4,5,censor,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,4,6,sunscreen,0
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,5,1,something,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,5,2,princely,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,5,3,youngsters,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,5,4,insult,0
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,5,5,censoring,1
+R#12 — Epenthetic voiceless stop after nasal + before voiceless fricative,A homorganic voiceless stop may occur after a nasal before a voiceless fricative when followed by an unstressed vowel in the same word.,5,6,sunfish,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,1,1,big game,1
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,1,2,white teeth,1
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,1,3,bookkeeper,1
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,1,4,big cat,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,1,5,white sun,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,1,6,back door,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,2,1,hip pocket,1
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,2,2,back cover,1
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,2,3,black coat,1
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,2,4,black dog,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,2,5,big cup,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,2,6,hot coffee,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,3,1,red dress,1
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,3,2,bad debt,1
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,3,3,good day,1
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,3,4,red tie,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,3,5,bad cat,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,3,6,good time,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,4,1,short time,1
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,4,2,great team,1
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,4,3,nice day,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,4,4,sweet pie,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,4,5,late bus,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,4,6,hot pie,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,5,1,quick call,1
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,5,2,big game,1
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,5,3,white teeth,1
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,5,4,quick bus,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,5,5,big dog,0
+R#13 — Shortening before identical consonant (no deletion),A consonant is shortened when it appears before an identical consonant; there is no deletion.,5,6,white car,0
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,1,1,prove,1
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,1,2,add two,1
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,1,3,leave town,1
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,1,4,prove it,0
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,1,5,add a number,0
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,1,6,move over,0
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,2,1,smooth,1
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,2,2,choose,1
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,2,3,rogue,1
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,2,4,prove it,0
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,2,5,leave it,0
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,2,6,add it,0
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,3,1,try to improve,1
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,3,2,add two,1
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,3,3,love Kate,1
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,3,4,prove it,0
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,3,5,love Anna,0
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,3,6,save it,0
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,4,1,move past,1
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,4,2,leave Pete,1
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,4,3,save Paul,1
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,4,4,move in,0
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,4,5,leave early,0
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,4,6,save it,0
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,5,1,prove,1
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,5,2,smooth,1
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,5,3,choose,1
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,5,4,prove it,0
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,5,5,smooth it,0
+R#14 — Partial devoicing of word-final or pre-voiceless obstruents,Voiced obstruents are voiced through only a small part of their articulation at utterance end or before a voiceless sound (partial devoicing).,5,6,choose it,0
