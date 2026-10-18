@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TCE Phonotactics Mock Exam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f4ef;
+    --paper: #ffffff;
+    --ink: #1b1b1b;
+    --muted: #5d5a54;
+    --rule: #2b2b2b;
+    --line: #d9d4ca;
+    --accent: #1f4e8c;
+    --accent-ink: #ffffff;
+    --soft: #eef2f8;
+    --ok: #1d7a46;
+    --ok-bg: #e7f5ec;
+    --bad: #b3261e;
+    --bad-bg: #fbeceb;
+    --blank-bg: #fbf7e8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #151515;
+      --paper: #1f1f1f;
+      --ink: #ececec;
+      --muted: #a7a39b;
+      --rule: #cfcfcf;
+      --line: #3a3a3a;
+      --accent: #7fa8e6;
+      --accent-ink: #0e1a2b;
+      --soft: #22293a;
+      --ok: #6fd39a;
+      --ok-bg: #16301f;
+      --bad: #f2928b;
+      --bad-bg: #3a1c1a;
+      --blank-bg: #2c2817;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #151515; --paper: #1f1f1f; --ink: #ececec; --muted: #a7a39b; --rule: #cfcfcf; --line: #3a3a3a;
+    --accent: #7fa8e6; --accent-ink: #0e1a2b; --soft: #22293a; --ok: #6fd39a; --ok-bg: #16301f;
+    --bad: #f2928b; --bad-bg: #3a1c1a; --blank-bg: #2c2817;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Noto Serif", "Times New Roman", serif; font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 24px 16px 64px; }
+  header { margin-bottom: 20px; }
+  h1 {
+    font-family: "Noto Sans", system-ui, sans-serif; font-weight: 600; font-size: 1.35rem;
+    margin: 0 0 4px; letter-spacing: -0.01em;
+  }
+  .sub { font-family: "Noto Sans", system-ui, sans-serif; color: var(--muted); font-size: 0.9rem; margin: 0; }
+  .picker {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 18px 0 0;
+    font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.95rem;
+  }
+  .picker label { color: var(--muted); }
+  select {
+    font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+    border-radius: 8px; padding: 8px 12px; min-width: 0; flex: 1 1 260px; max-width: 100%;
+  }
+  .nav { display: flex; gap: 6px; }
+  .nav button { padding: 8px 12px; }
+
+  .paper {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+    padding: 28px 24px 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .qhead { margin: 0 0 18px; font-size: 1.05rem; }
+  .qnum { font-weight: 700; font-size: 1.35rem; margin-right: 6px; }
+
+  .box {
+    position: relative; border: 1px solid var(--rule); padding: 22px 18px 14px; margin: 22px 0 18px;
+  }
+  .box-label {
+    position: absolute; top: 0; left: 50%; transform: translate(-50%, -55%);
+    background: var(--paper); padding: 0 10px; font-size: 0.95rem; white-space: nowrap;
+  }
+  .box p { margin: 0 0 10px; }
+  .box p:last-child { margin-bottom: 0; }
+  .indent { text-indent: 1em; }
+  .data { padding-left: 2.1em; text-indent: -2.1em; }
+  .data .tag { display: inline-block; width: 2.1em; text-indent: 0; }
+  .data-sub { padding-left: 2.1em; }
+  .cf { padding-left: 2.1em; color: var(--ink); }
+  .blank {
+    display: inline-block; min-width: 4.5em; border-bottom: 1px solid var(--ink); text-align: center;
+    line-height: 1.2; padding: 0 4px;
+  }
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; }
+  @media (max-width: 520px) { .options { grid-template-columns: 1fr; } }
+
+  .directions { margin: 6px 0 0; }
+  .step {
+    margin-top: 22px; padding-top: 18px; border-top: 1px dashed var(--line);
+  }
+  .step-title {
+    font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px;
+  }
+  .choice-row {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 14px 0 4px;
+    font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.92rem;
+  }
+  .chip {
+    font: inherit; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+    border-radius: 999px; padding: 6px 14px; cursor: pointer; min-width: 44px;
+  }
+  .chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .field-label { display: block; font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.9rem; color: var(--muted); margin: 14px 0 6px; }
+  textarea {
+    width: 100%; min-height: 92px; resize: vertical; font: inherit; color: var(--ink);
+    background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px;
+  }
+  textarea:focus, input:focus, select:focus, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .passage-inputs { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 12px; font-size: 0.95rem; }
+
+  .frame {
+    margin: 12px 0 0; padding: 14px 16px; background: var(--soft); border-radius: 8px; line-height: 2.1;
+  }
+  .frame input, .passage-inputs input {
+    font: inherit; color: var(--ink); background: var(--blank-bg); border: none;
+    border-bottom: 1.5px solid var(--ink); border-radius: 0; padding: 0 6px; width: 9.5em; max-width: 100%;
+    text-align: center;
+  }
+  .num { font-size: 0.9em; margin-right: 2px; }
+
+  button.btn {
+    font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.95rem; font-weight: 600;
+    border-radius: 8px; padding: 10px 16px; cursor: pointer; border: 1px solid var(--accent);
+    background: var(--paper); color: var(--accent);
+  }
+  button.btn.primary { background: var(--accent); color: var(--accent-ink); }
+  button.btn:disabled { opacity: 0.5; cursor: default; }
+  .nav button { font-family: "Noto Sans", system-ui, sans-serif; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+
+  .feedback-bar { margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 10px; }
+  .feedback { margin-top: 18px; font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.95rem; }
+  .fb-section { margin: 0 0 18px; }
+  .fb-section h3 { font-size: 0.95rem; margin: 0 0 8px; }
+  .fb-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; padding: 8px 12px; border-radius: 8px; margin-bottom: 6px; }
+  .fb-row.ok { background: var(--ok-bg); }
+  .fb-row.bad { background: var(--bad-bg); }
+  .verdict { font-weight: 600; }
+  .ok .verdict { color: var(--ok); }
+  .bad .verdict { color: var(--bad); }
+  .mine { font-family: "Noto Serif", serif; background: var(--soft); border-radius: 8px; padding: 10px 12px; white-space: pre-wrap; }
+  .examples { margin: 0; padding-left: 1.4em; font-family: "Noto Serif", serif; }
+  .examples li { margin-bottom: 4px; }
+  .muted { color: var(--muted); }
+  [hidden] { display: none !important; }
+  @media (max-width: 520px) {
+    .paper { padding: 22px 14px 18px; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>TCE Mock-Exam Questions (Phonotactics)</h1>
+    <p class="sub">Choose a question, write your own generalization, then complete the frame sentence and check your answers.</p>
+    <div class="picker">
+      <label for="qselect">Question</label>
+      <select id="qselect"></select>
+      <div class="nav">
+        <button type="button" id="prev" aria-label="Previous question">&larr; Prev</button>
+        <button type="button" id="next" aria-label="Next question">Next &rarr;</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="paper" id="paper" aria-live="polite"></main>
+</div>
+
+<script>
+const ITEMS = [
+ {
+  "key": "01",
+  "label": "1",
+  "short": "Syllable nucleus",
+  "background": "Speakers' knowledge of the sound patterns of their language extends beyond the words they already know. In an experiment, native speakers of English listened to nonsense words and rated how English-like each one sounded on a scale from 1 (not at all English-like) to 5 (very English-like). In the transcriptions below, a period (.) marks a syllable boundary.",
+  "data1": {
+   "intro": "",
+   "forms": "Monosyllabic nonsense words such as [blɪk], [tʌsp], and [gri] received high ratings, whereas [bkt] and [fsp] received very low ratings.",
+   "cf": ""
+  },
+  "data2": {
+   "intro": "",
+   "forms": "Among disyllabic nonsense words, [ˈzɑ.tl̩] and [ˈdæ.pn̩] were rated almost as English-like as real words such as bottle and happen, whereas [ˈzɑ.ts̩] and [ˈdæ.pf̩] received low ratings.",
+   "cf": ""
+  },
+  "box": [
+   {
+    "label": "a",
+    "form": "[ˈfrɑ.dl̩]"
+   },
+   {
+    "label": "b",
+    "form": "[ˈvɪ.ks̩]"
+   },
+   {
+    "label": "c",
+    "form": "[smʌb]"
+   },
+   {
+    "label": "d",
+    "form": "[gdz]"
+   }
+  ],
+  "boxTask": "low",
+  "boxAnswer": [
+   "b",
+   "d"
+  ],
+  "step1": "Based on &lt;A&gt;, first, identify the TWO nonsense words in &lt;B&gt; that are likely to result in a low rating (closer to '1'). Then, state the ONE phonological constraint that can explain both why [blɪk], [tʌsp], and [gri] are considered more English-like than [bkt] and [fsp] in (1) and why [ˈzɑ.tl̩] and [ˈdæ.pn̩] are considered more English-like than [ˈzɑ.ts̩] and [ˈdæ.pf̩] in (2).",
+  "passageBlanks": [],
+  "step2": "Fill in each blank with ONE word to complete the constraint below.",
+  "frame": "Every syllable must have a {1}, which is either a vowel or a syllabic {2}.",
+  "answers": {
+   "1": [
+    "nucleus",
+    "peak"
+   ],
+   "2": [
+    "sonorant"
+   ]
+  },
+  "unordered": [],
+  "examples": [
+   "Every syllable must have a nucleus.",
+   "A syllable nucleus must be a vowel or a syllabic sonorant.",
+   "Obstruents cannot serve as syllable nuclei.",
+   "A syllable without a vowel needs a syllabic nasal or liquid.",
+   "Only vowels and sonorants can form the peak of a syllable."
+  ]
+ },
+ {
+  "key": "02",
+  "label": "2",
+  "short": "No geminates",
+  "background": "Phonotactics refers to the restrictions a language places on how sounds may be combined. Such restrictions can be stated over different units of linguistic structure, such as the syllable, the morpheme (the smallest meaningful unit), and the word. Consider the pronunciations of the English words below. A period (.) marks a syllable boundary, and an asterisk (*) marks an unacceptable pronunciation.",
+  "data1": {
+   "intro": "The following words cannot be divided into smaller meaningful parts.",
+   "forms": "happy [ˈhæ.pi] (*[ˈhæp.pi]), summer [ˈsʌ.mɚ] (*[ˈsʌm.mɚ]), letter [ˈlɛ.tɚ] (*[ˈlɛt.tɚ]), rabbit [ˈræ.bɪt] (*[ˈræb.bɪt])",
+   "cf": ""
+  },
+  "data2": {
+   "intro": "Each of the following words is made up of two meaningful parts, and two identical consonants are pronounced in sequence.",
+   "forms": "unnamed [ʌn.ˈneɪmd] (un- + named), bookcase [ˈbʊk.keɪs] (book + case), misspell [mɪs.ˈspɛl] (mis- + spell)",
+   "cf": "unaimed [ʌn.ˈeɪmd] (un- + aimed)"
+  },
+  "box": null,
+  "boxTask": null,
+  "boxAnswer": null,
+  "step1": "Based on &lt;A&gt;, state in your own words ONE generalization that accounts for the data in both (1) and (2).",
+  "passageBlanks": [],
+  "step2": "Fill in blank ① with ONE word, and fill in blank ② with the ONE word that appears in &lt;A&gt;.",
+  "frame": "A {1}, that is, a sequence of two identical consonants, cannot occur within a single {2}.",
+  "answers": {
+   "1": [
+    "geminate"
+   ],
+   "2": [
+    "morpheme"
+   ]
+  },
+  "unordered": [],
+  "examples": [
+   "English has no geminates within a morpheme.",
+   "Inside a morpheme, a double letter stands for one consonant.",
+   "Identical consonants occur in sequence only across a morpheme boundary.",
+   "Geminates arise only where two morphemes meet.",
+   "Two identical consonants never occur in a row within one morpheme."
+  ]
+ },
+ {
+  "key": "03",
+  "label": "3",
+  "short": "Positional restrictions: [ŋ], [ʒ], [h]",
+  "background": "A language does not allow every sound to appear in every position. Restrictions of this kind on the possible positions and combinations of sounds are called <span class=\"blank\">①</span> constraints, and native speakers know them even for words they have never heard. Consider the English data below. A period (.) marks a syllable boundary, and an asterisk (*) marks an impossible form.",
+  "data1": {
+   "intro": "",
+   "forms": "sing [sɪŋ], long [lɔŋ], tongue [tʌŋ], beige [beɪʒ], rouge [ruʒ], nap [næp], knit [nɪt], zip [zɪp], jet [dʒɛt]",
+   "cf": "*[ŋæp], *[ŋɪt], *[ʒɪp], *[ʒɛt]"
+  },
+  "data2": {
+   "intro": "",
+   "forms": "hat [hæt], hoe [hoʊ], ahead [ə.ˈhɛd], behind [bɪ.ˈhaɪnd], oh [oʊ], blah [blɑ]",
+   "cf": "*[tæh], *[oʊh], *[blɑh], *[əh.ˈɛd]"
+  },
+  "box": null,
+  "boxTask": null,
+  "boxAnswer": null,
+  "step1": "Fill in blank ① with the ONE word that best completes the passage in &lt;A&gt;. Then, state in your own words ONE generalization that accounts for the data in both (1) and (2).",
+  "passageBlanks": [
+   "1"
+  ],
+  "step2": "Fill in blank ② with the ONE technical term for a syllable constituent to complete the generalization below.",
+  "frame": "Certain sounds are banned from particular positions in the syllable: [ŋ] and [ʒ] cannot begin a syllable, while [h] cannot occur in the {2}, the constituent of the syllable that follows the nucleus.",
+  "answers": {
+   "1": [
+    "phonotactic"
+   ],
+   "2": [
+    "coda"
+   ]
+  },
+  "unordered": [],
+  "examples": [
+   "[ŋ] and [ʒ] cannot occur in a syllable onset.",
+   "[h] cannot occur in a syllable coda.",
+   "Some sounds are restricted to certain syllable positions.",
+   "English bans [ŋ] and [ʒ] from onsets and [h] from codas.",
+   "[h] begins syllables, while [ŋ] and [ʒ] only end them."
+  ]
+ },
+ {
+  "key": "04",
+  "label": "4",
+  "short": "No affricates in complex onsets",
+  "background": "Phonotactic constraints govern not only which sounds may appear in a given position but also which sounds may combine with one another. In English, the onset, the part of a syllable before the vowel, may consist of a single consonant or a sequence of consonants, but not every sequence is possible. Consider the English data below. An asterisk (*) marks an impossible form.",
+  "data1": {
+   "intro": "",
+   "forms": "chip [tʃɪp], chin [tʃɪn], jam [dʒæm], gem [dʒɛm]",
+   "cf": "*[tʃlɪp], *[tʃlɪn], *[dʒlæm], *[dʒwɛm]"
+  },
+  "data2": {
+   "intro": "",
+   "forms": "twin [twɪn], glad [glæd], fly [flaɪ], three [θɹi], shrimp [ʃɹɪmp], spring [spɹɪŋ], street [stɹit], splash [splæʃ]",
+   "cf": "*[tʃwɪn], *[dʒlæd], *[tʃlaɪ], *[tʃpɹɪŋ], *[tʃtɹit], *[dʒplæʃ]"
+  },
+  "box": null,
+  "boxTask": null,
+  "boxAnswer": null,
+  "step1": "Based on &lt;A&gt;, state in your own words ONE generalization that accounts for the data in both (1) and (2).",
+  "passageBlanks": [],
+  "step2": "Fill in each blank with ONE word to complete the generalization below.",
+  "frame": "English does not allow a {1} onset whose first consonant is a(n) {2}.",
+  "answers": {
+   "1": [
+    "complex"
+   ],
+   "2": [
+    "affricate"
+   ]
+  },
+  "unordered": [],
+  "examples": [
+   "An affricate cannot begin a complex onset.",
+   "Affricates occur only as single-consonant onsets.",
+   "No consonant can follow an affricate in an onset.",
+   "An affricate must be the only consonant in its onset.",
+   "Onset clusters cannot start with [tʃ] or [dʒ]."
+  ]
+ },
+ {
+  "key": "05a",
+  "label": "5a",
+  "short": "Voicing in complex codas (variant 1)",
+  "background": "When two consonants occur together at the end of a syllable, they form a complex coda. English allows many such combinations, but whether the second consonant may be voiced depends on what kind of consonant comes first. Consider the English data below. An asterisk (*) marks an impossible form.",
+  "data1": {
+   "intro": "The first consonant is a nasal or a liquid.",
+   "forms": "help [hɛlp], belt [bɛlt], milk [mɪlk], lamp [læmp], mint [mɪnt], hand [hænd], bulb [bʌlb], lens [lɛnz]",
+   "cf": ""
+  },
+  "data2": {
+   "intro": "The first consonant is a voiceless stop or fricative.",
+   "forms": "ask [æsk], act [ækt], apt [æpt], fifth [fɪfθ]",
+   "cf": "*[æsg], *[ækd], *[æpd], *[fɪfð]"
+  },
+  "box": null,
+  "boxTask": null,
+  "boxAnswer": null,
+  "step1": "Based on &lt;A&gt;, state in your own words ONE generalization that accounts for the data in both (1) and (2).",
+  "passageBlanks": [],
+  "step2": "Fill in each blank with ONE word to complete the generalization below.",
+  "frame": "In a complex coda, a sonorant may be followed by a consonant of either voicing, but an obstruent such as [s], [k], [p], or [f] can be followed only by a {1} consonant, never by a {2} one.",
+  "answers": {
+   "1": [
+    "voiceless"
+   ],
+   "2": [
+    "voiced"
+   ]
+  },
+  "unordered": [],
+  "examples": [
+   "A voiceless obstruent cannot be followed by a voiced consonant in a coda.",
+   "After a sonorant, a coda consonant may be voiced or voiceless.",
+   "After a voiceless obstruent, the next coda consonant must be voiceless.",
+   "If the second coda consonant is voiced, the first must be voiced too.",
+   "Voiceless + voiced is banned in codas; voiced + voiceless is allowed."
+  ]
+ },
+ {
+  "key": "05b",
+  "label": "5b",
+  "short": "Voicing in complex codas (variant 2)",
+  "background": "When two consonants occur together at the end of a syllable, they form a complex coda. English allows many such combinations, but whether the second consonant may be voiced depends on what kind of consonant comes first. Consider the English data below. An asterisk (*) marks an impossible form.",
+  "data1": {
+   "intro": "The first consonant is a nasal or a liquid.",
+   "forms": "help [hɛlp], belt [bɛlt], milk [mɪlk], lamp [læmp], mint [mɪnt], hand [hænd], bulb [bʌlb], lens [lɛnz]",
+   "cf": ""
+  },
+  "data2": {
+   "intro": "The first consonant is a voiceless stop or fricative.",
+   "forms": "ask [æsk], act [ækt], apt [æpt], fifth [fɪfθ]",
+   "cf": "*[æsg], *[ækd], *[æpd], *[fɪfð]"
+  },
+  "box": null,
+  "boxTask": null,
+  "boxAnswer": null,
+  "step1": "Based on &lt;A&gt;, state in your own words ONE generalization that accounts for the data in both (1) and (2).",
+  "passageBlanks": [],
+  "step2": "Fill in each blank with ONE word to complete the generalization below.",
+  "frame": "In a complex coda, the second consonant may be voiced or voiceless when the first consonant is a {1}. However, it must be voiceless when the first consonant is a voiceless {2}.",
+  "answers": {
+   "1": [
+    "sonorant"
+   ],
+   "2": [
+    "obstruent"
+   ]
+  },
+  "unordered": [],
+  "examples": [
+   "A voiceless obstruent cannot be followed by a voiced consonant in a coda.",
+   "After a sonorant, a coda consonant may be voiced or voiceless.",
+   "After a voiceless obstruent, the next coda consonant must be voiceless.",
+   "If the second coda consonant is voiced, the first must be voiced too.",
+   "Voiceless + voiced is banned in codas; voiced + voiceless is allowed."
+  ]
+ },
+ {
+  "key": "05c",
+  "label": "5c",
+  "short": "Voicing in complex codas (variant 3)",
+  "background": "When two consonants occur together at the end of a syllable, they form a complex coda. English allows many such combinations, but whether the second consonant may be voiced depends on what kind of consonant comes first. Consider the English data below. An asterisk (*) marks an impossible form.",
+  "data1": {
+   "intro": "The first consonant is a nasal or a liquid.",
+   "forms": "help [hɛlp], belt [bɛlt], milk [mɪlk], lamp [læmp], mint [mɪnt], hand [hænd], bulb [bʌlb], lens [lɛnz]",
+   "cf": ""
+  },
+  "data2": {
+   "intro": "The first consonant is a voiceless stop or fricative.",
+   "forms": "ask [æsk], act [ækt], apt [æpt], fifth [fɪfθ]",
+   "cf": "*[æsg], *[ækd], *[æpd], *[fɪfð]"
+  },
+  "box": null,
+  "boxTask": null,
+  "boxAnswer": null,
+  "step1": "Based on &lt;A&gt;, state in your own words ONE generalization that accounts for the data in both (1) and (2).",
+  "passageBlanks": [],
+  "step2": "Fill in each blank with ONE word to complete the generalization below.",
+  "frame": "In a complex coda, the second consonant may be either voiced or voiceless when the first consonant is a {1}. After a voiceless obstruent, however, the second consonant cannot be {2}.",
+  "answers": {
+   "1": [
+    "sonorant"
+   ],
+   "2": [
+    "voiced"
+   ]
+  },
+  "unordered": [],
+  "examples": [
+   "A voiceless obstruent cannot be followed by a voiced consonant in a coda.",
+   "After a sonorant, a coda consonant may be voiced or voiceless.",
+   "After a voiceless obstruent, the next coda consonant must be voiceless.",
+   "If the second coda consonant is voiced, the first must be voiced too.",
+   "Voiceless + voiced is banned in codas; voiced + voiceless is allowed."
+  ]
+ },
+ {
+  "key": "06",
+  "label": "6",
+  "short": "Nasal + stop: homorganicity",
+  "background": "Consonants are described in terms of voicing, place of articulation, and manner of articulation. In some complex codas, the two consonants are required to match in one of these properties, while in others they combine freely. Consider the English data below. An asterisk (*) marks an impossible form.",
+  "data1": {
+   "intro": "",
+   "forms": "lamp [læmp], limp [lɪmp], tent [tɛnt], mint [mɪnt], hand [hænd], sink [sɪŋk], bank [bæŋk]",
+   "cf": "*[læmt], *[dʌnp], *[tɛŋt], *[sɪnk], *[bæmk]"
+  },
+  "data2": {
+   "intro": "",
+   "forms": "help [hɛlp], belt [bɛlt], milk [mɪlk], bulb [bʌlb], held [hɛld]",
+   "cf": ""
+  },
+  "box": null,
+  "boxTask": null,
+  "boxAnswer": null,
+  "step1": "Based on &lt;A&gt;, state in your own words ONE generalization that accounts for the data in both (1) and (2).",
+  "passageBlanks": [],
+  "step2": "Fill in each blank with ONE word to complete the generalization below.",
+  "frame": "In a complex coda, a {1} followed by a stop must be {2} with that stop. Other consonants, such as [l], may combine with stops of any place of articulation.",
+  "answers": {
+   "1": [
+    "nasal"
+   ],
+   "2": [
+    "homorganic"
+   ]
+  },
+  "unordered": [],
+  "examples": [
+   "A nasal must be homorganic with a following stop.",
+   "A nasal and a following stop share the same place of articulation.",
+   "Only nasals must agree in place with a following stop.",
+   "[m], [n], and [ŋ] occur only before bilabial, alveolar, and velar stops.",
+   "Place agreement applies to nasal + stop, not to [l] + stop."
+  ]
+ },
+ {
+  "key": "07",
+  "label": "7",
+  "short": "Nasal + stop: place and voicing",
+  "background": "Consonants are described in terms of voicing, place of articulation, and manner of articulation. Places of articulation can be grouped into three major classes: labial sounds are made with the lips, coronal sounds with the tip or blade of the tongue, and dorsal sounds with the back of the tongue. In some complex codas, the two consonants must match in one of these properties, and some combinations are further restricted. Consider the English data below. An asterisk (*) marks an impossible form.",
+  "data1": {
+   "intro": "",
+   "forms": "lamp [læmp], mint [mɪnt], sink [sɪŋk], help [hɛlp], belt [bɛlt], milk [mɪlk]",
+   "cf": "*[læmt], *[mɪmk], *[sɪnk]"
+  },
+  "data2": {
+   "intro": "",
+   "forms": "hand [hænd], mend [mɛnd], mind [maɪnd], climb [klaɪm], numb [nʌm], sing [sɪŋ], hang [hæŋ]",
+   "cf": "*[klaɪmb], *[nʌmb], *[sɪŋg], *[hæŋg]"
+  },
+  "box": [
+   {
+    "label": "a",
+    "form": "[θæmp]"
+   },
+   {
+    "label": "b",
+    "form": "[gʌmt]"
+   },
+   {
+    "label": "c",
+    "form": "[glʌnd]"
+   },
+   {
+    "label": "d",
+    "form": "[drɛŋg]"
+   }
+  ],
+  "boxTask": "possible",
+  "boxAnswer": [
+   "a",
+   "c"
+  ],
+  "step1": "Based on &lt;A&gt;, first, identify the TWO nonsense words in &lt;B&gt; that are possible English words. Then, state in your own words the generalization that accounts for the data in both (1) and (2).",
+  "passageBlanks": [],
+  "step2": "Fill in each blank with ONE word from &lt;A&gt; to complete the generalization below.",
+  "frame": "In a complex coda, only a nasal is required to agree with a following stop in place of articulation; [l], for example, combines with [p], [t], and [k] alike. In addition, a {1} nasal may be followed by either a voiced or a voiceless stop, whereas a {2} or {3} nasal may be followed only by a voiceless stop.",
+  "answers": {
+   "1": [
+    "coronal"
+   ],
+   "2": [
+    "labial",
+    "dorsal"
+   ],
+   "3": [
+    "labial",
+    "dorsal"
+   ]
+  },
+  "unordered": [
+   [
+    "2",
+    "3"
+   ]
+  ],
+  "examples": [
+   "A nasal must share its place with a following stop.",
+   "Only a coronal nasal can precede a voiced stop.",
+   "Labial and dorsal nasals precede only voiceless stops.",
+   "[nd] is possible in a coda, but [mb] and [ŋg] are not.",
+   "Nasal + stop must be homorganic, and voiced stops follow only [n]."
+  ]
+ },
+ {
+  "key": "08",
+  "label": "8",
+  "short": "Obstruent voicing agreement",
+  "background": "Consonants can be divided into sonorants, such as nasals and liquids, and obstruents, such as stops, fricatives, and affricates. A complex coda may contain consonants of either kind, but some combinations of consonants within the same coda are not allowed. Consider the English data below. An asterisk (*) marks an impossible form.",
+  "data1": {
+   "intro": "",
+   "forms": "kept [kɛpt], act [ækt], fifth [fɪfθ], adze [ædz], begged [bɛgd], seized [sizd], judged [dʒʌdʒd]",
+   "cf": "*[kɛbt], *[kɛpd], *[bɛgt], *[sizt]; debt [dɛt], not *[dɛbt]"
+  },
+  "data2": {
+   "intro": "",
+   "forms": "help [hɛlp], belt [bɛlt], mint [mɪnt], else [ɛls], lens [lɛnz], hand [hænd]",
+   "cf": ""
+  },
+  "box": null,
+  "boxTask": null,
+  "boxAnswer": null,
+  "step1": "Based on &lt;A&gt;, state in your own words ONE generalization that accounts for the data in both (1) and (2).",
+  "passageBlanks": [],
+  "step2": "Fill in each blank with ONE word to complete the generalization below.",
+  "frame": "Two {1} in the same coda must agree in {2}.",
+  "answers": {
+   "1": [
+    "obstruents",
+    "obstruent"
+   ],
+   "2": [
+    "voicing",
+    "voice"
+   ]
+  },
+  "unordered": [],
+  "examples": [
+   "Two obstruents in a coda must agree in voicing.",
+   "Coda obstruents are either both voiced or both voiceless.",
+   "Obstruents in the same coda cannot differ in voicing.",
+   "A sonorant may differ in voicing from what follows; an obstruent may not.",
+   "Mixed voicing is banned between coda obstruents."
+  ]
+ },
+ {
+  "key": "09",
+  "label": "9",
+  "short": "Lax vowels need a coda",
+  "background": "Phonotactic constraints can also restrict how vowels combine with the consonants that follow them. English stressed vowels fall into two groups: tense vowels, such as [i], [u], and diphthongs like [aɪ] and [eɪ], and lax vowels, such as [ɪ], [ɛ], [æ], and [ʊ]. Syllables likewise fall into two types: an open syllable ends in a vowel, while a closed syllable ends in one or more consonants. Consider the English monosyllabic words below. An asterisk (*) marks an impossible form.",
+  "data1": {
+   "intro": "The following words end in a vowel.",
+   "forms": "tea [ti], sea [si], glue [glu], pie [paɪ], spray [spreɪ]",
+   "cf": "*[tɪ], *[lɪ], *[mɛ], *[bɪ], *[glʊ], *[nʊ]"
+  },
+  "data2": {
+   "intro": "The following words end in a consonant.",
+   "forms": "tip [tɪp], lick [lɪk], mess [mɛs], bin [bɪn], glimpse [glɪmps], leap [lip], aim [eɪm]",
+   "cf": ""
+  },
+  "box": null,
+  "boxTask": null,
+  "boxAnswer": null,
+  "step1": "Based on &lt;A&gt;, state in your own words ONE generalization that accounts for the data in both (1) and (2).",
+  "passageBlanks": [],
+  "step2": "Fill in each blank with ONE word to complete the generalization below.",
+  "frame": "A {1} vowel can occur only in a {2} syllable.",
+  "answers": {
+   "1": [
+    "lax"
+   ],
+   "2": [
+    "closed"
+   ]
+  },
+  "unordered": [],
+  "examples": [
+   "A lax vowel must be followed by a consonant.",
+   "Lax vowels occur only in closed syllables.",
+   "Open stressed syllables allow only tense vowels.",
+   "A stressed syllable cannot end in a lax vowel.",
+   "Tense vowels occur in any syllable; lax vowels only in closed ones."
+  ]
+ },
+ {
+  "key": "10",
+  "label": "10",
+  "short": "Nasal + voiced stop",
+  "background": "In English, a nasal at the end of a syllable is often followed by a stop, as in limp and mint. Such nasal-stop sequences are subject to more than one restriction, and one of them involves the voicing of the stop. Consider the English data below. A period (.) marks a syllable boundary, and an asterisk (*) marks an impossible form.",
+  "data1": {
+   "intro": "",
+   "forms": "limp [lɪmp], lamp [læmp], lint [lɪnt], mint [mɪnt], sink [sɪŋk], bank [bæŋk]",
+   "cf": ""
+  },
+  "data2": {
+   "intro": "",
+   "forms": "mend [mɛnd], mind [maɪnd], hand [hænd], climb [klaɪm], numb [nʌm], sing [sɪŋ], hang [hæŋ]",
+   "cf": "*[mɛmb], *[mɛŋg], *[maɪmb], *[maɪŋg]; finger [ˈfɪŋ.gɚ], number [ˈnʌm.bɚ]"
+  },
+  "box": null,
+  "boxTask": null,
+  "boxAnswer": null,
+  "step1": "Based on &lt;A&gt;, state in your own words ONE generalization that accounts for the data in both (1) and (2).",
+  "passageBlanks": [],
+  "step2": "Fill in each blank with ONE word to complete the generalization below.",
+  "frame": "To precede both voiced and voiceless stops in a coda, a nasal must be {1}. A labial or dorsal nasal may be followed only by a {2} stop.",
+  "answers": {
+   "1": [
+    "coronal"
+   ],
+   "2": [
+    "voiceless"
+   ]
+  },
+  "unordered": [],
+  "examples": [
+   "Only a coronal nasal can precede a voiced stop.",
+   "Labial and dorsal nasals precede only voiceless stops.",
+   "[mb] and [ŋg] cannot occur in the same coda.",
+   "A nasal + voiced stop coda must be [nd].",
+   "Any nasal can precede a voiceless stop, but only [n] a voiced one."
+  ]
+ }
+];
+const CIRC = { "1": "①", "2": "②", "3": "③" };
+const state = {};
+
+function getState(key) {
+  if (!state[key]) state[key] = { choice: [], own: "", blanks: {}, step2: false, feedback: false };
+  return state[key];
+}
+
+function dataHTML(tag, d) {
+  if (!d) return "";
+  let h = "";
+  if (d.intro) {
+    h += `<p class="data"><span class="tag">${tag}</span>${d.intro}</p>`;
+    h += `<p class="data-sub">${d.forms}</p>`;
+  } else {
+    h += `<p class="data"><span class="tag">${tag}</span>${d.forms}</p>`;
+  }
+  if (d.cf) h += `<p class="cf">cf. ${d.cf}</p>`;
+  return h;
+}
+
+function frameHTML(item, st) {
+  return item.frame.replace(/\{(\d)\}/g, (_, n) =>
+    `<span class="num">${CIRC[n]}</span><input type="text" data-blank="${n}" aria-label="Blank ${CIRC[n]}" autocomplete="off" autocapitalize="off" spellcheck="false" value="${escAttr(st.blanks[n] || "")}">`);
+}
+
+function escAttr(s) { return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
+function escText(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+function render() {
+  const idx = Number(document.getElementById("qselect").value);
+  const item = ITEMS[idx];
+  const st = getState(item.key);
+  const hasB = !!item.box;
+  const paper = document.getElementById("paper");
+
+  let h = `<p class="qhead"><span class="qnum">${item.label}.</span>Read &lt;A&gt;${hasB ? " and &lt;B&gt;" : ""} and follow the directions.</p>`;
+
+  h += `<section class="box" aria-label="Passage A"><span class="box-label">&lt;A&gt;</span>`;
+  h += `<p class="indent">${item.background}</p>`;
+  h += dataHTML("(1)", item.data1);
+  h += dataHTML("(2)", item.data2);
+  h += `</section>`;
+
+  if (hasB) {
+    h += `<section class="box" aria-label="Box B"><span class="box-label">&lt;B&gt;</span><div class="options">`;
+    item.box.forEach(o => { h += `<div>${o.label}. ${o.form}</div>`; });
+    h += `</div></section>`;
+  }
+
+  // Step 1
+  h += `<div class="directions">`;
+  h += `<p class="step-title">Step 1 · Your own generalization</p>`;
+  h += `<p>${item.step1}</p>`;
+  if (hasB) {
+    const what = item.boxTask === "low" ? "low-rated" : "possible";
+    h += `<div class="choice-row" role="group" aria-label="Choose two words in B"><span>Your choice (two ${what} words):</span>`;
+    item.box.forEach(o => {
+      const on = st.choice.includes(o.label);
+      h += `<button type="button" class="chip" data-choice="${o.label}" aria-pressed="${on}">${o.label}</button>`;
+    });
+    h += `</div>`;
+  }
+  if (item.passageBlanks.length) {
+    h += `<div class="passage-inputs">`;
+    item.passageBlanks.forEach(n => {
+      h += `<label>${CIRC[n]} (in &lt;A&gt;) <input type="text" data-blank="${n}" aria-label="Blank ${CIRC[n]} in A" autocomplete="off" autocapitalize="off" spellcheck="false" value="${escAttr(st.blanks[n] || "")}"></label>`;
+    });
+    h += `</div>`;
+  }
+  h += `<label class="field-label" for="own">Write your generalization in one concise English sentence.</label>`;
+  h += `<textarea id="own" placeholder="e.g., In English, ...">${escText(st.own)}</textarea>`;
+
+  // Step 2
+  h += `<div class="actions"><button type="button" class="btn" id="toStep2" ${st.step2 ? "hidden" : ""}>Try the frame sentence</button></div>`;
+  h += `<div class="step" id="step2" ${st.step2 ? "" : "hidden"}>`;
+  h += `<p class="step-title">Step 2 · Complete the frame sentence</p>`;
+  h += `<p>${item.step2}</p>`;
+  h += `<div class="frame">${frameHTML(item, st)}</div>`;
+  h += `</div>`;
+  h += `</div>`;
+
+  // Feedback
+  h += `<div class="feedback-bar"><button type="button" class="btn primary" id="check">Check my answers</button>`;
+  h += `<button type="button" class="btn" id="reset">Reset this question</button></div>`;
+  h += `<div class="feedback" id="feedback" ${st.feedback ? "" : "hidden"}></div>`;
+
+  paper.innerHTML = h;
+  bind(item, st);
+  if (st.feedback) showFeedback(item, st);
+  updateNav(idx);
+}
+
+function bind(item, st) {
+  const paper = document.getElementById("paper");
+  paper.querySelectorAll("[data-choice]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const v = btn.dataset.choice;
+      if (st.choice.includes(v)) st.choice = st.choice.filter(x => x !== v);
+      else {
+        if (st.choice.length >= 2) st.choice.shift();
+        st.choice.push(v);
+      }
+      paper.querySelectorAll("[data-choice]").forEach(b => b.setAttribute("aria-pressed", st.choice.includes(b.dataset.choice)));
+    });
+  });
+  paper.querySelectorAll("input[data-blank]").forEach(inp => {
+    inp.addEventListener("input", () => { st.blanks[inp.dataset.blank] = inp.value; });
+  });
+  document.getElementById("own").addEventListener("input", e => { st.own = e.target.value; });
+  document.getElementById("toStep2").addEventListener("click", () => {
+    st.step2 = true;
+    document.getElementById("step2").hidden = false;
+    document.getElementById("toStep2").hidden = true;
+    const first = document.querySelector("#step2 input");
+    if (first) first.focus();
+  });
+  document.getElementById("check").addEventListener("click", () => {
+    st.feedback = true;
+    if (!st.step2) {
+      st.step2 = true;
+      document.getElementById("step2").hidden = false;
+      document.getElementById("toStep2").hidden = true;
+    }
+    showFeedback(item, st);
+    document.getElementById("feedback").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  document.getElementById("reset").addEventListener("click", () => {
+    delete state[item.key];
+    render();
+  });
+}
+
+function norm(s) {
+  return String(s || "").toLowerCase().replace(/[\s.,;:!?'"()]+/g, " ").trim();
+}
+
+function gradeBlanks(item, st) {
+  const result = {};
+  const used = new Set();
+  const groups = item.unordered || [];
+  const inGroup = n => groups.find(g => g.includes(n));
+  Object.keys(item.answers).forEach(n => {
+    const given = norm(st.blanks[n]);
+    const accepted = item.answers[n].map(norm);
+    let ok = given !== "" && accepted.includes(given);
+    if (ok && inGroup(n)) {
+      if (used.has(given)) ok = false; else used.add(given);
+    }
+    result[n] = { given: st.blanks[n] || "", ok, expected: item.answers[n] };
+  });
+  return result;
+}
+
+function expectedText(item, n) {
+  const g = (item.unordered || []).find(g => g.includes(n));
+  if (g) {
+    const all = [...new Set(g.flatMap(k => item.answers[k]))];
+    return all.join(" / ") + " (in either order)";
+  }
+  return item.answers[n].join(" or ");
+}
+
+function showFeedback(item, st) {
+  const fb = document.getElementById("feedback");
+  let h = "";
+
+  if (item.box) {
+    const want = [...item.boxAnswer].sort().join(", ");
+    const got = [...st.choice].sort().join(", ");
+    const ok = got === want;
+    const what = item.boxTask === "low" ? "low-rated" : "possible";
+    h += `<div class="fb-section"><h3>Box &lt;B&gt;</h3>`;
+    h += `<div class="fb-row ${ok ? "ok" : "bad"}"><span class="verdict">${ok ? "Correct" : (got ? "Not quite" : "No choice made")}</span>`;
+    h += `<span>Your choice: ${got || "—"}</span><span class="muted">The ${what} words are ${want}.</span></div></div>`;
+  }
+
+  const g = gradeBlanks(item, st);
+  h += `<div class="fb-section"><h3>Blanks</h3>`;
+  Object.keys(item.answers).forEach(n => {
+    const r = g[n];
+    const verdict = r.ok ? "Correct" : (r.given.trim() ? "Incorrect" : "Not answered");
+    h += `<div class="fb-row ${r.ok ? "ok" : "bad"}"><span class="verdict">${CIRC[n]} ${verdict}</span>`;
+    h += `<span>Your answer: ${r.given.trim() ? escText(r.given) : "—"}</span>`;
+    if (!r.ok) h += `<span class="muted">Answer: ${expectedText(item, n)}</span>`;
+    h += `</div>`;
+  });
+  h += `</div>`;
+
+  if (st.own.trim()) {
+    h += `<div class="fb-section"><h3>Your generalization</h3><div class="mine">${escText(st.own.trim())}</div>`;
+    h += `<p class="muted">Compare it with the sample sentences below. A good answer names the sound class and the position or property involved.</p></div>`;
+  }
+
+  h += `<div class="fb-section"><h3>Sample generalizations</h3><ol class="examples">`;
+  item.examples.forEach(e => { h += `<li>${escText(e)}</li>`; });
+  h += `</ol></div>`;
+
+  fb.innerHTML = h;
+  fb.hidden = false;
+}
+
+function updateNav(idx) {
+  document.getElementById("prev").disabled = idx === 0;
+  document.getElementById("next").disabled = idx === ITEMS.length - 1;
+}
+
+(function init() {
+  const sel = document.getElementById("qselect");
+  ITEMS.forEach((it, i) => {
+    const o = document.createElement("option");
+    o.value = i;
+    o.textContent = `Question ${it.label} — ${it.short}`;
+    sel.appendChild(o);
+  });
+  sel.addEventListener("change", () => { render(); window.scrollTo({ top: 0 }); });
+  document.getElementById("prev").addEventListener("click", () => { sel.value = Math.max(0, Number(sel.value) - 1); render(); });
+  document.getElementById("next").addEventListener("click", () => { sel.value = Math.min(ITEMS.length - 1, Number(sel.value) + 1); render(); });
+  render();
+})();
+</script>
+</body>
+</html>
