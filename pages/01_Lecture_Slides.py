@@ -12,14 +12,6 @@ st.set_page_config(page_title="Lecture Slide Player", layout="wide")
 # ----------------- Tabs -----------------------
 tab1, tab2, tab3 = st.tabs(["🌀 Lecture Slides", "🌀 References", "🌀 More Reading"])
 
-# CSS to adjust the alignment of the dropdown to match the buttons
-st.markdown("""
-    <style>
-    .stSelectbox div[data-baseweb="select"] {
-        margin-top: -30px;  /* Adjust this value to align with the buttons */
-    }
-    </style>
-    """, unsafe_allow_html=True)
 
 
 
@@ -39,6 +31,15 @@ if "vh_percent" not in st.session_state:
     st.session_state.vh_percent = 88
 if "display_width_px" not in st.session_state:
     st.session_state.display_width_px = 1200
+
+# Full-width option that works on both older and newer Streamlit versions
+_ver = tuple(int(x) for x in st.__version__.split(".")[:2])
+WIDE = {"width": "stretch"} if _ver >= (1, 46) else {"use_container_width": True}
+
+THUMBS_PER_PAGE = 25   # thumbnails shown at a time
+THUMB_COLS = 5         # thumbnails per row
+if "thumb_page" not in st.session_state:
+    st.session_state.thumb_page = 0
 
 # ---- Guards ----
 if num_slides == 0:
@@ -101,6 +102,35 @@ def display_image_fixed_width(img_path: str, width_px: int = 1200):
     resized_image = image.resize((width_px, new_height), Image.LANCZOS)
     st.image(resized_image, caption=f"Slide {st.session_state.slide_index + 1} of {num_slides}")
 
+@st.cache_data(show_spinner=False)
+def make_thumbnail(img_path: str, mtime: float, width_px: int = 240) -> bytes:
+    """Small JPEG preview of a slide (cached; refreshed automatically when the file changes)."""
+    im = Image.open(img_path)
+    if im.mode in ("RGBA", "LA", "P"):
+        im = im.convert("RGBA")
+        bg = Image.new("RGB", im.size, (255, 255, 255))
+        bg.paste(im, mask=im.split()[-1])
+        im = bg
+    else:
+        im = im.convert("RGB")
+    im.thumbnail((width_px, width_px * 2), Image.LANCZOS)
+    buf = io.BytesIO()
+    im.save(buf, format="JPEG", quality=80, optimize=True)
+    return buf.getvalue()
+
+def num_thumb_pages() -> int:
+    return (num_slides + THUMBS_PER_PAGE - 1) // THUMBS_PER_PAGE
+
+def follow_current_slide():
+    """Keep the thumbnail page on the page that contains the current slide."""
+    st.session_state.thumb_page = st.session_state.slide_index // THUMBS_PER_PAGE
+
+def go_to_slide(i: int):
+    st.session_state.slide_index = i
+
+def change_thumb_page(step: int):
+    st.session_state.thumb_page = min(max(st.session_state.thumb_page + step, 0), num_thumb_pages() - 1)
+
 # -------- Tabs --------
 
 with tab1:
@@ -119,28 +149,33 @@ with tab1:
     with col1:
         if st.button("⛳", key="start", help="Reset to the first slide"):
             st.session_state.slide_index = 0
+            follow_current_slide()
     with col2:
         if st.button("◀️", key="previous", help="Go back to the previous slide"):
             if st.session_state.slide_index > 0:
                 st.session_state.slide_index -= 1
+                follow_current_slide()
             else:
                 st.warning("This is the first slide.")
     with col3:
         if st.button("▶️", key="next", help="Go to the next slide"):
             if st.session_state.slide_index < num_slides - 1:
                 st.session_state.slide_index += 1
+                follow_current_slide()
             else:
                 st.warning("Final slide")
     with col4:
         # Dropdown selector
         selected_slide = st.selectbox(
-            "",
+            "Go to slide",
             options=[f"Slide {i + 1}" for i in range(num_slides)],
             index=st.session_state.slide_index,
+            label_visibility="collapsed",
         )
         selected_idx = int(selected_slide.split()[-1]) - 1
         if selected_idx != st.session_state.slide_index:
             st.session_state.slide_index = selected_idx
+            follow_current_slide()
 
     # Main display (fit to height or fixed width)
     if st.session_state.fit_to_height:
@@ -150,6 +185,40 @@ with tab1:
         display_image_fixed_width(current_slide_path(), st.session_state.display_width_px)
 
     st.markdown("---")
+
+    # ---- Slide previews (25 at a time); click a number to open that slide ----
+    pages = num_thumb_pages()
+    page = min(st.session_state.thumb_page, pages - 1)
+    first = page * THUMBS_PER_PAGE
+    last = min(first + THUMBS_PER_PAGE, num_slides)
+
+    p1, p2, p3 = st.columns([1, 2, 1])
+    with p1:
+        st.button("◀ Previous 25", key="thumb_prev", on_click=change_thumb_page, args=(-1,),
+                  disabled=page == 0, **WIDE)
+    with p2:
+        st.markdown(
+            f"<div style='text-align:center;padding-top:6px;'>Slide previews {first + 1}–{last} of {num_slides}</div>",
+            unsafe_allow_html=True,
+        )
+    with p3:
+        st.button("Next 25 ▶", key="thumb_next", on_click=change_thumb_page, args=(1,),
+                  disabled=page >= pages - 1, **WIDE)
+
+    for row_start in range(first, last, THUMB_COLS):
+        cols = st.columns(THUMB_COLS)
+        for j, i in enumerate(range(row_start, min(row_start + THUMB_COLS, last))):
+            with cols[j]:
+                path = os.path.join(slides_path, slide_files[i])
+                st.image(make_thumbnail(path, os.path.getmtime(path)), **WIDE)
+                is_current = i == st.session_state.slide_index
+                st.button(
+                    f"▶ Slide {i + 1}" if is_current else f"Slide {i + 1}",
+                    key=f"thumb_{i}",
+                    on_click=go_to_slide, args=(i,),
+                    type="primary" if is_current else "secondary",
+                    **WIDE,
+                )
 
 
 
