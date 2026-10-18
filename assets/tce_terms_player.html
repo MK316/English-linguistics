@@ -154,8 +154,8 @@ function renderStage() {
   let h = `<div class="card"><div class="card-top"><span>${st.mode === "flash" ? "Flashcard" : "Quiz"} · ${pos}</span><span>Term ${term.n}</span></div>`;
   if (st.mode === "flash") {
     h += `<div class="front">${esc(term.label)}</div>`;
-    h += `<div class="text" ${st.flipped ? "" : "hidden"}>${flashText(term)}</div>`;
-    h += `<div class="nav"><button type="button" class="btn primary" id="flip">${st.flipped ? "Hide explanation" : "Show explanation"}</button>`;
+    h += `<div class="text">${flashText(term)}</div>`;
+    h += `<div class="nav">`;
   } else {
     h += `<div class="text">${quizText(term, key)}</div>`;
     const res = st.checkedCards[key];
@@ -168,7 +168,7 @@ function renderStage() {
   stage.innerHTML = h;
 
   if (st.mode === "flash") {
-    $("flip").addEventListener("click", () => { st.flipped = !st.flipped; renderStage(); });
+    // explanation is always shown
   } else {
     stage.querySelectorAll("input[data-id]").forEach(inp => {
       inp.addEventListener("input", () => { st.answers[inp.dataset.id] = inp.value; });
