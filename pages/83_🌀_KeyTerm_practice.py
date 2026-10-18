@@ -57,7 +57,7 @@ def reshuffle() -> None:
 
 
 st.title("TCE Terminology")
-tab1, tab2, tab3 = st.tabs(["Select terms", "Flashcards", "Quiz"])
+tab1, tab2, tab3 = st.tabs(["🐾 Select terms", "🐾 Flashcards", "🐾 Quiz"])
 
 with tab1:
     idx = st.selectbox(
