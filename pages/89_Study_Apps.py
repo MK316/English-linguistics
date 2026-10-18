@@ -11,7 +11,11 @@ APPS = [
         "url": "https://md33.lovable.app/",
         "desc": "MD-33 Dictionary: vocabulary study for the teacher certification exam (임용).",
     },
-    {"title": "App 2", "url": None, "desc": "Coming Soon"},
+    {
+        "title": "Voca practice",
+        "url": "Voca-practice",   # 같은 앱의 17_🧩_Voca-practice.py 페이지 (새 탭)
+        "desc": "MD-33 quiz practice: read the part of speech and meanings, then choose the word.",
+    },
     {"title": "App 3", "url": None, "desc": "Coming Soon"},
     {"title": "App 4", "url": None, "desc": "Coming Soon"},
 ]
