@@ -1,51 +1,77 @@
+import csv
+import io
+import json
+import urllib.request
+from pathlib import Path
+
 import streamlit as st
+import streamlit.components.v1 as components
 
 # pages/ 폴더 방식이면 페이지마다 둘 수 있습니다.
 # st.navigation 방식이면 이 줄은 지우고 메인 파일에서만 설정하세요.
-st.set_page_config(page_title="Study Apps", page_icon="🧰", layout="centered")
+st.set_page_config(page_title="Voca Practice", page_icon="🧩", layout="wide")
 
-# ---- 링크할 앱 목록: url이 None이면 'Coming Soon'으로 표시됩니다 ----
-APPS = [
-    {
-        "title": "Vocabulary APP",
-        "url": "https://md33.lovable.app/",
-        "desc": "MD-33 Dictionary: vocabulary study for the teacher certification exam (임용).",
-    },
-    {
-        "title": "Voca practice",
-        "url": "Voca-practice",   # 같은 앱의 17_🧩_Voca-practice.py 페이지 (새 탭)
-        "desc": "MD-33 quiz practice: read the part of speech and meanings, then choose the word.",
-    },
-    {"title": "App 3", "url": None, "desc": "Coming Soon"},
-    {"title": "App 4", "url": None, "desc": "Coming Soon"},
-]
+ASSETS = Path(__file__).resolve().parent.parent / "assets"
+HTML_PATH = ASSETS / "voca_practice.html"
+LOCAL_CSV = ASSETS / "md33.csv"   # 있으면 이 파일을 우선 사용
+DRIVE_ID = "135Vhhudwg0Jv8Rixvam37n1Qss43NJd6"
+DRIVE_URL = f"https://drive.google.com/uc?export=download&id={DRIVE_ID}"
+COLUMNS = ["Initial", "SID", "Word", "POS", "WME", "WMK", "WIC", "WICK", "SEM-REL"]
 
-st.markdown(
-    """
-    <style>
-      .app-card { border: 1px solid #d9d4ca; border-radius: 12px; padding: 18px 18px 16px; margin-bottom: 16px; min-height: 140px; }
-      .app-card p { margin: 10px 0 0; font-size: 0.92rem; color: #5d5a54; }
-      a.app-btn, span.app-btn {
-        display: block; text-align: center; font-weight: 600; font-size: 1.05rem;
-        padding: 12px 16px; border-radius: 10px; text-decoration: none;
-      }
-      a.app-btn { background: #1b2a4e; color: #ffffff !important; }
-      a.app-btn:hover { background: #24386a; }
-      span.app-btn { background: #e7e4dd; color: #8a867e; cursor: not-allowed; }
-    </style>
-    """,
-    unsafe_allow_html=True,
+
+def embed(html: str, height: int) -> None:
+    """최신 Streamlit(st.iframe 있음)은 내용 높이에 맞춰 자동 조절, 이전 버전은 components.html 사용."""
+    if hasattr(st, "iframe"):
+        st.iframe(html, height="content")
+    else:
+        components.html(html, height=height, scrolling=True)
+
+
+def parse_csv(text: str) -> list[dict]:
+    reader = csv.DictReader(io.StringIO(text.lstrip("﻿")))
+    reader.fieldnames = [(f or "").strip() for f in reader.fieldnames or []]
+    missing = [c for c in COLUMNS if c not in reader.fieldnames]
+    if missing:
+        raise ValueError(f"CSV is missing column(s): {', '.join(missing)}")
+    rows = []
+    for r in reader:
+        row = {c: (r.get(c) or "").strip() for c in COLUMNS}
+        if row["Word"]:
+            rows.append(row)
+    return rows
+
+
+@st.cache_data
+def load_local(path: str, mtime: float) -> list[dict]:
+    return parse_csv(Path(path).read_text(encoding="utf-8-sig"))
+
+
+@st.cache_data(ttl=3600)
+def load_drive() -> list[dict]:
+    req = urllib.request.Request(DRIVE_URL, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=20) as resp:
+        text = resp.read().decode("utf-8-sig")
+    if text.lstrip().startswith("<"):
+        raise ValueError("Google Drive returned a web page instead of the CSV. "
+                         "Share the file as 'Anyone with the link'.")
+    return parse_csv(text)
+
+
+@st.cache_data
+def load_html(path: str, mtime: float) -> str:
+    return Path(path).read_text(encoding="utf-8")
+
+
+try:
+    if LOCAL_CSV.exists():
+        rows = load_local(str(LOCAL_CSV), LOCAL_CSV.stat().st_mtime)
+    else:
+        rows = load_drive()
+except Exception as e:
+    st.error(f"Could not load the MD-33 data: {e}")
+    st.stop()
+
+html = load_html(str(HTML_PATH), HTML_PATH.stat().st_mtime).replace(
+    "/*__DATA__*/[]", json.dumps(rows, ensure_ascii=False).replace("</", "<\\/")
 )
-
-st.title("Study Apps")
-st.caption("Click a button to open the app in a new tab.")
-
-cols = st.columns(2)
-for i, app in enumerate(APPS):
-    with cols[i % 2]:
-        if app["url"]:
-            button = (f'<a class="app-btn" href="{app["url"]}" target="_blank" '
-                      f'rel="noopener noreferrer">{app["title"]} ↗</a>')
-        else:
-            button = f'<span class="app-btn" aria-disabled="true">{app["title"]}</span>'
-        st.markdown(f'<div class="app-card">{button}<p>{app["desc"]}</p></div>', unsafe_allow_html=True)
+embed(html, 900)
