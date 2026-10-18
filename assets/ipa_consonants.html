@@ -12,6 +12,7 @@
     --bg: #f6f4ef; --paper: #ffffff; --ink: #1b1b1b; --muted: #5d5a54; --line: #d9d4ca;
     --accent: #1f4e8c; --accent-ink: #ffffff; --soft: #eef2f8;
     --ok: #1d7a46; --ok-bg: #e7f5ec; --bad: #b3261e; --bad-bg: #fbeceb;
+    --navy: #1b2a4e; --yellow: #ffd84d;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -33,6 +34,7 @@
   .tab { font: inherit; font-weight: 600; font-size: 0.95rem; background: none; border: none; border-bottom: 3px solid transparent; padding: 10px 14px; color: var(--muted); cursor: pointer; white-space: nowrap; }
   .tab[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
   .panel { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 22px; margin-top: 18px; }
+  @media (max-width: 720px) { .panel { padding: 16px 10px; } .wrap { padding: 16px 8px 40px; } }
   h2 { font-size: 1.1rem; margin: 0 0 14px; }
   .muted { color: var(--muted); font-size: 0.9rem; }
   .filters { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
@@ -49,16 +51,23 @@
   .score { margin-left: auto; font-weight: 600; }
   .desc { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 6px 0 4px; }
   @media (max-width: 640px) { .desc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  .feat { background: var(--soft); border-radius: 10px; padding: 10px 12px; text-align: center; }
-  .feat small { display: block; font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
-  .feat span { display: block; font-size: 1.25rem; font-weight: 600; margin-top: 2px; }
-  .chart-wrap { overflow-x: auto; margin-top: 18px; }
-  table.chart { border-collapse: collapse; margin: 0 auto; }
-  table.chart td { border: 1px solid var(--line); padding: 4px; min-width: 76px; height: 58px; text-align: center; vertical-align: middle; }
-  .cellpair { display: flex; justify-content: space-around; gap: 4px; }
+  .feat { min-width: 0; text-align: center; }
+  .feat small { display: flex; align-items: flex-end; justify-content: center; min-height: 2.6em; line-height: 1.3; font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .feat span {
+    display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 8px 6px; border-radius: 10px;
+    font-size: clamp(0.95rem, 2.4vw, 1.25rem); font-weight: 600; overflow-wrap: anywhere;
+  }
+  .feat.main span { background: var(--navy); color: var(--yellow); }   /* voicing, place, manner */
+  .feat.sub span { background: var(--soft); color: var(--ink); }       /* oro-nasal, central/lateral */
+  .chart-wrap { margin-top: 18px; }
+  /* The chart always fits the available width: 9 equal columns that shrink with the screen. */
+  table.chart { border-collapse: collapse; width: 100%; table-layout: fixed; }
+  table.chart td { border: 1px solid var(--line); padding: 2px; height: 54px; text-align: center; vertical-align: middle; }
+  .cellpair { display: flex; justify-content: space-evenly; align-items: center; gap: 0; }
   .pick {
-    font-family: "Noto Serif", serif; font-size: 1.5rem; line-height: 1; min-width: 40px; height: 44px; padding: 0 6px;
-    border: 1.5px solid transparent; border-radius: 8px; background: transparent; color: var(--ink); cursor: pointer;
+    font-family: "Noto Serif", serif; font-size: clamp(1rem, 3.2vw, 1.5rem); line-height: 1;
+    min-width: 0; height: 42px; padding: 0 clamp(2px, 0.8vw, 6px);
+    border: 1.5px solid transparent; border-radius: 7px; background: transparent; color: var(--ink); cursor: pointer;
   }
   .pick:hover { background: var(--soft); border-color: var(--line); }
   .pick.ok { background: var(--ok-bg); border-color: var(--ok); color: var(--ok); }
@@ -122,7 +131,7 @@
 </div>
 
 <script>
-// ---- Data (from the original app; nasals are described as nasal stops) ----
+// ---- Data (from the original app; nasals are nasal stops; "not applicable" where a property does not apply) ----
 const C = [
   ["p","voiceless","bilabial","oral","central","stop"], ["b","voiced","bilabial","oral","central","stop"],
   ["t","voiceless","alveolar","oral","central","stop"], ["d","voiced","alveolar","oral","central","stop"],
@@ -133,25 +142,28 @@ const C = [
   ["ʃ","voiceless","post-alveolar","oral","central","fricative"], ["ʒ","voiced","post-alveolar","oral","central","fricative"],
   ["h","voiceless","glottal","oral","central","fricative"],
   ["tʃ","voiceless","post-alveolar","oral","central","affricate"], ["dʒ","voiced","post-alveolar","oral","central","affricate"],
-  ["m","voiced","bilabial","nasal","central","stop"], ["n","voiced","alveolar","nasal","central","stop"],
-  ["ŋ","voiced","velar","nasal","central","stop"],
+  ["m","voiced","bilabial","nasal","not applicable","stop"], ["n","voiced","alveolar","nasal","not applicable","stop"],
+  ["ŋ","voiced","velar","nasal","not applicable","stop"],
+  ["ɾ","voiced","alveolar","oral","central","tap/flap"],
+  ["ʔ","not applicable","glottal","not applicable","not applicable","stop"],
   ["l","voiced","alveolar","oral","lateral","approximant"], ["ɹ","voiced","alveolar","oral","central","approximant"],
   ["j","voiced","palatal","oral","central","approximant"], ["w","voiced","labio-velar","oral","central","approximant"],
 ].map(([symbol, voicing, place, oro, central, manner]) => ({ symbol, voicing, place, oro, central, manner }));
 
 const FIELDS = [
-  { key: "voicing", label: "Voicing", values: ["voiced", "voiceless"] },
-  { key: "place", label: "Place", values: ["bilabial","labiodental","dental","alveolar","post-alveolar","palatal","labio-velar","velar","glottal"] },
-  { key: "oro", label: "Oro-nasal", values: ["oral", "nasal"] },
-  { key: "central", label: "Central / lateral", values: ["central", "lateral"] },
-  { key: "manner", label: "Manner", values: ["stop", "fricative", "affricate", "approximant"] },
+  { key: "voicing", label: "Voicing", values: ["voiced", "voiceless", "not applicable"] },
+  { key: "place", label: "Place", values: ["bilabial","labiodental","dental","alveolar","post-alveolar","palatal","labio-velar","velar","glottal","not applicable"] },
+  { key: "oro", label: "Oro-nasal", values: ["oral", "nasal", "not applicable"] },
+  { key: "central", label: "Central / lateral", values: ["central", "lateral", "not applicable"] },
+  { key: "manner", label: "Manner", values: ["stop", "tap/flap", "fricative", "affricate", "approximant", "not applicable"] },
 ];
-const PLACES = FIELDS[1].values;
+const PLACES = FIELDS[1].values.filter(v => v !== "not applicable");
 
 // Chart rows and columns follow the usual IPA order; no labels are shown.
 const ROWS = [
-  c => c.manner === "stop" && c.oro === "oral",
+  c => c.manner === "stop" && c.oro !== "nasal",
   c => c.manner === "stop" && c.oro === "nasal",
+  c => c.manner === "tap/flap",
   c => c.manner === "fricative",
   c => c.manner === "affricate",
   c => c.manner === "approximant" && c.central === "central",
@@ -203,7 +215,10 @@ function buildChart() {
 }
 function newQ2() {
   s2.q = pickRandom(C, s2.q); s2.answered = false;
-  $("desc2").innerHTML = FIELDS.map(f => `<div class="feat"><small>${f.label}</small><span>${esc(s2.q[f.key])}</span></div>`).join("");
+  $("desc2").innerHTML = FIELDS.map(f => {
+    const kind = (f.key === "oro" || f.key === "central") ? "sub" : "main";
+    return `<div class="feat ${kind}"><small>${f.label}</small><span>${esc(s2.q[f.key])}</span></div>`;
+  }).join("");
   $("chart").querySelectorAll(".pick").forEach(b => b.className = "pick");
   $("msg2").hidden = true;
   renderScore2();
@@ -233,7 +248,7 @@ $("q3").innerHTML = FIELDS.map(f =>
   `<div><label for="a_${f.key}">${f.label}</label><select id="a_${f.key}"><option value="">Choose…</option>${f.values.map(v => `<option>${v}</option>`).join("")}</select><span class="fix" id="x_${f.key}"></span></div>`).join("");
 function newQ3() {
   s3.q = pickRandom(C, s3.q); s3.checked = false;
-  $("sym3").textContent = s3.q.symbol;
+  $("sym3").textContent = `[ ${s3.q.symbol} ]`;
   FIELDS.forEach(f => { const el = $("a_" + f.key); el.value = ""; el.className = ""; $("x_" + f.key).textContent = ""; });
   $("msg3").hidden = true;
   renderScore3();
@@ -250,7 +265,7 @@ function check3() {
   if (!s3.checked) { s3.total++; if (ok === FIELDS.length) s3.score++; s3.checked = true; }
   const m = $("msg3");
   m.className = ok === FIELDS.length ? "msg ok" : "msg bad";
-  m.textContent = ok === FIELDS.length ? `✅ Correct! [${s3.q.symbol}] is ${FIELDS.map(f => s3.q[f.key]).join(", ")}.`
+  m.textContent = ok === FIELDS.length ? `✅ Correct! [ ${s3.q.symbol} ] — ${FIELDS.map(f => `${f.label}: ${s3.q[f.key]}`).join(" · ")}`
                                        : `${ok} of ${FIELDS.length} correct. The corrections are shown in red.`;
   m.hidden = false;
   renderScore3();
