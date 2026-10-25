@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TCE Prosody Mock Exam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f4ef;
+    --paper: #ffffff;
+    --ink: #1b1b1b;
+    --muted: #5d5a54;
+    --rule: #2b2b2b;
+    --line: #d9d4ca;
+    --accent: #1f4e8c;
+    --accent-ink: #ffffff;
+    --soft: #eef2f8;
+    --ok: #1d7a46;
+    --ok-bg: #e7f5ec;
+    --bad: #b3261e;
+    --bad-bg: #fbeceb;
+    --blank-bg: #fbf7e8;
+    --part: #8a6100;
+    --part-bg: #fbf3dc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #151515;
+      --paper: #1f1f1f;
+      --ink: #ececec;
+      --muted: #a7a39b;
+      --rule: #cfcfcf;
+      --line: #3a3a3a;
+      --accent: #7fa8e6;
+      --accent-ink: #0e1a2b;
+      --soft: #22293a;
+      --ok: #6fd39a;
+      --ok-bg: #16301f;
+      --bad: #f2928b;
+      --bad-bg: #3a1c1a;
+      --blank-bg: #2c2817;
+      --part: #e8c46a;
+      --part-bg: #33291a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #151515; --paper: #1f1f1f; --ink: #ececec; --muted: #a7a39b; --rule: #cfcfcf; --line: #3a3a3a;
+    --accent: #7fa8e6; --accent-ink: #0e1a2b; --soft: #22293a; --ok: #6fd39a; --ok-bg: #16301f;
+    --bad: #f2928b; --bad-bg: #3a1c1a; --blank-bg: #2c2817; --part: #e8c46a; --part-bg: #33291a;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Noto Serif", "Times New Roman", serif; font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 24px 16px 64px; }
+  header { margin-bottom: 20px; }
+  h1 {
+    font-family: "Noto Sans", system-ui, sans-serif; font-weight: 600; font-size: 1.35rem;
+    margin: 0 0 4px; letter-spacing: -0.01em;
+  }
+  .sub { font-family: "Noto Sans", system-ui, sans-serif; color: var(--muted); font-size: 0.9rem; margin: 0; }
+  .picker {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 18px 0 0;
+    font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.95rem;
+  }
+  .picker label { color: var(--muted); }
+  select {
+    font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+    border-radius: 8px; padding: 8px 12px; min-width: 0; flex: 1 1 260px; max-width: 100%;
+  }
+  .nav { display: flex; gap: 6px; }
+  .nav button { padding: 8px 12px; }
+
+  .paper {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
+    padding: 28px 24px 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .qhead {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+    gap: 4px 16px; margin: 0 0 18px; font-size: 1.05rem;
+  }
+  .qhead .q { flex: 1 1 320px; }
+  .qnum { font-weight: 700; font-size: 1.35rem; margin-right: 6px; }
+  .pts { font-weight: 700; white-space: nowrap; margin-left: auto; }
+
+  .box {
+    position: relative; border: 1px solid var(--rule); padding: 22px 18px 14px; margin: 22px 0 18px;
+  }
+  .box-label {
+    position: absolute; top: 0; left: 50%; transform: translate(-50%, -55%);
+    background: var(--paper); padding: 0 10px; font-size: 0.95rem; white-space: nowrap;
+  }
+  .box p { margin: 0 0 10px; }
+  .box p:last-child { margin-bottom: 0; }
+  .indent { text-indent: 1em; }
+  .data { padding-left: 2.1em; text-indent: -2.1em; }
+  .data .tag { display: inline-block; width: 2.1em; text-indent: 0; }
+  .data-sub { padding-left: 2.1em; }
+  .data-sub.hang { padding-left: 4.1em; text-indent: -2em; }
+  .data-sub .sl { display: inline-block; width: 2em; text-indent: 0; }
+  .note { font-size: 0.94em; margin-top: 12px !important; }
+  .pairs {
+    display: grid; grid-template-columns: max-content max-content max-content; gap: 2px 14px;
+    padding-left: 2.1em; margin: 6px 0 12px;
+  }
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; }
+  @media (max-width: 520px) { .options { grid-template-columns: 1fr; } }
+
+  .directions { margin: 6px 0 0; }
+  .case { margin-top: 22px; padding-top: 18px; border-top: 1px dashed var(--line); }
+  .case:first-child { margin-top: 6px; }
+  .case p { margin: 0 0 8px; }
+  .case-data { margin-top: 12px; }
+  .case-data p { margin: 0; }
+  .step-title {
+    font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px !important;
+  }
+  .choice-row {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 14px 0 4px;
+    font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.92rem;
+  }
+  .chip {
+    font: inherit; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+    border-radius: 999px; padding: 6px 14px; cursor: pointer; min-width: 44px;
+  }
+  .chip.sm { padding: 5px 0; min-width: 40px; }
+  .chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+  .answer-table { margin-top: 12px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .at-head {
+    font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.85rem; color: var(--muted);
+    padding: 8px 12px; background: var(--soft);
+  }
+  .at-row {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 10px 12px;
+    border-top: 1px solid var(--line); font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.92rem;
+  }
+  .at-rule { font-weight: 600; min-width: 4.5em; }
+  .at-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .frame {
+    margin: 12px 0 0; padding: 14px 16px; background: var(--soft); border-radius: 8px; line-height: 2.1;
+  }
+  .blank-in {
+    font: inherit; color: var(--ink); background: var(--blank-bg); border: none;
+    border-bottom: 1.5px solid var(--ink); border-radius: 0; padding: 0 6px; width: 9.5em; max-width: 100%;
+    text-align: center; text-indent: 0;
+  }
+  .blank-in:focus, select:focus, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .num { font-size: 0.9em; margin-right: 2px; }
+
+  button.btn {
+    font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.95rem; font-weight: 600;
+    border-radius: 8px; padding: 10px 16px; cursor: pointer; border: 1px solid var(--accent);
+    background: var(--paper); color: var(--accent);
+  }
+  button.btn.primary { background: var(--accent); color: var(--accent-ink); }
+  .nav button { font-family: "Noto Sans", system-ui, sans-serif; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
+  .nav button:disabled { opacity: 0.5; cursor: default; }
+
+  .feedback-bar { margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 10px; }
+  .feedback { margin-top: 18px; font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.95rem; }
+  .score { font-weight: 600; font-size: 1.05rem; padding: 10px 14px; border-radius: 8px; background: var(--soft); margin-bottom: 16px; }
+  .fb-section { margin: 0 0 18px; }
+  .fb-section h3 { font-size: 0.95rem; margin: 0 0 8px; }
+  .fb-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; padding: 8px 12px; border-radius: 8px; margin-bottom: 6px; }
+  .fb-row.ok { background: var(--ok-bg); }
+  .fb-row.bad { background: var(--bad-bg); }
+  .fb-row.partial { background: var(--part-bg); }
+  .verdict { font-weight: 600; }
+  .ok .verdict { color: var(--ok); }
+  .bad .verdict { color: var(--bad); }
+  .partial .verdict { color: var(--part); }
+  details.expl { margin: 0 0 12px 4px; }
+  details.expl summary { cursor: pointer; color: var(--accent); font-size: 0.88rem; font-weight: 600; }
+  .expl-body, .expl-text { font-family: "Noto Serif", serif; background: var(--soft); border-radius: 8px; padding: 10px 12px; margin-top: 6px; }
+  .muted { color: var(--muted); }
+  .dialog { margin-top: 16px !important; }
+  .dlg-context { text-align: center; font-style: italic; margin: 0 0 8px !important; }
+  .dlg-row { display: grid; grid-template-columns: 4.6em 1fr; gap: 0 8px; margin: 0 0 6px !important; }
+  .dlg-row .who { font-weight: 700; }
+  .blank-line { display: inline-block; min-width: 10em; border-bottom: 1px solid var(--ink); }
+  .field-label { display: block; font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.9rem; color: var(--muted); margin: 14px 0 6px; }
+  textarea {
+    width: 100%; min-height: 92px; resize: vertical; font: inherit; color: var(--ink);
+    background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px;
+  }
+  textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .wc { font-family: "Noto Sans", system-ui, sans-serif; font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+  .mine { font-family: "Noto Serif", serif; background: var(--soft); border-radius: 8px; padding: 10px 12px; white-space: pre-wrap; margin-bottom: 8px; }
+  .checklist label { display: flex; gap: 10px; align-items: flex-start; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 6px; cursor: pointer; }
+  .checklist input { margin-top: 4px; width: 18px; height: 18px; flex: none; accent-color: var(--accent); }
+  .expl-list { margin: 6px 0 0; padding-left: 1.3em; }
+  .expl-list li { margin-bottom: 6px; }
+  .dset { margin: 12px 0 !important; }
+  .dset-item { display: grid; grid-template-columns: 2.1em 1fr; margin: 0 0 10px; }
+  .dset-tag { grid-row: span 9; }
+  .dset-line { display: grid; grid-template-columns: 1.8em 1fr; gap: 0 4px; margin: 0; }
+  .dset-line .who { font-weight: 700; }
+  .box.task { padding-top: 16px; }
+  .mc-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+  .mc-opt {
+    font: inherit; text-align: left; display: flex; gap: 10px; align-items: baseline;
+    border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+    border-radius: 8px; padding: 10px 14px; cursor: pointer;
+  }
+  .mc-opt[aria-pressed="true"] { border-color: var(--accent); background: var(--soft); box-shadow: inset 0 0 0 1px var(--accent); }
+  .mc-opt .mk { font-weight: 700; flex: none; }
+  [hidden] { display: none !important; }
+  @media (max-width: 520px) {
+    .paper { padding: 22px 14px 18px; }
+    body { font-size: 16px; }
+    .pairs { padding-left: 0.5em; gap: 2px 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>TCE Mock-Exam Questions (Stress, Syllabification &amp; Intonation)</h1>
+    <p class="sub">Choose a question, answer every part, then check your answers.</p>
+    <div class="picker">
+      <label for="qselect">Question</label>
+      <select id="qselect"></select>
+      <div class="nav">
+        <button type="button" id="prev" aria-label="Previous question">&larr; Prev</button>
+        <button type="button" id="next" aria-label="Next question">Next &rarr;</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="paper" id="paper" aria-live="polite"></main>
+</div>
+
+<script>
+const ITEMS = [
+ {
+  "key": "01",
+  "label": "1",
+  "type": "cases",
+  "short": "Stress and the syllabification of -st-",
+  "points": 2,
+  "instruction": "Read the passage and follow the directions.",
+  "passage": [
+   { "type": "p", "html": "It is a general pattern in English that nouns of three or more syllables carry primary stress on the antepenultimate syllable (the third syllable from the end) when the penultimate syllable is light, as shown below:" },
+   { "type": "data", "tag": "(1)", "title": "antepenultimate syllable stressed",
+     "rows": [ { "forms": "elephant, syllabus, Victoria, cinnamon, cafeteria" } ] },
+   { "type": "p", "html": "When the penultimate syllable is instead heavy — closed by a consonant, or containing a long vowel or diphthong — primary stress shifts to that heavy syllable:" },
+   { "type": "data", "tag": "(2)", "title": "penultimate syllable stressed",
+     "rows": [
+       { "sub": "a.", "forms": "incentive, consensus, ellipsis" },
+       { "sub": "b.", "forms": "potato, piano, volcano" }
+     ] },
+   { "type": "p", "html": "In (2a), the word-internal sequences <i>-nt-</i> (incentive), <i>-ns-</i> (consensus), <i>-ps-</i> (ellipsis) are not possible onsets in English, so the syllable boundary must separate the two consonants, with the first consonant closing the penultimate syllable and making it heavy." },
+   { "type": "p", "html": "The sequence <i>-st-</i> again behaves differently, since it is a legitimate English onset (student, stupid) as well as a legitimate coda (cost, list). A word-internal <i>-st-</i>, therefore, could in principle belong entirely to the onset of the following syllable, leaving the penultimate syllable light, or it could split so that the <i>s</i> closes the penultimate syllable, leaving the syllable heavy. Phonotactics alone cannot tell us which parse is correct." }
+  ],
+  "cases": [
+   {
+    "label": "Case A",
+    "directions": "Fill in the blank with the ONE most appropriate word from the passage above.",
+    "frame": "Considering where primary stress falls in the words given in (3), each of which contains the sequence <i>-st-</i>, we can claim that the underlined <i>s</i> belongs to the {1} of the syllable that follows it.",
+    "data": { "tag": "(3)", "title": "antepenultimate syllable stressed",
+      "forms": ["trave<u>s</u>ty", "dyna<u>s</u>ty", "ance<u>s</u>tor"] },
+    "answers": { "1": ["onset"] },
+    "explanation": "Stress falls on the antepenult, so the penult must be light. The whole -st- cluster therefore begins the following syllable: tra.ve.sty, dy.na.sty, an.ce.stor."
+   },
+   {
+    "label": "Case B",
+    "directions": "Fill in the blank with the ONE most appropriate word from the passage above.",
+    "frame": "Considering where primary stress falls in the words given in (4), each of which contains the sequence <i>-st-</i>, we can claim that the underlined <i>s</i> belongs to the {1} of the syllable that precedes it.",
+    "data": { "tag": "(4)", "title": "penultimate syllable stressed",
+      "forms": ["resi<u>s</u>tance", "inve<u>s</u>tment", "combu<u>s</u>tion"] },
+    "answers": { "1": ["coda"] },
+    "explanation": "Stress falls on the penult, so the penult must be heavy. The s closes that syllable and the cluster splits: re.sis.tance, in.vest.ment, com.bus.tion."
+   }
+  ]
+ },
+ {
+  "key": "02",
+  "label": "2",
+  "type": "classify",
+  "short": "Stress rules for three-syllable verbs and nouns",
+  "points": 4,
+  "instruction": "Read &lt;A&gt; and find TWO words in &lt;B&gt; for each of the stress rules (1)-①, (1)-②, (2)-①, and (2)-②. Write their letters. (Consider only the conditions of the stress rules given in &lt;A&gt;.)",
+  "passage": [
+   { "type": "p", "html": "Stress placement in English words is governed by rules that are sensitive to several kinds of information: what grammatical category the word belongs to, how many syllables it has, and how the syllables are phonologically structured. The two rules below apply specifically to three-syllable words." },
+   { "type": "data", "tag": "(1)", "title": "In three-syllable verbs,",
+     "rows": [
+       { "sub": "①", "forms": "if the final syllable is strong, then it is stressed;" },
+       { "sub": "②", "forms": "if the final syllable is weak, then it is unstressed, and stress is placed on the preceding syllable if that syllable is strong." }
+     ] },
+   { "type": "data", "tag": "(2)", "title": "In three-syllable nouns,",
+     "rows": [
+       { "sub": "①", "forms": "if the final syllable is weak, or ends with [oʊ], then it is unstressed; if the syllable preceding this final syllable is strong, then that middle syllable is stressed;" },
+       { "sub": "②", "forms": "if the second and third syllables are both weak, then the first syllable is stressed." }
+     ] },
+   { "type": "note", "html": "<b>Note:</b> A strong syllable has a rhyme which either has a syllable peak which is a long vowel or diphthong, or a vowel followed by a coda (i.e., one or more consonants). Weak syllables have a syllable peak which is a short vowel, and no coda unless the syllable peak is [ə]." }
+  ],
+  "box": [
+   { "label": "a", "form": "agenda" },
+   { "label": "b", "form": "apprehend" },
+   { "label": "c", "form": "animal" },
+   { "label": "d", "form": "consider" },
+   { "label": "e", "form": "camera" },
+   { "label": "f", "form": "circumvent" },
+   { "label": "g", "form": "tomato" },
+   { "label": "h", "form": "surrender" }
+  ],
+  "rows": [
+   { "rule": "(1)-①", "answers": ["b", "f"],
+     "explanation": "Verbs with a strong (closed) final syllable, which is stressed: appreˈhend, circumˈvent." },
+   { "rule": "(1)-②", "answers": ["d", "h"],
+     "explanation": "Verbs with a weak final syllable (-der [dɚ]) and a strong middle syllable, which takes the stress: conˈsider, surˈrender." },
+   { "rule": "(2)-①", "answers": ["a", "g"],
+     "explanation": "Nouns whose final syllable is weak (-da) or ends in [oʊ] (-to), with a strong middle syllable: aˈgenda, toˈmato." },
+   { "rule": "(2)-②", "answers": ["c", "e"],
+     "explanation": "Nouns whose second and third syllables are both weak, so the first is stressed: ˈanimal, ˈcamera." }
+  ]
+ },
+ {
+  "key": "03",
+  "label": "3",
+  "type": "fill",
+  "short": "Trisyllabic laxing and derivation",
+  "points": 2,
+  "instruction": "Read the passage and fill in the blank with ONE word.",
+  "passage": [
+   { "type": "p", "html": "Trisyllabic laxing is a phonological rule that turns a tense vowel into its lax counterpart. The rule targets a vowel that comes to sit in the antepenultimate syllable (that is, the third syllable counting from the end of the word) as a result of a suffix being attached to a base word, as shown in the pairs below." },
+   { "type": "pairs",
+     "rows": [
+       ["serene", "serenity"],
+       ["extreme", "extremity"],
+       ["profound", "profundity"],
+       ["obscene", "obscenity"],
+       ["grave", "gravity"]
+     ] },
+   { "type": "p", "html": "Words such as ‘dinosaur’ and ‘cyanide’ also have a tense vowel sitting in the antepenultimate syllable, and both words have (at least) the three syllables the rule requires. Even so, trisyllabic laxing does not apply to the antepenultimate vowel of either word. This is because neither word is derived from a smaller base word by attaching any {1}." }
+  ],
+  "answers": { "1": ["suffix", "suffixes"] },
+  "explanation": "Trisyllabic laxing is triggered by suffixation: the tense vowel ends up in the antepenult only because a suffix like -ity is added to a base (serene → serenity). ‘Dinosaur’ and ‘cyanide’ are single morphemes with no base + suffix structure, so the rule has no environment to apply in, and their tense vowels stay tense."
+ },
+ {
+  "key": "04",
+  "label": "4",
+  "type": "fill+box",
+  "short": "Ambisyllabicity and syllable weight",
+  "points": 4,
+  "numberBlanks": true,
+  "instruction": "Read the passage and follow the directions.",
+  "passage": [
+   { "type": "p", "html": "In many English words, primary stress is sensitive to syllable weight: a stressed syllable is generally heavy, where a heavy syllable is one whose vowel is long or a diphthong, or whose vowel is followed by at least one coda consonant. A syllable consisting of a short (lax) vowel with no coda is light, and a light syllable cannot normally bear primary stress on its own." },
+   { "type": "p", "html": "By the principle of onset maximization, a single consonant between two vowels is normally assigned to the onset of the following syllable. Most accounts therefore syllabify <i>classic</i> as [ˈklæ.sɪk], with [s] beginning the second syllable. On this parse, however, the stressed first syllable contains only a short vowel and no coda, an apparently light syllable." },
+   { "type": "p", "html": "Interestingly, some native speakers have a different intuition. They feel that the [s] also ends the first syllable, as if the word were divided [ˈklæs.sɪk], which makes the stressed syllable feel closed. These speakers cannot be hearing two separate [s] sounds, since English does not allow geminates within a single morpheme; a sequence of two identical consonants arises only across a morpheme boundary, as in <i>misspell</i>." },
+   { "type": "p", "html": "The intuition can be accounted for if the single consonant after the stressed vowel belongs simultaneously to two syllables: it functions as the coda of the stressed syllable and, at the same time, as the onset of the syllable that follows. A consonant with this double syllabic membership is called {1}. Because this consonant also closes the stressed syllable, that syllable counts as heavy after all, which is why primary stress can fall there. The same analysis applies to the words in (1), where writing the shared consonant twice represents one consonant, not two." },
+   { "type": "data", "tag": "(1)",
+     "rows": [ { "forms": "classic [ˈklæs.sɪk], happy [ˈhæp.pi], lemon [ˈlɛm.mən], study [ˈstʌd.di]" } ] }
+  ],
+  "blankDirections": "Fill in blank ① in &lt;A&gt; with ONE word.",
+  "answers": { "1": ["ambisyllabic"] },
+  "blankPoints": 2,
+  "box": [
+   { "label": "a", "form": "coffee" },
+   { "label": "b", "form": "baker" },
+   { "label": "c", "form": "visit" },
+   { "label": "d", "form": "window" }
+  ],
+  "boxDirections": "Based on &lt;A&gt;, choose the TWO words in &lt;B&gt; whose stressed syllable is heavy only because of an ambisyllabic consonant, just like the words in (1).",
+  "boxAnswer": ["a", "c"],
+  "boxPoints": 2,
+  "explanation": "① ambisyllabic: the single [s] of classic serves as both the coda of the stressed syllable and the onset of the next, so it is not a geminate. In &lt;B&gt;, coffee [ˈkɔf.fi] and visit [ˈvɪz.zɪt] have a short vowel followed by a single consonant, so only ambisyllabicity makes the stressed syllable heavy. Baker [ˈbeɪ.kɚ] is already heavy because of its diphthong, and window [ˈwɪn.doʊ] is heavy because [n] is a true coda."
+ },
+ {
+  "key": "08",
+  "label": "5",
+  "type": "classify",
+  "short": "Stress-shifting suffixes and syllable weight",
+  "points": 3,
+  "instruction": "Read &lt;A&gt; and &lt;B&gt;. Based on &lt;A&gt;, find the THREE words in &lt;B&gt; whose primary stress is assigned by rule (1) and the THREE words whose primary stress is assigned by rule (2). Write their letters.",
+  "passage": [
+   { "type": "p", "html": "Some English suffixes are stress-shifting: when one of them is attached to a base, the primary stress moves away from where it falls in the base itself. With such suffixes, where the new primary stress lands depends on the internal structure of the syllables in the base, as stated below:" },
+   { "type": "data", "tag": "(1)", "rows": [ { "forms": "If the syllable immediately before the suffix is heavy, that syllable receives the primary stress (e.g., párent – paréntal)." } ] },
+   { "type": "data", "tag": "(2)", "rows": [ { "forms": "If the syllable immediately before the suffix is light, the primary stress falls instead on the syllable just before that light syllable (e.g., defíne – définite)." } ] },
+   { "type": "note", "html": "<b>Note:</b> A heavy syllable contains a tense vowel or a diphthong, or a lax vowel followed by at least one coda consonant. A light syllable is an open syllable with a lax vowel; it has no coda unless its vowel is /ə/." }
+  ],
+  "boxIntro": "The suffix in each derived word is given in parentheses.",
+  "box": [
+   { "label": "a", "form": "accident – accidental (-al)" },
+   { "label": "b", "form": "photograph – photography (-y)" },
+   { "label": "c", "form": "comedy – comedian (-ian)" },
+   { "label": "d", "form": "maintain – maintenance (-ance)" },
+   { "label": "e", "form": "fallacy – fallacious (-ious)" },
+   { "label": "f", "form": "relate – relative (-ive)" }
+  ],
+  "rowsHint": "Choose THREE letters for each rule.",
+  "rows": [
+   { "rule": "Rule (1)", "answers": ["a", "c", "e"],
+     "explanation": "The syllable right before the suffix is heavy, so it takes the stress: acciˈdental ([dɛn] is closed by the coda [n]), coˈmedian ([mi] has the tense vowel [i]), falˈlacious ([leɪ] has the diphthong [eɪ])." },
+   { "rule": "Rule (2)", "answers": ["b", "d", "f"],
+     "explanation": "The syllable right before the suffix is light, so the stress goes one syllable further left: phoˈtography ([grə] is light, so [tɑ] is stressed), ˈmaintenance ([tə] is light, so [meɪn] is stressed), ˈrelative ([lə] is light, so [rɛ] is stressed)." }
+  ]
+ },
+ {
+  "key": "09",
+  "label": "6",
+  "type": "fill",
+  "short": "Suffix types: stress-bearing, -shifting, -neutral",
+  "points": 2,
+  "numberBlanks": true,
+  "instruction": "Read the passage and fill in each blank with ONE word. Write your answers in the correct order.",
+  "passage": [
+   { "type": "p", "html": "According to their effect on stress when added to a root, English suffixes fall into three types: stress-bearing, stress-shifting, and stress-neutral. Stress-bearing suffixes take the primary stress themselves, as in (1a). Stress-shifting suffixes move the primary stress to a different syllable of the root, as in (1b). Stress-neutral suffixes leave the stress of the root where it was, as in (1c). Some suffixes, however, belong to more than one type. For example, the {1}-forming suffix <i>-al</i> in (2) is stress-neutral, while the {2}-forming suffix <i>-al</i> in (2) is stress-shifting." },
+   { "type": "data", "tag": "(1)",
+     "rows": [
+       { "sub": "a.", "forms": "employ – employee, mountain – mountaineer, Japan – Japanese" },
+       { "sub": "b.", "forms": "atom – atomic, electric – electricity, music – musician" },
+       { "sub": "c.", "forms": "happy – happiness, govern – government, beauty – beautiful" }
+     ] },
+   { "type": "data", "tag": "(2)",
+     "rows": [ { "forms": "arrive – arrival, origin – original, refuse – refusal, universe – universal, deny – denial, ancestor – ancestral, propose – proposal" } ] }
+  ],
+  "answers": { "1": ["noun"], "2": ["adjective"] },
+  "blankPoints": { "1": 1, "2": 1 },
+  "explanationList": [
+   "① noun. The noun-forming <i>-al</i> attaches to verbs and leaves their stress unchanged: arˈrive – arˈrival, reˈfuse – reˈfusal, deˈny – deˈnial, proˈpose – proˈposal.",
+   "② adjective. The adjective-forming <i>-al</i> attaches to nouns and moves the primary stress: ˈorigin – oˈriginal, ˈuniverse – uniˈversal, ˈancestor – anˈcestral.",
+   "The order matters: the first blank describes the stress-neutral <i>-al</i> and the second the stress-shifting <i>-al</i>."
+  ]
+ },
+ {
+  "key": "05",
+  "label": "7",
+  "type": "choose+reason",
+  "short": "Tag question intonation",
+  "points": 4,
+  "instruction": "Read the following and follow the directions.",
+  "passage": [
+   { "type": "p", "html": "A tag question shows how sure the speaker is about the proposition in the statement it is attached to, and much of this meaning is carried by the intonation of the tag. The same words can therefore serve quite different purposes. In (1)–(3), capital letters mark the stressed syllable that carries the main pitch movement, and the arrow before the tag shows the direction of its pitch." },
+   { "type": "p", "html": "With a rising tag, as shown in (1), the speaker is genuinely unsure whether the proposition is true and is asking for information, much like an ordinary yes/no question." },
+   { "type": "data", "tag": "(1)", "rows": [ { "forms": "Grandma played the piAno, ↗DIDn’t she?" } ] },
+   { "type": "p", "html": "With a falling tag, as shown in (2), the speaker already believes the proposition is true and expects the listener to agree. The tag asks for confirmation rather than for information (i.e., the speaker has good reason to expect a <i>yes</i> answer)." },
+   { "type": "data", "tag": "(2)", "rows": [ { "forms": "Grandma played the piAno, ↘DIDn’t she?" } ] },
+   { "type": "p", "html": "When the tag rises over a much wider pitch range than usual, starting low and ending very high (marked ⇗), as shown in (3), the speaker is reacting with surprise or disbelief to information just received." },
+   { "type": "data", "tag": "(3)", "rows": [ { "forms": "Grandma played the piAno, ⇗DIDn’t she?" } ] },
+   { "type": "p", "html": "For learners of English, it does not make sense to practice the three versions of <i>Grandma played the piano, didn’t she?</i> in (1)–(3) in isolation and out of context. Learners must understand early on that one version is appropriate in one context, whereas the others are appropriate in different contexts." },
+   { "type": "dialog",
+     "context": "(Derek, a close friend of Claire’s family, could not attend Grandpa’s birthday party.)",
+     "lines": [
+       { "who": "Claire:", "html": "You missed a great party for Grandpa. The whole family gathered in the living room and sang his favorite old songs all evening." },
+       { "who": "Derek:", "html": "( ① <span class=\"blank-line\"></span> )" },
+       { "who": "Claire:", "html": "Of course. She always insists on playing a few songs whenever the family gets together. We’d be surprised if she didn’t." }
+     ] }
+  ],
+  "directions": "Find the utterance that goes in blank ① of the dialog above from (1)–(3) in the passage, and write its number. Then, fill in blank ② with the ONE most appropriate word from the passage to complete the explanation below.",
+  "options": ["1", "2", "3"],
+  "answer": "2",
+  "numberPoints": 2,
+  "numberBlanks": true,
+  "frame": "Knowing Grandma’s habit, Derek infers from the family sing-along that she played the piano and already expects Claire to say yes. His tag therefore functions as a request for {2}.",
+  "answers": { "2": ["confirmation"] },
+  "blankPoints": 2,
+  "explanationList": [
+    "Claire never mentions the piano; she only says the family sang Grandpa’s favorite songs all evening. Derek, a close family friend who knows Grandma’s habit, infers that she accompanied them, so he already expects a <i>yes</i>. This calls for the falling tag in (2), not the rising tag in (1), which signals genuine uncertainty.",
+    "Claire’s reply (“Of course… We’d be surprised if she didn’t”) shows that Grandma’s playing is routine and expected. This rules out (3), whose wide-range rise signals surprise or disbelief.",
+    "Claire’s “Of course” is exactly the agreement a falling tag invites: Derek expected a yes, and he gets one."
+  ]
+ },
+ {
+  "key": "06",
+  "label": "8",
+  "type": "mc",
+  "short": "Pitch levels and meaning in dialogs",
+  "instruction": "Read the following and answer the question.",
+  "passage": [
+   { "type": "p", "html": "Intonational phrases in English can be described as sequences of relative pitch levels associated with their tonic syllable — the syllable carrying the phrase’s main stress. In the data below, each intonational phrase is followed by a parenthesized sequence of numbers representing its pitch pattern, where 1 is a low pitch, 2 is a normal pitch, and 3 is a high pitch. A 2-3-1 sequence (rising then falling) realizes falling intonation, and a 2-3 sequence (ending on a rise) realizes rising intonation. A 2-3-2 sequence, which rises but does not fall back to a low pitch, typically signals surprise or incredulity. The same string of words can therefore be understood differently depending on which pitch pattern accompanies it, as shown in the dialogs below:" },
+   { "type": "dlgset", "items": [
+     { "tag": "(a)", "lines": [
+       { "who": "A:", "html": "Can you drive?" },
+       { "who": "B:", "html": "Can I DRIVE? (2-3-2) I’ve had my license for ten years. (2-3-1)" } ] },
+     { "tag": "(b)", "lines": [
+       { "who": "A:", "html": "We don’t need to head to the airport now." },
+       { "who": "B:", "html": "The flight got deLAYED? (2-3)" } ] },
+     { "tag": "(c)", "lines": [
+       { "who": "A:", "html": "What should we get for dinner tonight?" },
+       { "who": "B:", "html": "What are you in the mood for? (2-3-1) Do you want PIZza, (2-3) or Chinese FOOD? (2-3)" } ] },
+     { "tag": "(d)", "lines": [
+       { "who": "A:", "html": "I think I left the stove on at home." },
+       { "who": "B:", "html": "Are you SErious? (2-3-2)" } ] },
+     { "tag": "(e)", "lines": [
+       { "who": "A:", "html": "Where did you put the keys?" },
+       { "who": "B:", "html": "Where did I put the KEYS? (2-3)" } ] }
+   ] },
+   { "type": "note", "html": "<i>(CAPITAL letters indicate tonic syllables. Intonation is marked only for B’s utterances.)</i>" }
+  ],
+  "prompt": "Given that each dialog is produced in a common and neutral context in North American English, which of the following is the most plausible?",
+  "options": [
+   { "k": "①", "html": "In dialog (a), B is asking A to repeat the question." },
+   { "k": "②", "html": "In dialog (b), B confidently confirms that the flight has been delayed." },
+   { "k": "③", "html": "In dialog (c), B wants A to choose only between pizza and Chinese food." },
+   { "k": "④", "html": "In dialog (d), B reacts with surprise to what A said." },
+   { "k": "⑤", "html": "In dialog (e), B is asking A where the keys are." }
+  ],
+  "answer": "④",
+  "explanationList": [
+   "① False. <i>Can I DRIVE?</i> (2-3-2) is an echo question conveying mild surprise or indignation (“of course I can drive”), not a real request for repetition. B immediately follows with a confident falling statement (2-3-1), showing that B understood A perfectly well.",
+   "② False. A declarative produced with a final rise (2-3), such as <i>The flight got deLAYED?</i>, conveys uncertainty or a request for confirmation, not a confident assertion.",
+   "③ False. A closed, either-or choice is signaled by a fall on the final alternative. Here both <i>PIZza</i> and <i>Chinese FOOD</i> rise, so the list is open: B is offering examples, not restricting A to these two options.",
+   "④ True. <i>Are you SErious?</i> (2-3-2) uses the contour the passage associates with surprise or incredulity, the same one B uses in <i>Can I DRIVE?</i> in (a). Here it signals B’s surprised, alarmed reaction to A’s news about the stove.",
+   "⑤ False. An echoed wh-question with a simple rise (2-3), as in <i>Where did I put the KEYS?</i>, is a repetition or clarification request about A’s question, not a new question from B about where the keys are."
+  ]
+ },
+ {
+  "key": "07",
+  "label": "9",
+  "type": "fill",
+  "short": "Nuclear pitch accent and focus (ToBI)",
+  "points": 4,
+  "numberBlanks": true,
+  "instruction": "Read the following and fill in the blanks with the ONE most appropriate word in each case.",
+  "passage": [
+   { "type": "p", "html": "English intonation can also be transcribed within the autosegmental-metrical framework associated with Pierrehumbert’s ToBI (Tones and Break Indices) system. In this system, a pitch accent is a tone that associates with a single prominent syllable within an intonational phrase: H* marks a pitch accent realized with a high pitch target on that syllable, while L* marks a pitch accent realized with a low pitch target. Every intonational phrase has exactly one pitch accent that stands out as the most prominent in the phrase; the syllable bearing this single most prominent pitch accent is traditionally called the {1} syllable." },
+   { "type": "p", "html": "Where this pitch accent falls within a sentence is not fixed: it depends on which constituent represents new or focused information in the given discourse context, as illustrated in (i)–(iii). (CAPITAL letters mark the syllable bearing the nuclear pitch accent; the accent type is given in parentheses.)" },
+   { "type": "dlgset", "items": [
+     { "tag": "(i)", "lines": [
+       { "who": "Q:", "html": "Who lent his bike to Susan?" },
+       { "who": "A:", "html": "MARK lent his bike to Susan. (H*)" } ] },
+     { "tag": "(ii)", "lines": [
+       { "who": "Q:", "html": "What did Mark lend to Susan?" },
+       { "who": "A:", "html": "Mark lent his BIKE to Susan. (H*)" } ] },
+     { "tag": "(iii)", "lines": [
+       { "who": "Q:", "html": "Who did Mark lend his bike to?" },
+       { "who": "A:", "html": "Mark lent his bike to SUsan. (H*)" } ] }
+   ] },
+   { "type": "p", "html": "Pitch accents are not always realized as a simple H*. In corrective or contrastive contexts, for example, the nuclear pitch accent is often realized as L+H*, a rising accent in which the pitch starts low and rises steeply to a high target on the accented syllable, as shown in (iv)." },
+   { "type": "dlgset", "items": [
+     { "tag": "(iv)", "lines": [
+       { "who": "Q:", "html": "I heard Mark lent his skateboard to Susan." },
+       { "who": "A:", "html": "No, Mark lent his BIKE to Susan. (L+H*)" } ] }
+   ] }
+  ],
+  "taskBox": [
+   { "type": "p", "html": "In the context below, A’s answer has not yet been marked for intonation." },
+   { "type": "dlgset", "items": [
+     { "tag": "", "lines": [
+       { "who": "Q:", "html": "What did Emma borrow from Jake yesterday?" },
+       { "who": "A:", "html": "Emma borrowed Jake’s umbrella yesterday." } ] }
+   ] },
+   { "type": "p", "html": "In A’s answer above, the single word that would bear the nuclear pitch accent is {2}." }
+  ],
+  "answers": { "1": ["tonic", "nuclear"], "2": ["umbrella"] },
+  "blankPoints": { "1": 2, "2": 2 },
+  "explanationList": [
+   "① tonic (also accepted: nuclear). The syllable bearing an intonational phrase’s single most prominent pitch accent is called the tonic (or nuclear) syllable.",
+   "② umbrella. The question <i>What did Emma borrow from Jake yesterday?</i> narrowly focuses the direct object. <i>Emma</i>, <i>Jake’s</i>, and <i>yesterday</i> are already given in the question, so only <i>umbrella</i> supplies new, focused information and bears the nuclear pitch accent, parallel to <i>BIKE</i> in (ii)."
+  ]
+ }
+
+];
+
+const CIRC = { "1": "①", "2": "②", "3": "③", "4": "④" };
+const state = {};
+
+function getState(key) {
+  if (!state[key]) state[key] = { blanks: {}, choice: [], rows: {}, pick: null, reason: "", self: {}, feedback: false };
+  return state[key];
+}
+
+function escAttr(s) { return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
+function escText(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+function norm(s) { return String(s || "").toLowerCase().replace(/[\s.,;:!?'"()]+/g, " ").trim(); }
+function wordCount(s) { return String(s || "").trim().split(/\s+/).filter(Boolean).length; }
+function fmt(n) { return Number.isInteger(n) ? String(n) : n.toFixed(1); }
+
+function blankInput(id, n, item, st) {
+  const num = item.numberBlanks ? `<span class="num">${CIRC[n]}</span>` : "";
+  return `${num}<input type="text" class="blank-in" data-blank="${id}" aria-label="Blank ${CIRC[n]}" autocomplete="off" autocapitalize="off" spellcheck="false" value="${escAttr(st.blanks[id] || "")}">`;
+}
+function fillBlanks(html, prefix, item, st) {
+  return html.replace(/\{(\d)\}/g, (_, n) => blankInput(prefix + n, n, item, st));
+}
+
+function dataBlock(b) {
+  let h = "";
+  if (!b.title && b.rows.length === 1 && !b.rows[0].sub) {
+    return `<p class="data"><span class="tag">${b.tag}</span>${b.rows[0].forms}</p>`;
+  }
+  h += `<p class="data"><span class="tag">${b.tag}</span>${b.title || ""}</p>`;
+  b.rows.forEach(r => {
+    if (r.sub) h += `<p class="data-sub hang"><span class="sl">${r.sub}</span>${r.forms}</p>`;
+    else h += `<p class="data-sub">${r.forms}</p>`;
+  });
+  return h;
+}
+
+function passageHTML(item, st) { return blocksHTML(item.passage, item, st); }
+
+function blocksHTML(blocks, item, st) {
+  let h = "";
+  blocks.forEach(b => {
+    if (b.type === "p") h += `<p class="indent">${fillBlanks(b.html, "", item, st)}</p>`;
+    else if (b.type === "note") h += `<p class="note">${b.html}</p>`;
+    else if (b.type === "data") h += dataBlock(b);
+    else if (b.type === "dialog") {
+      h += `<div class="dialog"><p class="dlg-context">${b.context}</p>`;
+      b.lines.forEach(l => { h += `<p class="dlg-row"><span class="who">${l.who}</span><span>${l.html}</span></p>`; });
+      h += `</div>`;
+    }
+    else if (b.type === "dlgset") {
+      h += `<div class="dset">`;
+      b.items.forEach(it => {
+        h += `<div class="dset-item"><span class="dset-tag">${it.tag || ""}</span><div>`;
+        it.lines.forEach(l => { h += `<p class="dset-line"><span class="who">${l.who}</span><span>${fillBlanks(l.html, "", item, st)}</span></p>`; });
+        h += `</div></div>`;
+      });
+      h += `</div>`;
+    }
+    else if (b.type === "pairs") {
+      h += `<div class="pairs">`;
+      b.rows.forEach(([x, y]) => { h += `<span>${x}</span><span>—</span><span>${y}</span>`; });
+      h += `</div>`;
+    }
+  });
+  return h;
+}
+
+function boxB(item) {
+  let h = `<section class="box" aria-label="Box B"><span class="box-label">&lt;B&gt;</span>${item.boxIntro ? `<p class="indent">${item.boxIntro}</p>` : ""}<div class="options">`;
+  item.box.forEach(o => { h += `<div>(${o.label}) ${o.form}</div>`; });
+  return h + `</div></section>`;
+}
+
+function render() {
+  const idx = Number(document.getElementById("qselect").value);
+  const item = ITEMS[idx];
+  const st = getState(item.key);
+  const paper = document.getElementById("paper");
+
+  let h = `<div class="qhead"><span class="q"><span class="qnum">${item.label}.</span>${item.instruction}</span>${item.points ? `<span class="pts">[${item.points} points]</span>` : ""}</div>`;
+  h += `<section class="box" aria-label="Passage A"><span class="box-label">&lt;A&gt;</span>${passageHTML(item, st)}</section>`;
+  if (item.taskBox) h += `<section class="box task" aria-label="Task">${blocksHTML(item.taskBox, item, st)}</section>`;
+
+  h += `<div class="directions">`;
+  if (item.type === "cases") {
+    item.cases.forEach((c, i) => {
+      h += `<div class="case"><p class="step-title">${c.label}</p><p>${c.directions}</p>`;
+      h += `<div class="frame">${fillBlanks(c.frame, "c" + i + "-", item, st)}</div>`;
+      h += `<div class="case-data"><p class="data"><span class="tag">${c.data.tag}</span>${c.data.title}</p>`;
+      c.data.forms.forEach(f => { h += `<p class="data-sub">${f}</p>`; });
+      h += `</div></div>`;
+    });
+  } else if (item.type === "classify") {
+    h += boxB(item);
+    h += `<div class="answer-table" role="group" aria-label="Answer table"><div class="at-head">${item.rowsHint || "Choose TWO letters for each rule."}</div>`;
+    item.rows.forEach((r, i) => {
+      const picked = st.rows[i] || [];
+      h += `<div class="at-row"><span class="at-rule">${r.rule}</span><span class="at-chips">`;
+      item.box.forEach(o => {
+        h += `<button type="button" class="chip sm" data-row="${i}" data-letter="${o.label}" aria-pressed="${picked.includes(o.label)}" aria-label="${r.rule}: ${o.label}">${o.label}</button>`;
+      });
+      h += `</span></div>`;
+    });
+    h += `</div>`;
+  } else if (item.type === "fill+box") {
+    h += boxB(item);
+    h += `<div class="case"><p class="step-title">Blank ①</p><p>${item.blankDirections}</p></div>`;
+    h += `<div class="case"><p class="step-title">&lt;B&gt;</p><p>${item.boxDirections}</p>`;
+    h += `<div class="choice-row" role="group" aria-label="Choose two words in B"><span>Your choice:</span>`;
+    item.box.forEach(o => {
+      h += `<button type="button" class="chip" data-choice="${o.label}" aria-pressed="${st.choice.includes(o.label)}">${o.label}</button>`;
+    });
+    h += `</div></div>`;
+  } else if (item.type === "mc") {
+    h += `<div class="case"><p>${item.prompt}</p><div class="mc-list" role="group" aria-label="Choices">`;
+    item.options.forEach(o => {
+      h += `<button type="button" class="mc-opt" data-mc="${o.k}" aria-pressed="${st.pick === o.k}"><span class="mk">${o.k}</span><span>${o.html}</span></button>`;
+    });
+    h += `</div></div>`;
+  } else if (item.type === "choose+reason") {
+    h += `<div class="case"><p class="step-title">Directions</p><p>${item.directions}</p>`;
+    h += `<div class="choice-row" role="group" aria-label="Choose the number"><span>Number:</span>`;
+    item.options.forEach(o => {
+      h += `<button type="button" class="chip" data-pick="${o}" aria-pressed="${st.pick === o}">(${o})</button>`;
+    });
+    h += `</div>`;
+    if (item.frame) {
+      h += `<div class="frame">${fillBlanks(item.frame, "", item, st)}</div></div>`;
+    } else {
+      h += `<label class="field-label" for="reason">Reason (about ${item.reasonWords[0]}–${item.reasonWords[1]} words)</label>`;
+      h += `<textarea id="reason" placeholder="Explain based on the dialog...">${escText(st.reason)}</textarea>`;
+      h += `<div class="wc" id="wc">${wordCount(st.reason)} words</div></div>`;
+    }
+  }
+  h += `</div>`;
+
+  h += `<div class="feedback-bar"><button type="button" class="btn primary" id="check">Check my answers</button>`;
+  h += `<button type="button" class="btn" id="reset">Reset this question</button></div>`;
+  h += `<div class="feedback" id="feedback" hidden></div>`;
+
+  paper.innerHTML = h;
+  bind(item, st);
+  if (st.feedback) showFeedback(item, st);
+  updateNav(idx);
+}
+
+function toggle(list, v, max) {
+  if (list.includes(v)) return list.filter(x => x !== v);
+  const out = list.slice();
+  if (out.length >= max) out.shift();
+  out.push(v);
+  return out;
+}
+
+function bind(item, st) {
+  const paper = document.getElementById("paper");
+  paper.querySelectorAll("input[data-blank]").forEach(inp => {
+    inp.addEventListener("input", () => { st.blanks[inp.dataset.blank] = inp.value; });
+  });
+  paper.querySelectorAll("[data-choice]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      st.choice = toggle(st.choice, btn.dataset.choice, item.boxAnswer.length);
+      paper.querySelectorAll("[data-choice]").forEach(b => b.setAttribute("aria-pressed", st.choice.includes(b.dataset.choice)));
+    });
+  });
+  paper.querySelectorAll("[data-row]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const i = btn.dataset.row;
+      st.rows[i] = toggle(st.rows[i] || [], btn.dataset.letter, item.rows[i].answers.length);
+      paper.querySelectorAll(`[data-row="${i}"]`).forEach(b => b.setAttribute("aria-pressed", st.rows[i].includes(b.dataset.letter)));
+    });
+  });
+  paper.querySelectorAll("[data-mc]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      st.pick = st.pick === btn.dataset.mc ? null : btn.dataset.mc;
+      paper.querySelectorAll("[data-mc]").forEach(b => b.setAttribute("aria-pressed", st.pick === b.dataset.mc));
+    });
+  });
+  paper.querySelectorAll("[data-pick]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      st.pick = st.pick === btn.dataset.pick ? null : btn.dataset.pick;
+      paper.querySelectorAll("[data-pick]").forEach(b => b.setAttribute("aria-pressed", st.pick === b.dataset.pick));
+    });
+  });
+  const reason = document.getElementById("reason");
+  if (reason) reason.addEventListener("input", () => {
+    st.reason = reason.value;
+    document.getElementById("wc").textContent = `${wordCount(st.reason)} words`;
+  });
+  document.getElementById("check").addEventListener("click", () => {
+    st.feedback = true;
+    showFeedback(item, st);
+    document.getElementById("feedback").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  document.getElementById("reset").addEventListener("click", () => {
+    delete state[item.key];
+    render();
+  });
+}
+
+function blankOK(given, accepted) {
+  const g = norm(given);
+  return g !== "" && accepted.map(norm).includes(g);
+}
+
+function blankRow(label, given, accepted) {
+  const ok = blankOK(given, accepted);
+  const g = String(given || "").trim();
+  let h = `<div class="fb-row ${ok ? "ok" : "bad"}"><span class="verdict">${label} ${ok ? "Correct" : (g ? "Incorrect" : "Not answered")}</span>`;
+  h += `<span>Your answer: ${g ? escText(g) : "—"}</span>`;
+  if (!ok) h += `<span class="muted">Answer: ${accepted.join(" or ")}</span>`;
+  return { ok, html: h + `</div>` };
+}
+
+function letterRow(label, picked, answer, perLetter) {
+  const hits = picked.filter(x => answer.includes(x)).length;
+  const full = hits === answer.length;
+  const cls = full ? "ok" : (hits > 0 ? "partial" : "bad");
+  const verdict = full ? "Correct" : (picked.length === 0 ? "Not answered" : (hits > 0 ? "Partly correct" : "Incorrect"));
+  const got = [...picked].sort().join(", ");
+  let h = `<div class="fb-row ${cls}"><span class="verdict">${label} ${verdict}</span>`;
+  h += `<span>Your choice: ${got || "—"}</span>`;
+  if (!full) h += `<span class="muted">Answer: ${[...answer].sort().join(", ")}</span>`;
+  h += `<span class="muted">(${fmt(hits * perLetter)} pt)</span>`;
+  return { full, score: hits * perLetter, html: h + `</div>` };
+}
+
+function explSection(item) {
+  if (item.explanationList) {
+    let h = `<div class="fb-section"><h3>Explanation</h3><div class="expl-text"><ul class="expl-list">`;
+    item.explanationList.forEach(e => { h += `<li>${e}</li>`; });
+    return h + `</ul></div></div>`;
+  }
+  return `<div class="fb-section"><h3>Explanation</h3><div class="expl-text">${item.explanation}</div></div>`;
+}
+
+function expl(text, open) {
+  return `<details class="expl"${open ? " open" : ""}><summary>Explanation</summary><div class="expl-body">${text}</div></details>`;
+}
+
+function showFeedback(item, st) {
+  const fb = document.getElementById("feedback");
+  let score = 0;
+  let body = "";
+
+  if (item.type === "cases") {
+    const per = item.points / item.cases.length;
+    body += `<div class="fb-section"><h3>Answers</h3>`;
+    item.cases.forEach((c, i) => {
+      Object.keys(c.answers).forEach(n => {
+        const r = blankRow(c.label, st.blanks["c" + i + "-" + n], c.answers[n]);
+        if (r.ok) score += per;
+        body += r.html + expl(c.explanation, !r.ok);
+      });
+    });
+    body += `</div>`;
+  } else if (item.type === "classify") {
+    body += `<div class="fb-section"><h3>Answer table</h3>`;
+    item.rows.forEach((r, i) => {
+      const per = item.points / item.rows.length / r.answers.length;
+      const res = letterRow(r.rule, st.rows[i] || [], r.answers, per);
+      score += res.score;
+      body += res.html + expl(r.explanation, !res.full);
+    });
+    body += `</div>`;
+  } else if (item.type === "fill") {
+    const keys = Object.keys(item.answers);
+    body += `<div class="fb-section"><h3>${keys.length > 1 ? "Blanks" : "Blank"}</h3>`;
+    keys.forEach(n => {
+      const r = blankRow(item.numberBlanks ? CIRC[n] : "", st.blanks[n], item.answers[n]);
+      if (r.ok) score += item.blankPoints ? item.blankPoints[n] : item.points / keys.length;
+      body += r.html;
+    });
+    body += `</div>`;
+    body += explSection(item);
+  } else if (item.type === "mc") {
+    const ok = st.pick === item.answer;
+    body += `<div class="fb-section"><h3>Answer</h3>`;
+    body += `<div class="fb-row ${ok ? "ok" : "bad"}"><span class="verdict">${ok ? "Correct" : (st.pick ? "Incorrect" : "Not answered")}</span>`;
+    body += `<span>Your answer: ${st.pick || "—"}</span>`;
+    if (!ok) body += `<span class="muted">Answer: ${item.answer}</span>`;
+    body += `</div></div>`;
+    body += explSection(item);
+  } else if (item.type === "fill+box") {
+    body += `<div class="fb-section"><h3>Blank</h3>`;
+    const r = blankRow("①", st.blanks["1"], item.answers["1"]);
+    if (r.ok) score += item.blankPoints;
+    body += r.html + `</div>`;
+    body += `<div class="fb-section"><h3>&lt;B&gt;</h3>`;
+    const res = letterRow("", st.choice, item.boxAnswer, item.boxPoints / item.boxAnswer.length);
+    score += res.score;
+    body += res.html + `</div>`;
+    body += `<div class="fb-section"><h3>Explanation</h3><div class="expl-text">${item.explanation}</div></div>`;
+  } else if (item.type === "choose+reason") {
+    const ok = st.pick === item.answer;
+    if (ok) score += item.numberPoints;
+    body += `<div class="fb-section"><h3>Number</h3>`;
+    body += `<div class="fb-row ${ok ? "ok" : "bad"}"><span class="verdict">${ok ? "Correct" : (st.pick ? "Incorrect" : "Not answered")}</span>`;
+    body += `<span>Your answer: ${st.pick ? "(" + st.pick + ")" : "—"}</span>`;
+    if (!ok) body += `<span class="muted">Answer: (${item.answer})</span>`;
+    body += `<span class="muted">(${fmt(ok ? item.numberPoints : 0)} pt)</span></div></div>`;
+
+    if (item.frame) {
+      body += `<div class="fb-section"><h3>Blank</h3>`;
+      Object.keys(item.answers).forEach(n => {
+        const r = blankRow(CIRC[n], st.blanks[n], item.answers[n]);
+        if (r.ok) score += item.blankPoints;
+        body += r.html;
+      });
+      body += `</div>`;
+    } else {
+    const text = st.reason.trim();
+    const wc = wordCount(text);
+    const per = item.reasonPoints / item.criteria.length;
+    body += `<div class="fb-section"><h3>Reason (self-check)</h3>`;
+    if (text) {
+      const [lo, hi] = item.reasonWords;
+      const note = wc < lo ? " — a little short" : (wc > hi ? " — a little long" : "");
+      body += `<div class="mine">${escText(text)}</div><p class="muted">${wc} words${note}. Tick each point your reason covers (${fmt(per)} pt each).</p>`;
+      body += `<div class="checklist">`;
+      item.criteria.forEach((c, i) => {
+        if (st.self[i]) score += per;
+        body += `<label><input type="checkbox" data-crit="${i}"${st.self[i] ? " checked" : ""}><span>${c}</span></label>`;
+      });
+      body += `</div>`;
+    } else {
+      body += `<div class="fb-row bad"><span class="verdict">Not answered</span><span class="muted">(0 pt)</span></div>`;
+    }
+    body += `</div>`;
+    body += `<div class="fb-section"><h3>Sample reason</h3><div class="expl-text">${item.sampleReason}</div></div>`;
+    }
+    body += `<div class="fb-section"><h3>Explanation</h3><div class="expl-text"><ul class="expl-list">`;
+    item.explanationList.forEach(e => { body += `<li>${e}</li>`; });
+    body += `</ul></div></div>`;
+  }
+
+  fb.innerHTML = (item.points ? `<div class="score">Score: ${fmt(score)} / ${item.points} points</div>` : "") + body;
+  fb.hidden = false;
+  fb.querySelectorAll("[data-crit]").forEach(cb => {
+    cb.addEventListener("change", () => { st.self[cb.dataset.crit] = cb.checked; showFeedback(item, st); });
+  });
+}
+
+function updateNav(idx) {
+  document.getElementById("prev").disabled = idx === 0;
+  document.getElementById("next").disabled = idx === ITEMS.length - 1;
+}
+
+(function init() {
+  const sel = document.getElementById("qselect");
+  ITEMS.forEach((it, i) => {
+    const o = document.createElement("option");
+    o.value = i;
+    o.textContent = `Question ${it.label} — ${it.short}`;
+    sel.appendChild(o);
+  });
+  sel.addEventListener("change", () => { render(); window.scrollTo({ top: 0 }); });
+  document.getElementById("prev").addEventListener("click", () => { sel.value = Math.max(0, Number(sel.value) - 1); render(); window.scrollTo({ top: 0 }); });
+  document.getElementById("next").addEventListener("click", () => { sel.value = Math.min(ITEMS.length - 1, Number(sel.value) + 1); render(); window.scrollTo({ top: 0 }); });
+  render();
+})();
+</script>
+</body>
+</html>
