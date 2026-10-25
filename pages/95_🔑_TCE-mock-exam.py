@@ -18,7 +18,7 @@ def load_html(path: str) -> str:
 
 st.title("TCE mock exam")
 
-tab1, tab2, tab3 = st.tabs(["phonotactics", "Stress", "Intonation"])
+tab1, tab2, tab3 = st.tabs(["phonotactics", "Stress & intonation", "TBA"])
 
 with tab1:
     # 피드백을 열면 내용이 길어지므로 높이를 넉넉히 주고 내부 스크롤을 켭니다.
