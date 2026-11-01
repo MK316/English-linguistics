@@ -11,6 +11,7 @@ st.set_page_config(page_title="TCE mock exam", page_icon="📝", layout="wide")
 ASSETS_DIR = Path(__file__).resolve().parent.parent / "assets"
 PHONOTACTICS_HTML = ASSETS_DIR / "tce_phonotactics.html"
 STRESS_INTONATION_HTML = ASSETS_DIR / "tce-stress-mock-exam.html"
+MORPHOLOGY_HTML = ASSETS_DIR / "tce-morphology-mock-exam.html"
 
 
 @st.cache_data
@@ -28,7 +29,7 @@ def show_exam(path: Path) -> None:
 
 st.title("TCE mock exam")
 
-tab1, tab2, tab3 = st.tabs(["phonotactics", "Stress & intonation", "TBA"])
+tab1, tab2, tab3 = st.tabs(["phonotactics", "Stress & intonation", "Morphology and more"])
 
 with tab1:
     show_exam(PHONOTACTICS_HTML)
@@ -37,4 +38,5 @@ with tab2:
     show_exam(STRESS_INTONATION_HTML)
 
 with tab3:
-    st.info("Coming soon.")
+    # 문항 선택 드롭다운은 HTML 안에 들어 있습니다 (한 번에 한 문항씩 표시).
+    show_exam(MORPHOLOGY_HTML)
