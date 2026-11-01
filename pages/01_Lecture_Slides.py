@@ -11,10 +11,9 @@ import base64
 st.set_page_config(page_title="Lecture Slide Player", layout="wide")
 
 # ----------------- Tabs -----------------------
-tab1, tab_more, tab2, tab3 = st.tabs(
-    ["🌀 Lecture Slides", "🌀 More Slides", "🌀 References", "🌀 More Reading"]
+tab1, tab_more, tab3, tab_reading, tab2 = st.tabs(
+    ["🌀 Lecture Slides", "🌀 Morphology", "🌀 OT", "🌀 Readings", "🌀 References"]
 )
-
 
 
 
@@ -39,6 +38,20 @@ REMOTE_URL_TEMPLATE = (
 )
 # ---------------------------------------------------
 
+# --------- REMOTE SLIDES (Tab "OT Slides") ----------
+# Files are named like OT.001.png, OT.002.png, ... on GitHub.
+OT_OWNER = "MK316"
+OT_REPO = "English-linguistics"
+OT_BRANCH = "main"
+OT_FOLDER = "pages/Slides/OT"
+OT_BASENAME = "OT"
+OT_EXT = "png"
+OT_URL_TEMPLATE = (
+    f"https://raw.githubusercontent.com/{OT_OWNER}/{OT_REPO}/{OT_BRANCH}/"
+    f"{OT_FOLDER}/{OT_BASENAME}.{{i:03d}}.{OT_EXT}"
+)
+# ---------------------------------------------------
+
 # ---- Session state init (Tab 1) ----
 if "slide_index" not in st.session_state:
     st.session_state.slide_index = 0  # Start with the first slide
@@ -60,6 +73,18 @@ if "display_width_px2" not in st.session_state:
     st.session_state.display_width_px2 = 1200
 if "thumb_page2" not in st.session_state:
     st.session_state.thumb_page2 = 0
+
+# ---- Session state init (Tab "OT Slides") ----
+if "slide_index3" not in st.session_state:
+    st.session_state.slide_index3 = 0
+if "fit_to_height3" not in st.session_state:
+    st.session_state.fit_to_height3 = True
+if "vh_percent3" not in st.session_state:
+    st.session_state.vh_percent3 = 88
+if "display_width_px3" not in st.session_state:
+    st.session_state.display_width_px3 = 1200
+if "thumb_page3" not in st.session_state:
+    st.session_state.thumb_page3 = 0
 
 # Full-width option that works on both older and newer Streamlit versions
 _ver = tuple(int(x) for x in st.__version__.split(".")[:2])
@@ -160,7 +185,7 @@ def go_to_slide(i: int):
 def change_thumb_page(step: int):
     st.session_state.thumb_page = min(max(st.session_state.thumb_page + step, 0), num_thumb_pages() - 1)
 
-# ---- Helpers (Tab "More Slides": remote GitHub images) ----
+# ---- Helpers (remote GitHub slides, shared by "More Slides" and "OT Slides") ----
 @st.cache_data(show_spinner=False, ttl=3600)
 def list_remote_slides(url_template: str, max_slides: int = 300) -> list:
     """Probe sequentially numbered files (Name.001.png, Name.002.png, ...) and
@@ -254,9 +279,10 @@ def make_thumbnail_from_url(url: str, width_px: int = 240) -> bytes:
     im.save(buf, format="JPEG", quality=80, optimize=True)
     return buf.getvalue()
 
-def num_thumb_pages2(total: int) -> int:
+def num_thumb_pages_remote(total: int) -> int:
     return (total + THUMBS_PER_PAGE - 1) // THUMBS_PER_PAGE
 
+# ---- Helpers (Tab "More Slides": session-state wiring) ----
 def follow_current_slide2():
     st.session_state.thumb_page2 = st.session_state.slide_index2 // THUMBS_PER_PAGE
 
@@ -264,7 +290,17 @@ def go_to_slide2(i: int):
     st.session_state.slide_index2 = i
 
 def change_thumb_page2(step: int, total: int):
-    st.session_state.thumb_page2 = min(max(st.session_state.thumb_page2 + step, 0), num_thumb_pages2(total) - 1)
+    st.session_state.thumb_page2 = min(max(st.session_state.thumb_page2 + step, 0), num_thumb_pages_remote(total) - 1)
+
+# ---- Helpers (Tab "OT Slides": session-state wiring) ----
+def follow_current_slide3():
+    st.session_state.thumb_page3 = st.session_state.slide_index3 // THUMBS_PER_PAGE
+
+def go_to_slide3(i: int):
+    st.session_state.slide_index3 = i
+
+def change_thumb_page3(step: int, total: int):
+    st.session_state.thumb_page3 = min(max(st.session_state.thumb_page3 + step, 0), num_thumb_pages_remote(total) - 1)
 
 # -------- Tabs --------
 
@@ -413,20 +449,20 @@ with tab_more:
                 follow_current_slide2()
 
         # Main display (fit to height or fixed width)
-        current_url = slide_urls[st.session_state.slide_index2]
+        current_url2 = slide_urls[st.session_state.slide_index2]
         if st.session_state.fit_to_height2:
-            display_remote_image_fit_height(current_url, st.session_state.vh_percent2)
+            display_remote_image_fit_height(current_url2, st.session_state.vh_percent2)
             st.caption(f"Slide {st.session_state.slide_index2 + 1} of {num_slides2}")
         else:
             display_remote_image_fixed_width(
-                current_url, st.session_state.display_width_px2,
+                current_url2, st.session_state.display_width_px2,
                 st.session_state.slide_index2, num_slides2,
             )
 
         st.markdown("---")
 
         # ---- Slide previews (25 at a time); click a number to open that slide ----
-        pages2 = num_thumb_pages2(num_slides2)
+        pages2 = num_thumb_pages_remote(num_slides2)
         page2 = min(st.session_state.thumb_page2, pages2 - 1)
         first2 = page2 * THUMBS_PER_PAGE
         last2 = min(first2 + THUMBS_PER_PAGE, num_slides2)
@@ -458,6 +494,122 @@ with tab_more:
                         type="primary" if is_current2 else "secondary",
                         **WIDE,
                     )
+
+
+# ------------ Tab "OT Slides" (same behavior as "More Slides", OT image source) ------------
+
+with tab3:
+    slide_urls3 = list_remote_slides(OT_URL_TEMPLATE)
+    num_slides3 = len(slide_urls3)
+
+    if num_slides3 == 0:
+        st.error("No slides found at the remote source.")
+    else:
+        # Keep index in range if the slide count changed
+        if st.session_state.slide_index3 >= num_slides3:
+            st.session_state.slide_index3 = 0
+
+        # View controls
+        colA, colB = st.columns([2, 3])
+        with colA:
+            st.toggle("Fit main slide to screen height", key="fit_to_height3")
+        with colB:
+            if st.session_state.fit_to_height3:
+                st.slider("Height % of screen", 60, 95, key="vh_percent3")
+            else:
+                st.slider("Slide width (px)", 700, 1600, key="display_width_px3")
+
+        # Nav row
+        col1, col2, col3, col4 = st.columns([1, 1, 1, 5])
+        with col1:
+            if st.button("⛳", key="start3", help="Reset to the first slide"):
+                st.session_state.slide_index3 = 0
+                follow_current_slide3()
+        with col2:
+            if st.button("◀️", key="previous3", help="Go back to the previous slide"):
+                if st.session_state.slide_index3 > 0:
+                    st.session_state.slide_index3 -= 1
+                    follow_current_slide3()
+                else:
+                    st.warning("This is the first slide.")
+        with col3:
+            if st.button("▶️", key="next3", help="Go to the next slide"):
+                if st.session_state.slide_index3 < num_slides3 - 1:
+                    st.session_state.slide_index3 += 1
+                    follow_current_slide3()
+                else:
+                    st.warning("Final slide")
+        with col4:
+            selected_slide3 = st.selectbox(
+                "Go to slide",
+                options=[f"Slide {i + 1}" for i in range(num_slides3)],
+                index=st.session_state.slide_index3,
+                label_visibility="collapsed",
+                key="jump_select3",
+            )
+            selected_idx3 = int(selected_slide3.split()[-1]) - 1
+            if selected_idx3 != st.session_state.slide_index3:
+                st.session_state.slide_index3 = selected_idx3
+                follow_current_slide3()
+
+        # Main display (fit to height or fixed width)
+        current_url3 = slide_urls3[st.session_state.slide_index3]
+        if st.session_state.fit_to_height3:
+            display_remote_image_fit_height(current_url3, st.session_state.vh_percent3)
+            st.caption(f"Slide {st.session_state.slide_index3 + 1} of {num_slides3}")
+        else:
+            display_remote_image_fixed_width(
+                current_url3, st.session_state.display_width_px3,
+                st.session_state.slide_index3, num_slides3,
+            )
+
+        st.markdown("---")
+
+        # ---- Slide previews (25 at a time); click a number to open that slide ----
+        pages3 = num_thumb_pages_remote(num_slides3)
+        page3 = min(st.session_state.thumb_page3, pages3 - 1)
+        first3 = page3 * THUMBS_PER_PAGE
+        last3 = min(first3 + THUMBS_PER_PAGE, num_slides3)
+
+        p1, p2, p3 = st.columns([1, 2, 1])
+        with p1:
+            st.button("◀ Previous 25", key="thumb_prev3", on_click=change_thumb_page3,
+                      args=(-1, num_slides3), disabled=page3 == 0, **WIDE)
+        with p2:
+            st.markdown(
+                f"<div style='text-align:center;padding-top:6px;'>Slide previews {first3 + 1}–{last3} of {num_slides3}</div>",
+                unsafe_allow_html=True,
+            )
+        with p3:
+            st.button("Next 25 ▶", key="thumb_next3", on_click=change_thumb_page3,
+                      args=(1, num_slides3), disabled=page3 >= pages3 - 1, **WIDE)
+
+        for row_start in range(first3, last3, THUMB_COLS):
+            cols = st.columns(THUMB_COLS)
+            for j, i in enumerate(range(row_start, min(row_start + THUMB_COLS, last3))):
+                with cols[j]:
+                    url3 = slide_urls3[i]
+                    st.image(make_thumbnail_from_url(url3), **WIDE)
+                    is_current3 = i == st.session_state.slide_index3
+                    st.button(
+                        f"▶ Slide {i + 1}" if is_current3 else f"Slide {i + 1}",
+                        key=f"thumb3_{i}",
+                        on_click=go_to_slide3, args=(i,),
+                        type="primary" if is_current3 else "secondary",
+                        **WIDE,
+                    )
+
+
+# ------------ Tab "Readings" (reading list) ------------
+
+with tab_reading:
+    st.markdown("#### 📚 More reading (Phonetics & Phonology)")
+    st.caption("The following list recommends readings from other textbooks to supplement areas that are not covered or are insufficiently treated in our textbook.")
+    st.divider()
+    st.markdown("+ [Reading 1](https://drive.google.com/file/d/1m811NW_A-JP6byFHA5bRK-6SmGynGROn/view?usp=sharing): Stress")
+    st.markdown("+ [Reading 2](https://drive.google.com/file/d/1YJ4NQ8TXmzBkvmbvQ7iRbNiDHzbZFvkf/view?usp=drive_link): Rhythm")
+    st.markdown("+ [Reading 3](https://drive.google.com/file/d/1esJjtujLGfVE0LMlERg-sX52uCm8HJ8G/view?usp=sharing): Intonation")
+    st.markdown("+ [Reading 4](https://drive.google.com/file/d/1esJjtujLGfVE0LMlERg-sX52uCm8HJ8G/view?usp=sharing): Distinctive features")
 
 
 # # ------------ Tab2 (References)
@@ -502,12 +654,3 @@ with tab2:
             st.caption(book["intro"])
             st.markdown(f"[🔗 View Online]({book['link']})")
             st.markdown("---")
-
-with tab3:
-    st.markdown("#### 📚 More reading (Phonetics & Phonology)")
-    st.caption("The following list recommends readings from other textbooks to supplement areas that are not covered or are insufficiently treated in our textbook.")
-    st.divider()
-    st.markdown("+ [Reading 1](https://drive.google.com/file/d/1m811NW_A-JP6byFHA5bRK-6SmGynGROn/view?usp=sharing): Stress")
-    st.markdown("+ [Reading 2](https://drive.google.com/file/d/1YJ4NQ8TXmzBkvmbvQ7iRbNiDHzbZFvkf/view?usp=drive_link): Rhythm")
-    st.markdown("+ [Reading 3](https://drive.google.com/file/d/1esJjtujLGfVE0LMlERg-sX52uCm8HJ8G/view?usp=sharing): Intonation")
-    st.markdown("+ [Reading 4](https://drive.google.com/file/d/1esJjtujLGfVE0LMlERg-sX52uCm8HJ8G/view?usp=sharing): Distinctive features")
