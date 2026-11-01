@@ -1,0 +1,906 @@
+<title>TCE Mock Item Bank</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Charis+SIL:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<style>
+/* Layout: one exam-paper column; items as sheets, answer key folded under each */
+:root{
+  --bg:#eef1f4; --sheet:#ffffff; --fg:#1c232b; --muted:#5b6672; --line:#d5dbe2;
+  --accent:#2f5d8a; --accent-soft:#e3ecf5; --key:#f4f7f2; --key-line:#c9d6c1; --key-fg:#2f5a2a; --ok:#2e7d32; --bad:#b3261e;
+  --f-paper:"Charis SIL", "Doulos SIL", "Times New Roman", serif;
+  --f-ui:"IBM Plex Sans","IBM Plex Sans KR", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#13171c; --sheet:#1b2027; --fg:#e4e8ec; --muted:#9aa5b1; --line:#323a44;
+  --accent:#8db6df; --accent-soft:#22303f; --key:#1a2219; --key-line:#34452f; --key-fg:#a9cf9c; --ok:#8fd18f; --bad:#f2948c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13171c; --sheet:#1b2027; --fg:#e4e8ec; --muted:#9aa5b1; --line:#323a44;
+  --accent:#8db6df; --accent-soft:#22303f; --key:#1a2219; --key-line:#34452f; --key-fg:#a9cf9c; --ok:#8fd18f; --bad:#f2948c; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-ui);line-height:1.5}
+.wrap{max-width:820px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+header{display:flex;flex-direction:column;gap:6px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{margin:0;font-size:26px;font-weight:600;text-wrap:balance}
+.sub{color:var(--muted);margin:0;font-size:14px}
+.picker{display:flex;flex-direction:column;gap:6px}
+.picker label{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.picker-row{display:flex;gap:8px;align-items:stretch}
+#item-select{flex:1;min-width:0;font:inherit;font-size:15px;color:var(--fg);background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:8px 10px}
+#item-select:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.picker-row .btn{font-size:18px;line-height:1;padding:0 14px}
+.chip{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--sheet);color:var(--fg);padding:5px 12px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--sheet)}
+.chip:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:6px;padding:24px clamp(16px,4vw,36px);display:flex;flex-direction:column;gap:16px;min-width:0}
+.sheet-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:10px}
+.qno{font-weight:600;font-size:15px}
+.tag{font-size:12px;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:4px;margin-left:8px;font-weight:500}
+.pts{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.paper{font-family:var(--f-paper);font-size:16.5px;line-height:1.65;max-width:68ch;display:flex;flex-direction:column;gap:12px}
+.paper p{margin:0}
+.lead{font-weight:700}
+.defs{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
+.ex{display:flex;gap:10px;align-items:flex-start}
+.ex-n{flex:none}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;font-size:15.5px;width:100%;min-width:520px}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:middle}
+th{font-family:var(--f-ui);font-size:13px;font-weight:600;color:var(--muted);background:var(--bg)}
+td.set{text-align:center;font-weight:700;width:2.5em}
+.box{border:1px solid var(--fg);padding:14px 16px 12px;position:relative;margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.box-h{position:absolute;top:-0.85em;left:50%;transform:translateX(-50%);background:var(--sheet);padding:0 8px;font-weight:700;line-height:1.6}
+.blist{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.blist li{display:flex;gap:8px}.blist li>span:first-child{flex:none;width:1.4em}
+u{text-underline-offset:3px}
+.sheet-ans{border-top:1px dashed var(--line);padding-top:14px;display:flex;flex-direction:column;gap:12px}
+.sheet-ans h3{margin:0;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.field{display:grid;grid-template-columns:minmax(0,1fr);gap:4px}
+.field label{font-size:13.5px;font-weight:500}
+.field .hint{font-size:12px;color:var(--muted)}
+.row{display:flex;gap:8px;align-items:center}
+.field input,.field textarea{font-family:var(--f-paper);font-size:16px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:7px 10px;width:100%;min-width:0;box-sizing:border-box}
+.field textarea{min-height:120px;resize:vertical;line-height:1.55}
+.field input:focus-visible,.field textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.mark{flex:none;font-size:13px;font-weight:600;min-width:4.5em}
+.mark.ok{color:var(--ok)}.mark.no{color:var(--bad)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;font-size:13.5px;font-weight:500;padding:7px 14px;border-radius:4px;border:1px solid var(--accent);background:var(--accent);color:var(--sheet);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.4;cursor:default}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.score{font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.plist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 16px;border-top:1px solid var(--line);padding-top:8px}
+@media (max-width:440px){.plist{grid-template-columns:minmax(0,1fr)}}
+.match{display:flex;flex-direction:column;gap:8px}
+.mrow{display:grid;grid-template-columns:2.2em minmax(0,1fr) 5.5em 5em;gap:8px;align-items:center;font-family:var(--f-paper);font-size:16px}
+.mrow select{font-family:var(--f-paper);font-size:16px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:5px 8px;width:100%}
+.mrow select:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.fb{font-size:14px;line-height:1.55;background:var(--accent-soft);border-radius:4px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.fb ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px}
+.fb .fb-h{font-weight:600;font-size:13px}
+.trees{display:flex;flex-wrap:wrap;gap:12px 32px;align-items:flex-start}
+.tree{display:flex;flex-direction:column;gap:2px;min-width:0}
+.tree svg{max-width:100%;height:auto;font-family:var(--f-paper);font-size:17px}
+.tree svg line{stroke:var(--fg);stroke-width:1.2}
+.tree svg text{fill:var(--fg)}
+.gap{display:inline-block;min-width:4.5em;border-bottom:1px solid var(--fg);text-align:center;line-height:1.3;margin:0 2px}
+.clist{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.clist li{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:8px}
+.clist b{font-family:var(--f-ui);font-size:14.5px;font-weight:600}
+.dir{border:1px solid var(--fg);padding:10px 14px;display:flex;flex-direction:column;gap:6px}
+.dir-h{font-weight:700;text-align:center}
+details.key{background:var(--key);border:1px solid var(--key-line);border-radius:6px}
+details.key summary{cursor:pointer;padding:10px 14px;font-weight:600;font-size:14px;color:var(--key-fg)}
+.key-body{padding:0 14px 14px;display:flex;flex-direction:column;gap:12px;font-size:14.5px}
+.key-body h3{margin:0;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.key-body .paper{font-size:15.5px}
+.rubric{min-width:0;font-size:14px}
+.rubric td:last-child,.rubric th:last-child{text-align:center;width:4em;font-variant-numeric:tabular-nums}
+.notes{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px;color:var(--fg)}
+.empty{color:var(--muted);text-align:center;padding:24px}
+i{font-style:italic}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">중등 영어 임용 · 모의 문항</span>
+    <h1>Morphology and more</h1>
+    <p class="sub">아래 목록에서 문항을 고르세요. 답을 입력하고 Check answers를 누르면 피드백이 나옵니다.</p>
+  </header>
+  <div class="picker">
+    <label for="item-select">Question</label>
+    <div class="picker-row">
+      <button class="btn ghost" type="button" id="prev-item" aria-label="Previous question">‹</button>
+      <select id="item-select"></select>
+      <button class="btn ghost" type="button" id="next-item" aria-label="Next question">›</button>
+    </div>
+  </div>
+  <main id="items" style="display:flex;flex-direction:column;gap:20px"></main>
+</div>
+
+<script>
+const ITEMS = [
+{
+  id:"rule-ordering-1",
+  section:"Phonology",
+  topic:"Rule ordering",
+  points:4,
+  fields:[
+    {id:"a",label:"Relationship between NA and CCR in set A",type:"text",accept:["feeding"]},
+    {id:"b",label:"Vowel length difference in set B",type:"essay"}
+  ],
+  paper:`
+<p class="lead">Read the passage and follow the directions. [4 points]</p>
+<p>When two phonological rules, Rule X and Rule Y, apply to the same form, their order may be crucial. Suppose Rule X applies before Rule Y.</p>
+<ul class="defs">
+ <li><b>Feeding:</b> Rule X creates the environment for Rule Y, so Rule Y applies.</li>
+ <li><b>Bleeding:</b> Rule X destroys the environment for Rule Y, so Rule Y does not apply.</li>
+</ul>
+<p>Now suppose Rule X could affect the environment of Rule Y, but applies <i>after</i> Rule Y.</p>
+<ul class="defs">
+ <li><b>Counterfeeding:</b> Rule X would create the environment for Rule Y, but because it applies too late, Rule Y does not apply.</li>
+ <li><b>Counterbleeding:</b> Rule X would destroy the environment for Rule Y, but because it applies too late, Rule Y still applies.</li>
+</ul>
+<p>The data in (1) come from most varieties of American English. The last column gives the rules involved in each set. Assume that the flap [ɾ] is a voiced segment.</p>
+<div class="ex"><span class="ex-n">(1)</span></div>
+<div class="tbl"><table>
+ <thead><tr><th></th><th>Word</th><th>Phonemic form</th><th>Phonetic form</th><th>Rules involved</th></tr></thead>
+ <tbody>
+  <tr><td class="set" rowspan="2">A</td><td>pumpkin</td><td>/pʌmpkɪn/</td><td>[pʌŋkɪn]</td><td rowspan="2">Nasal Assimilation (NA)<br>Consonant Cluster Reduction (CCR)</td></tr>
+  <tr><td>handcrafted</td><td>/hændkræftɪd/</td><td>[hæŋkræftɪd]</td></tr>
+  <tr><td class="set" rowspan="2">B</td><td>ladder</td><td>/lædər/</td><td>[læːɾər]</td><td rowspan="2">Vowel Lengthening (VL)<br>Flapping (FL)</td></tr>
+  <tr><td>latter</td><td>/lætər/</td><td>[læɾər]</td></tr>
+ </tbody>
+</table></div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Identify the relationship between NA and CCR in set A using ONE term from the passage. Then, explain the vowel length difference in set B, showing how VL and FL apply to both <i>ladder</i> and <i>latter</i> in the correct order.</p>
+</div>`,
+  answer:`
+<p>Set A: <b>feeding</b> (CCR → NA)</p>
+<p>VL applies before FL. In /lædər/, the vowel is followed by voiced /d/, so VL lengthens it; FL then changes /d/ to [ɾ], which gives [læːɾər]. In /lætər/, the vowel is followed by voiceless /t/ when VL applies, so it is not lengthened. FL creates the voiced [ɾ] only afterward, so the vowel stays short: [læɾər].</p>`,
+  rubric:[
+    ["feeding",1],
+    ["VL이 FL보다 먼저 적용됨",1],
+    ["ladder: 기저형의 /d/가 유성음이라 VL 적용 → 장모음",1],
+    ["latter: VL 적용 시점에 /t/가 무성음 → 장음화 안 됨, [ɾ]는 그 후에 생김",1]
+  ],
+  notes:[
+    "Set B는 counterfeeding이지만 용어는 요구하지 않음. 용어를 써서 정확히 설명하면 감점 없이 인정.",
+    "\"in the correct order\"는 순서를 밝히지 않으므로 VL → FL 판단 1점은 유지됨.",
+    "도출 과정은 문장이나 도출표 형식 모두 인정.",
+    "pumpkin은 /m/이 이미 /p/와 같은 조음위치라 NA를 먼저 적용해도 변화 없음 → *[pʌmkɪn] (함정 포인트)."
+  ]
+},
+{
+  id:"infl-deriv-1",
+  section:"Morphology",
+  topic:"Inflectional vs. derivational",
+  points:2,
+  fields:[
+    {id:"a",label:"Blank ①",type:"text",accept:["category"]},
+    {id:"b",label:"Sentences with a derivational suffix",type:"select",answer:"bceg"}
+  ],
+  paper:`
+<p class="lead">Read &lt;A&gt; and &lt;B&gt; and follow the directions. [2 points]</p>
+<div class="box"><span class="box-h">&lt;A&gt;</span>
+ <p>Bound morphemes that attach to a root or stem are called affixes, and they come in two types. English has only eight inflectional affixes: {PLU}, {POSS}, {COMP}, {SUP}, {PRES}, {PAST}, {PAST PART}, and {PRES PART}. They mark grammatical properties such as number, tense, and degree, and they never change the grammatical ( ① ) of the word they attach to. All other affixes are derivational. A derivational affix forms a new word, which may or may not belong to a different ( ① ) from its base. Note that an inflectional affix and a derivational affix can share the same form. For example, the <i>-er</i> in <i>older</i> marks {COMP}, but the <i>-er</i> in <i>kicker</i> turns a verb into a noun.</p>
+</div>
+<div class="box"><span class="box-h">&lt;B&gt;</span>
+ <ul class="blist">
+  <li><span>a.</span><span>My brother is a year <u>older</u> than me.</span></li>
+  <li><span>b.</span><span>The <u>driver</u> stopped at the corner.</span></li>
+  <li><span>c.</span><span>The <u>carpeting</u> in the hall is brand new.</span></li>
+  <li><span>d.</span><span>She is <u>driving</u> to Busan right now.</span></li>
+  <li><span>e.</span><span>An <u>aged</u> man sat quietly on the bench.</span></li>
+  <li><span>f.</span><span>He <u>walked</u> to school yesterday.</span></li>
+  <li><span>g.</span><span>She gave the new student a <u>friendly</u> smile.</span></li>
+  <li><span>h.</span><span>He <u>walks</u> his dog every morning.</span></li>
+ </ul>
+</div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Fill in the blank ① in &lt;A&gt; with ONE word. Then, based on &lt;A&gt;, identify ALL the sentences in &lt;B&gt; in which the suffix of the underlined word is derivational.</p>
+</div>`,
+  answer:`
+<p>① <b>category</b></p>
+<p>Derivational: <b>b, c, e, g</b></p>
+<p>b. <i>driv-er</i>: V → N. c. <i>carpet-ing</i>: a noun meaning carpet material, not {PRES PART}. e. <i>ag-ed</i>: an adjective, not {PAST} or {PAST PART}. g. <i>friend-ly</i>: N → Adj.<br>Inflectional: a {COMP}, d {PRES PART}, f {PAST}, h {PRES}.</p>`,
+  rubric:[
+    ["① category",1],
+    ["b, c, e, g를 모두 고르고 다른 것은 고르지 않음",1]
+  ],
+  notes:[
+    "슬라이드 6~8, 16 (8 inflectional morphemes, -ize/-ful/-ly, carpeting·aged)",
+    "같은 형태의 접미사를 짝지어 넣음: -er (a/b), -ing (c/d), -ed (e/f), -ly(g)·-s(h).",
+    "c와 e가 핵심 함정. -ing/-ed가 굴절처럼 보이지만 슬라이드 16의 분석에 따라 파생.",
+    "기출(31번)의 '맞는 진술 고르기' 대신 '해당 문장 모두 고르기'로 바꿈."
+  ]
+},
+{
+  id:"rdi-order-1",
+  section:"Morphology",
+  topic:"Order of affixes (RDI)",
+  points:2,
+  fields:[
+    {id:"a",label:"Well-formed words that appear to violate RDI",type:"select",answer:"ce"}
+  ],
+  paper:`
+<p class="lead">Read &lt;A&gt; and &lt;B&gt; and follow the directions. [2 points]</p>
+<div class="box"><span class="box-h">&lt;A&gt;</span>
+ <p>When a word contains both a derivational and an inflectional suffix, the general order is Root + Derivational + Inflectional (RDI), as in <i>friend-ship-s</i>. Once an inflectional suffix has been added, no further derivational suffix can follow. This is why <i>*happierness</i> is impossible.</p>
+ <p>Some words, however, seem to break this order. The derivational suffix <i>-ly</i> normally attaches only to an adjective base, as in <i>happily</i>. A process called category extension converts a word into a new category with no change in form. When it turns an inflected verb form into an adjective, it creates a base to which <i>-ly</i> can attach.</p>
+</div>
+<div class="box"><span class="box-h">&lt;B&gt;</span>
+ <ul class="blist">
+  <li><span>a.</span><span>friendships</span></li>
+  <li><span>b.</span><span>happierness</span></li>
+  <li><span>c.</span><span>lovingly</span></li>
+  <li><span>d.</span><span>menly</span></li>
+  <li><span>e.</span><span>markedly</span></li>
+  <li><span>f.</span><span>createsive</span></li>
+  <li><span>g.</span><span>governments</span></li>
+ </ul>
+</div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Based on &lt;A&gt;, identify ALL the words in &lt;B&gt; that are well-formed even though they appear to violate the RDI order.</p>
+</div>`,
+  answer:`
+<p>Words: <b>c, e</b></p>
+<p>In <i>lovingly</i> and <i>markedly</i>, an inflectional suffix ({PRES PART} <i>-ing</i>, {PAST PART} <i>-ed</i>) appears before the derivational suffix <i>-ly</i>, which looks like a violation of RDI. However, <i>-ly</i> needs an adjective base. Category extension first turns the verb forms <i>loving</i> and <i>marked</i> into adjectives with no change in form. This creates the adjective base, so <i>-ly</i> can attach: [loving]<sub>Adj</sub> + -ly, [marked]<sub>Adj</sub> + -ly. Category extension feeds the attachment of <i>-ly</i>.</p>`,
+  rubric:[
+    ["c, e를 모두 고르고 다른 것은 고르지 않음",2]
+  ],
+  notes:[
+    "슬라이드 10~18, 22 (RDI order, lovingly/markedly, category extension feeds -ly)",
+    "a, g는 정상적인 RDI, b, d, f는 RDI를 어긴 비문 (슬라이드 11). 오답 선택지 역할.",
+    "하나라도 빠지거나 오답이 섞이면 0점 (부분 점수 없음). 부분 점수를 주려면 c, e 각 1점으로 나누고 오답 선택 시 감점하는 방식 가능.",
+    "모범 답안의 설명은 채점용이 아닌 참고용."
+  ]
+},
+{
+  id:"wf-match-1",
+  section:"Morphology",
+  topic:"Word formation (matching)",
+  points:2,
+  fields:[
+    {id:"m",label:"Match each process with a sentence",type:"match",options:"abcdef",rows:[["(1)","Blending","c"],["(2)","Acronym","a"],["(3)","Category extension","b"],["(4)","Back formation","d"]]}
+  ],
+  paper:`
+<p class="lead">Read &lt;A&gt; and &lt;B&gt; and follow the directions. [2 points]</p>
+<div class="box"><span class="box-h">&lt;A&gt;</span>
+ <p>English keeps adding new words. Some are borrowed from other languages, and others are built from material the language already has. The following are some of the processes by which new words are formed:</p>
+ <div class="plist"><span>(1) Blending</span><span>(2) Acronym</span><span>(3) Category extension</span><span>(4) Back formation</span></div>
+</div>
+<div class="box"><span class="box-h">&lt;B&gt;</span>
+ <ul class="blist">
+  <li><span>a.</span><span>The ship&#39;s <u>radar</u> picked up a strange signal.</span></li>
+  <li><span>b.</span><span>My sister <u>texted</u> me twice last night.</span></li>
+  <li><span>c.</span><span>The whole city was covered in <u>smog</u> this morning.</span></li>
+  <li><span>d.</span><span>My uncle likes to <u>bartend</u> on weekends.</span></li>
+  <li><span>e.</span><span>We watched the election results on <u>TV</u>.</span></li>
+  <li><span>f.</span><span>He ordered a <u>hamburger</u> and a soda.</span></li>
+ </ul>
+</div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Match each word-formation process in &lt;A&gt; with the underlined example in one of the sentences in &lt;B&gt;.</p>
+</div>`,
+  answer:`
+<p>(1) <b>c</b> &nbsp; (2) <b>a</b> &nbsp; (3) <b>b</b> &nbsp; (4) <b>d</b></p>
+<p>(1) <i>smog</i> &lt; <i>smoke</i> + <i>fog</i>. (2) <i>radar</i> is formed from the first letters of <i>radio detection and ranging</i> and is pronounced as a word. (3) <i>text</i> (N) → <i>text</i> (V) with no change in form. (4) <i>bartend</i> &lt; <i>bartender</i>, by removing what is mistaken for the suffix <i>-er</i>.</p>
+<p>Not used: e (abbreviation), f (proper name)</p>`,
+  rubric:[
+    ["네 개 모두 맞게 연결",2]
+  ],
+  notes:["슬라이드 33, 36, 38, 39, 40, 42","e. TV는 abbreviation (글자 이름으로 읽음), f. hamburger는 proper name (Hamburg). 둘 다 오답 선택지.","핵심 함정: radar(acronym, 단어로 읽음) vs. TV(abbreviation, 글자로 읽음). 슬라이드 38~39의 구분.","부분 점수를 주려면 3개 맞으면 1점 등으로 조정 가능."]
+},
+{
+  id:"wf-match-2",
+  section:"Morphology",
+  topic:"Word formation (matching)",
+  points:2,
+  fields:[
+    {id:"m",label:"Match each process with a sentence",type:"match",options:"abcdef",rows:[["(1)","Clipping","a"],["(2)","Coinage","b"],["(3)","Folk etymology","d"],["(4)","Compounding","e"]]}
+  ],
+  paper:`
+<p class="lead">Read &lt;A&gt; and &lt;B&gt; and follow the directions. [2 points]</p>
+<div class="box"><span class="box-h">&lt;A&gt;</span>
+ <p>English keeps adding new words. Some are borrowed from other languages, and others are built from material the language already has. The following are some of the processes by which new words are formed:</p>
+ <div class="plist"><span>(1) Clipping</span><span>(2) Coinage</span><span>(3) Folk etymology</span><span>(4) Compounding</span></div>
+</div>
+<div class="box"><span class="box-h">&lt;B&gt;</span>
+ <ul class="blist">
+  <li><span>a.</span><span>Our <u>lab</u> is on the third floor.</span></li>
+  <li><span>b.</span><span>The teacher gave us a short <u>quiz</u> on Friday.</span></li>
+  <li><span>c.</span><span>We met for <u>brunch</u> at eleven.</span></li>
+  <li><span>d.</span><span>There&#39;s a <u>cockroach</u> under the sink!</span></li>
+  <li><span>e.</span><span>He wrote the answer on the <u>blackboard</u>.</span></li>
+  <li><span>f.</span><span>Ms. Kim <u>chaired</u> the meeting yesterday.</span></li>
+ </ul>
+</div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Match each word-formation process in &lt;A&gt; with the underlined example in one of the sentences in &lt;B&gt;.</p>
+</div>`,
+  answer:`
+<p>(1) <b>a</b> &nbsp; (2) <b>b</b> &nbsp; (3) <b>d</b> &nbsp; (4) <b>e</b></p>
+<p>(1) <i>lab</i> &lt; <i>laboratory</i>. (2) <i>quiz</i> is a brand-new word based on no existing morphemes. (3) <i>cockroach</i> replaced Spanish <i>cucaracha</i> with familiar English forms that sound similar. (4) <i>blackboard</i> &lt; <i>black</i> + <i>board</i>, two free morphemes.</p>
+<p>Not used: c (blending), f (category extension)</p>`,
+  rubric:[
+    ["네 개 모두 맞게 연결",2]
+  ],
+  notes:["슬라이드 33, 34, 35, 36, 37, 41","c. brunch는 blending, f. chaired는 category extension. 둘 다 오답 선택지.","함정: brunch(blending, 두 단어의 일부) vs. blackboard(compounding, 두 자유형태소 전체).","google은 coinage(googol)와 category extension(동사)이 겹쳐 모호하므로 coinage 예로 quiz를 씀.","부분 점수를 주려면 3개 맞으면 1점 등으로 조정 가능."]
+},
+{
+  id:"tree-undoable",
+  section:"Morphology",
+  topic:"Word structure (trees)",
+  points:4,
+  fields:[
+    {id:"c1",label:"Blank ①",type:"text",accept:["verb","v"]},
+    {id:"c2",label:"Blank ②",type:"text",accept:["verb","v"]},
+    {id:"c3",label:"Blank ③",type:"text",accept:["adjective","adj"]},
+    {id:"c4",label:"Blank ④",type:"text",accept:["verb","v"]},
+    {id:"t1",label:"Sentences in &lt;B&gt; that match structure (1)",type:"select",answer:"ac"},
+    {id:"t2",label:"Sentences in &lt;B&gt; that match structure (2)",type:"select",answer:"b"}
+  ],
+  paper:`
+<p class="lead">Read &lt;A&gt; and &lt;B&gt; and follow the directions. [4 points]</p>
+<div class="box"><span class="box-h">&lt;A&gt;</span>
+ <p>Affixes are picky about the bases they attach to. The suffix <i>-ful</i> turns a noun into an adjective, and the suffix <i>-ness</i> turns an adjective into a noun. So in <i>carefulness</i>, <i>-ful</i> must combine with the noun <i>care</i> first to form the adjective <i>careful</i>, and <i>-ness</i> is added afterward. The reverse order is impossible, because <i>-ness</i> cannot attach to the noun <i>care</i>.</p>
+ <p>The prefix <i>un-</i> is less picky. Attached to a verb, it means 'reverse the action', as in <i>untie</i>. Attached to an adjective, it means 'not', as in <i>unkind</i>. As a result, a word containing <i>un-</i>, a verb, and <i>-able</i> can have two structures, each with its own meaning:</p>
+ <div class="trees">
+  <div class="tree"><span>(1)</span><svg viewBox="0 0 300 215" width="300" role="img"><line x1="150" y1="30" x2="85" y2="66"/><line x1="150" y1="30" x2="230" y2="66"/><line x1="85" y1="90" x2="35" y2="126"/><line x1="85" y1="90" x2="135" y2="126"/><line x1="135" y1="150" x2="135" y2="190"/><text x="150" y="22" text-anchor="middle">Adjective</text><text x="85" y="82" text-anchor="middle">( ① )</text><text x="230" y="82" text-anchor="middle">able</text><text x="35" y="142" text-anchor="middle">un</text><text x="135" y="142" text-anchor="middle">( ② )</text><text x="135" y="207" text-anchor="middle">do</text></svg></div>
+  <div class="tree"><span>(2)</span><svg viewBox="0 0 300 215" width="300" role="img"><line x1="150" y1="30" x2="65" y2="66"/><line x1="150" y1="30" x2="215" y2="66"/><line x1="215" y1="90" x2="165" y2="126"/><line x1="215" y1="90" x2="265" y2="126"/><line x1="165" y1="150" x2="165" y2="190"/><text x="150" y="22" text-anchor="middle">Adjective</text><text x="65" y="82" text-anchor="middle">un</text><text x="215" y="82" text-anchor="middle">( ③ )</text><text x="165" y="142" text-anchor="middle">( ④ )</text><text x="265" y="142" text-anchor="middle">able</text><text x="165" y="207" text-anchor="middle">do</text></svg></div>
+ </div>
+</div>
+<div class="box"><span class="box-h">&lt;B&gt;</span>
+ <ul class="blist">
+  <li><span>a.</span><span>You can click the back arrow at any time, so every edit you make is <u>undoable</u>.</span></li>
+  <li><span>b.</span><span>Finishing the whole report by tomorrow morning is simply <u>undoable</u>.</span></li>
+  <li><span>c.</span><span>Once the glue dries, the repair is no longer <u>undoable</u>.</span></li>
+ </ul>
+</div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Fill in the blanks ①–④ in &lt;A&gt; with the grammatical category of each node. Then, identify ALL the sentences in &lt;B&gt; in which <i>undoable</i> has structure (1), and ALL the sentences in which it has structure (2).</p>
+</div>`,
+  answer:`
+<p>① <b>Verb</b> &nbsp; ② <b>Verb</b> &nbsp; ③ <b>Adjective</b> &nbsp; ④ <b>Verb</b></p>
+<p>Structure (1): <b>a, c</b> &nbsp; Structure (2): <b>b</b></p>
+<p>In (1), <i>un-</i> attaches to the verb <i>do</i> to form the verb <i>undo</i>, and <i>-able</i> follows: 'able to be undone'. In (2), <i>-able</i> first forms the adjective <i>doable</i>, and <i>un-</i> means 'not': 'not able to be done'. In c, <i>no longer undoable</i> means the repair can no longer be reversed, so it is structure (1).</p>`,
+  rubric:[
+    ["①~④ 모두 맞음",2],
+    ["(1) a, c와 (2) b를 모두 맞게 고름",2]
+  ],
+  notes:[
+    "슬라이드 43~45 (structural ambiguity, un + verb/adjective + able).",
+    "기출의 unbuttonable과 같은 구조지만, 의미를 쓰게 하는 대신 문맥 문장과 연결하게 함. 나무그림 순서도 기출과 반대로 (1)이 [[un-V]-able].",
+    "c가 핵심 함정: no longer와 함께 쓰여 부정처럼 보이지만 'can no longer be undone', 즉 구조 (1).",
+    "<A>의 carefulness 설명이 접사의 범주 선택을 보여 주는 단서 역할 (기출의 reusable과 겹치지 않도록 교체).",
+    "부분 점수: ①~④ 중 2개 이상 맞으면 1점 등으로 조정 가능."
+  ]
+},
+{
+  id:"tree-lighthouse",
+  section:"Morphology",
+  topic:"Word structure (trees)",
+  points:4,
+  fields:[
+    {id:"c1",label:"Blank ①",type:"text",accept:["noun","n"]},
+    {id:"c2",label:"Blank ②",type:"text",accept:["verb","v"]},
+    {id:"c3",label:"Blank ③",type:"text",accept:["adjective","adj"]},
+    {id:"c4",label:"Blank ④",type:"text",accept:["noun","n"]},
+    {id:"m1",label:"Meaning of structure (1)",type:"essay"},
+    {id:"m2",label:"Meaning of structure (2)",type:"essay"}
+  ],
+  paper:`
+<p class="lead">Read the passage and follow the directions. [4 points]</p>
+<div class="box">
+ <p>Compounds are built in layers, just as derived words are. In an English compound, the rightmost member normally determines the grammatical category of the whole. For example, <i>blackboard</i> combines an adjective and a noun, and it is a noun because <i>board</i> is a noun. A member of a compound may itself be complex. In <i>bookseller</i>, the suffix <i>-er</i> first turns the verb <i>sell</i> into the noun <i>seller</i>, which then combines with <i>book</i>.</p>
+ <p>Because the layers are not visible in speech, the same string of morphemes can sometimes be grouped in two different ways. Consider the string <i>light + house + keep + -er</i>, which can be analyzed as follows:</p>
+ <div class="trees">
+  <div class="tree"><span>(1)</span><svg viewBox="0 0 320 215" width="320" role="img"><line x1="160" y1="30" x2="80" y2="66"/><line x1="160" y1="30" x2="240" y2="66"/><line x1="80" y1="90" x2="40" y2="126"/><line x1="80" y1="90" x2="120" y2="126"/><line x1="240" y1="90" x2="205" y2="126"/><line x1="240" y1="90" x2="285" y2="126"/><line x1="205" y1="150" x2="205" y2="190"/><text x="160" y="22" text-anchor="middle">Noun</text><text x="80" y="82" text-anchor="middle">( ① )</text><text x="240" y="82" text-anchor="middle">Noun</text><text x="40" y="142" text-anchor="middle">light</text><text x="120" y="142" text-anchor="middle">house</text><text x="205" y="142" text-anchor="middle">( ② )</text><text x="285" y="142" text-anchor="middle">-er</text><text x="205" y="207" text-anchor="middle">keep</text></svg></div>
+  <div class="tree"><span>(2)</span><svg viewBox="0 0 330 275" width="330" role="img"><line x1="160" y1="30" x2="60" y2="66"/><line x1="160" y1="30" x2="225" y2="66"/><line x1="60" y1="90" x2="60" y2="126"/><line x1="225" y1="90" x2="170" y2="126"/><line x1="225" y1="90" x2="275" y2="126"/><line x1="275" y1="150" x2="240" y2="186"/><line x1="275" y1="150" x2="310" y2="186"/><line x1="240" y1="210" x2="240" y2="250"/><text x="160" y="22" text-anchor="middle">Noun</text><text x="60" y="82" text-anchor="middle">( ③ )</text><text x="225" y="82" text-anchor="middle">( ④ )</text><text x="60" y="142" text-anchor="middle">light</text><text x="170" y="142" text-anchor="middle">house</text><text x="275" y="142" text-anchor="middle">Noun</text><text x="240" y="202" text-anchor="middle">Verb</text><text x="310" y="202" text-anchor="middle">-er</text><text x="240" y="267" text-anchor="middle">keep</text></svg></div>
+ </div>
+</div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Fill in the blanks ①–④ with the grammatical category of each node. Then, write the meaning of the whole expression under structure (1) and under structure (2).</p>
+</div>`,
+  answer:`
+<p>① <b>Noun</b> &nbsp; ② <b>Verb</b> &nbsp; ③ <b>Adjective</b> &nbsp; ④ <b>Noun</b></p>
+<p>(1) <i>lighthouse keeper</i>: a person who looks after a lighthouse.<br>(2) <i>light housekeeper</i>: a housekeeper who is light (for example, light in weight).</p>
+<p>In (1), <i>light</i> and <i>house</i> form the compound noun <i>lighthouse</i>, which combines with <i>keeper</i>. In (2), <i>house</i> combines with <i>keeper</i> to form the noun <i>housekeeper</i>, which the adjective <i>light</i> modifies.</p>`,
+  rubric:[
+    ["①~④ 모두 맞음",2],
+    ["(1) 등대지기 (a person who keeps a lighthouse)",1],
+    ["(2) 가벼운/몸이 가벼운 가정부 (a housekeeper who is light)",1]
+  ],
+  notes:[
+    "슬라이드 34, 43~45 (compounding, structural ambiguity) 응용.",
+    "기출과 달리 접두사 un-이 아닌 복합어 내부 구조의 중의성으로 바꿈. 지문도 right-hand head 원리와 bookseller로 새로 씀.",
+    "②는 -er이 붙기 전의 keep이므로 Verb. 학생들이 keeper 전체로 착각해 Noun으로 쓰기 쉬움.",
+    "(2)의 의미는 'light'를 '가벼운 일을 하는'으로 해석해도 light가 housekeeper를 수식한다는 구조가 드러나면 인정 가능.",
+    "부분 점수: ①~④ 중 2개 이상 맞으면 1점 등으로 조정 가능."
+  ]
+},
+{
+  id:"steps-unhelpfulness",
+  section:"Morphology",
+  topic:"Affix selection (steps)",
+  points:2,
+  fields:[
+    {id:"b1",label:"(1)",type:"text",accept:["-ful","ful"]},
+    {id:"b2",label:"(2)",type:"text",accept:["un-","un"]},
+    {id:"b3",label:"(3)",type:"text",accept:["helpful"]},
+    {id:"b4",label:"(4)",type:"text",accept:["unhelpful"]}
+  ],
+  paper:`
+<p class="lead">Read the passage and follow the directions. [2 points]</p>
+<div class="box">
+ <p>Each affix looks for a base of a particular category, and this restricts the order in which affixes can be added. The suffix <i>-ful</i> attaches to nouns and forms adjectives, as in <i>playful</i>. The prefix <i>un-</i>, meaning 'not', attaches to adjectives and keeps them adjectives, as in <i>unwary</i>. The suffix <i>-ness</i> attaches to adjectives and forms nouns, as in <i>kindness</i>.</p>
+ <p>Now consider <i>unhelpfulness</i>. Both <i>un-</i> and <i>-ness</i> need an adjective base, so neither can attach to the noun <i>help</i> directly. Once an adjective has been formed, <i>-ness</i> could attach to it, but the result would be a noun, to which <i>un-</i> could no longer attach. The word must therefore be formed in three steps: first, <span class="gap">(1)</span> attaches to the noun <i>help</i>; second, <span class="gap">(2)</span> attaches to <span class="gap">(3)</span>; and finally, <i>-ness</i> is added to <span class="gap">(4)</span>.</p>
+</div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Based on the passage, fill in blanks (1)–(4) with ONE affix or ONE word each.</p>
+</div>`,
+  answer:`
+<p>(1) <b>-ful</b> &nbsp; (2) <b>un-</b> &nbsp; (3) <b>helpful</b> &nbsp; (4) <b>unhelpful</b></p>
+<p>help (N) → helpful (Adj) → unhelpful (Adj) → unhelpfulness (N). <i>un-</i> must come before <i>-ness</i>, because <i>helpfulness</i> is a noun and <i>un-</i> attaches only to adjectives.</p>`,
+  rubric:[
+    ["(1) -ful, (2) un- 모두 맞음",1],
+    ["(3) helpful, (4) unhelpful 모두 맞음",1]
+  ],
+  notes:[
+    "슬라이드 7~9 (-ful, un-, 파생접사의 범주 선택).",
+    "기출의 un- + -able 대신 접사 3개가 붙는 단어로 바꿔 단계를 하나 늘림.",
+    "핵심: un-과 -ness가 모두 형용사를 요구하므로 helpful에 둘 다 붙을 수 있지만, -ness가 먼저 붙으면 명사가 되어 un-이 붙을 수 없음.",
+    "접사 답은 하이픈 유무와 관계없이 정답 처리 (-ful/ful, un-/un)."
+  ]
+},
+{
+  id:"steps-nationalization",
+  section:"Morphology",
+  topic:"Affix selection (steps)",
+  points:2,
+  fields:[
+    {id:"b1",label:"(1) word",type:"text",accept:["national"]},
+    {id:"b2",label:"(2) grammatical category",type:"text",accept:["verb","v"]},
+    {id:"b3",label:"(3) word",type:"text",accept:["nationalization","nationalisation"]},
+    {id:"b4",label:"(4) grammatical category",type:"text",accept:["verb","verbs","v"]}
+  ],
+  paper:`
+<p class="lead">Read the passage and follow the directions. [2 points]</p>
+<div class="box">
+ <p>A derivational suffix can change the grammatical category of its base, and the new category in turn decides which suffix can come next. The suffix <i>-al</i> turns nouns into adjectives, as in <i>magical</i>. The suffix <i>-ize</i> turns nouns or adjectives into verbs, as in <i>criticize</i> and <i>normalize</i>. The suffix <i>-ation</i> turns verbs into nouns, as in <i>organization</i>.</p>
+ <p>Starting from the noun <i>nation</i>, these three suffixes can build a long word step by step. First, <i>-al</i> creates the adjective <span class="gap">(1)</span>. Next, <i>-ize</i> attaches to it, yielding the <span class="gap">(2)</span> <i>nationalize</i>. Finally, <i>-ation</i> turns this word into <span class="gap">(3)</span>. The suffixes cannot be added in a different order. For example, <i>-ation</i> cannot attach directly to <i>national</i>, because <i>-ation</i> requires a base that is a <span class="gap">(4)</span>.</p>
+</div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Complete the passage. Write a word in blanks (1) and (3), and a grammatical category in blanks (2) and (4).</p>
+</div>`,
+  answer:`
+<p>(1) <b>national</b> &nbsp; (2) <b>verb</b> &nbsp; (3) <b>nationalization</b> &nbsp; (4) <b>verb</b></p>
+<p>nation (N) → national (Adj) → nationalize (V) → nationalization (N). Each suffix creates the category that the next suffix needs.</p>`,
+  rubric:[
+    ["(1) national, (3) nationalization 모두 맞음",1],
+    ["(2) verb, (4) verb 모두 맞음",1]
+  ],
+  notes:[
+    "슬라이드 7, 32 (-ize: N/Adj → V, derivation이 범주를 바꿈).",
+    "Item 8이 '어떤 접사가 무엇에 붙는가'를 묻는다면, 이 문항은 '각 단계의 결과 단어와 품사'를 물어 같은 원리를 다른 방향에서 확인.",
+    "(2)와 (4)가 같은 답(verb)이라 학생이 의심할 수 있음. 의도된 것: -ize가 만든 범주(V)가 바로 -ation이 요구하는 범주.",
+    "nationalisation (영국식 철자)도 정답 처리."
+  ]
+},
+{
+  id:"wf-short-1",
+  section:"Morphology",
+  topic:"Word formation (short answer)",
+  points:1,
+  fields:[{id:"a",label:"Word-formation process",type:"text",accept:["category extension", "zero derivation", "conversion", "functional shift"]}],
+  paper:`
+<p class="lead">Read the sentences and follow the directions. [1 point]</p>
+<div class="box"><ul class="blist"><li><span>•</span><span>He <u>elbowed</u> his way through the crowd.</span></li><li><span>•</span><span>She <u>bottled</u> the homemade sauce and gave it to her neighbors.</span></li></ul></div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Write the word-formation process that the underlined words have in common.</p>
+</div>`,
+  answer:`<p><b>category extension (zero derivation)</b></p><p>The nouns <i>elbow</i> and <i>bottle</i> are used as verbs with no change in form.</p>`,
+  rubric:[["category extension (zero derivation)",1]],
+  notes:["슬라이드 33 (category extension = zero derivation).", "기출의 email, peopled와 겹치지 않도록 신체 부위·사물 명사를 씀.", "-ed는 굴절접사이므로 파생(derivation)으로 답하면 오답. conversion, zero derivation도 정답 처리."]
+},
+{
+  id:"wf-short-2",
+  section:"Morphology",
+  topic:"Word formation (short answer)",
+  points:1,
+  fields:[{id:"a",label:"Word-formation process",type:"text",accept:["back formation", "backformation"]}],
+  paper:`
+<p class="lead">Read the sentences and follow the directions. [1 point]</p>
+<div class="box"><ul class="blist"><li><span>•</span><span>The station will <u>televise</u> the final match live.</span></li><li><span>•</span><span>My sister agreed to <u>babysit</u> on Saturday night.</span></li></ul></div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Identify the word-formation process that produced the underlined words. Write ONE term.</p>
+</div>`,
+  answer:`<p><b>back formation</b></p><p><i>televise</i> &lt; <i>television</i>, <i>babysit</i> &lt; <i>babysitter</i>. Each was formed by removing what looked like an affix.</p>`,
+  rubric:[["back formation",1]],
+  notes:["슬라이드 42 (back formation).", "학생들이 televise를 tele- + -ize의 파생으로 착각하기 쉬움. 역사적으로 television이 먼저.", "슬라이드 예(burgle, edit, bartend 등)와 겹치지 않게 함."]
+},
+{
+  id:"wf-short-3",
+  section:"Morphology",
+  topic:"Word formation (short answer)",
+  points:1,
+  fields:[{id:"a",label:"Word-formation process",type:"text",accept:["blending", "blend"]}],
+  paper:`
+<p class="lead">Read the sentences and follow the directions. [1 point]</p>
+<div class="box"><ul class="blist"><li><span>•</span><span>We stayed at a cheap <u>motel</u> just off the highway.</span></li><li><span>•</span><span>I listen to a history <u>podcast</u> on my way to work.</span></li></ul></div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>What word-formation process do the underlined words show? Write your answer in ONE word.</p>
+</div>`,
+  answer:`<p><b>blending</b></p><p><i>motel</i> &lt; <i>motor</i> + <i>hotel</i>, <i>podcast</i> &lt; <i>iPod</i> + <i>broadcast</i>.</p>`,
+  rubric:[["blending",1]],
+  notes:["슬라이드 36 (blending).", "compounding과 구별: 두 단어의 '일부'를 합침.", "Item 4의 smog, Item 5의 brunch와 겹치지 않게 함."]
+},
+{
+  id:"wf-short-4",
+  section:"Morphology",
+  topic:"Word formation (short answer)",
+  points:1,
+  fields:[{id:"a",label:"Word-formation process",type:"text",accept:["clipping", "clipped form", "clipped forms", "clip"]}],
+  paper:`
+<p class="lead">Read the sentences and follow the directions. [1 point]</p>
+<div class="box"><ul class="blist"><li><span>•</span><span>Half of my class missed school because of the <u>flu</u>.</span></li><li><span>•</span><span>Let&#39;s meet at the <u>gym</u> after the last class.</span></li></ul></div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Write the term for the word-formation process by which the underlined words were created.</p>
+</div>`,
+  answer:`<p><b>clipping</b></p><p><i>flu</i> &lt; <i>influenza</i>, <i>gym</i> &lt; <i>gymnasium</i>.</p>`,
+  rubric:[["clipping",1]],
+  notes:["슬라이드 37 (clipped form).", "flu는 앞과 뒤가 모두 잘린 경우, gym은 뒷부분이 잘린 경우.", "Item 5의 lab과 겹치지 않게 함."]
+},
+{
+  id:"wf-short-5",
+  section:"Morphology",
+  topic:"Word formation (short answer)",
+  points:1,
+  fields:[{id:"a",label:"Word-formation process",type:"text",accept:["acronym", "acronyms", "acronymy"]}],
+  paper:`
+<p class="lead">Read the sentences and follow the directions. [1 point]</p>
+<div class="box"><ul class="blist"><li><span>•</span><span>The doctor used a <u>laser</u> to remove the scar.</span></li><li><span>•</span><span>We went <u>scuba</u> diving off the coast of Jeju.</span></li></ul></div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Name the word-formation process that the two underlined words share.</p>
+</div>`,
+  answer:`<p><b>acronym</b></p><p><i>laser</i> &lt; light amplification by stimulated emission of radiation; <i>scuba</i> &lt; self-contained underwater breathing apparatus.</p>`,
+  rubric:[["acronym",1]],
+  notes:["슬라이드 38~39 (acronym vs. abbreviation).", "abbreviation으로 답하면 오답: laser와 scuba는 글자 이름이 아니라 단어처럼 읽음.", "대부분의 화자가 원래 구를 모른다는 점도 수업에서 짚을 만함."]
+},
+{
+  id:"ot-key",
+  section:"Phonology",
+  topic:"Optimality Theory",
+  points:4,
+  fields:[
+    {id:"s",label:"The TWO nonce words the child could produce",type:"select",answer:"bd"},
+    {id:"e",label:"Why /kɛb/ is [tɛb] for the child but [kɛb] for the adult",type:"essay"}
+  ],
+  paper:`
+<p class="lead">Read &lt;A&gt; and &lt;B&gt; and follow the directions. [4 points]</p>
+<div class="box"><span class="box-h">&lt;A&gt;</span>
+ <p>In Optimality Theory, a grammar is a set of constraints on outputs, and any constraint can be violated. The constraints are ranked: violating a higher-ranked constraint is worse than violating a lower-ranked one, so the output chosen is the one whose violations matter least. All speakers share the same constraints, but the ranking can differ, for example between a child and an adult. Consider the two constraints below.</p>
+ <ul class="clist">
+  <li><b>(i)</b><span>An output should not contain a velar stop, [k] or [g].</span></li>
+  <li><b>(ii)</b><span>Each sound in the output should keep the place of articulation it has in the input.</span></li>
+ </ul>
+ <p>A young child ranks (i) higher than (ii), and says <i>key</i> /ki/ as [ti]. Adults rank the same two constraints the other way around, and say [ki].</p>
+</div>
+<div class="box"><span class="box-h">&lt;B&gt;</span>
+ <p>The forms below are nonce words. They are not English words, but they are possible forms.</p>
+ <ul class="blist">
+  <li><span>a.</span><span>[kʌf]</span></li>
+  <li><span>b.</span><span>[tɪb]</span></li>
+  <li><span>c.</span><span>[gʊp]</span></li>
+  <li><span>d.</span><span>[dɛp]</span></li>
+  <li><span>e.</span><span>[bɪk]</span></li>
+ </ul>
+</div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Choose the TWO nonce words in &lt;B&gt; that the child in &lt;A&gt; could produce. Then, explain why the child pronounces an input /kɛb/ as [tɛb] while an adult pronounces it as [kɛb], using the constraints and their ranking.</p>
+</div>`,
+  answer:`
+<p>Words the child could produce: <b>b, d</b></p>
+<p>For the child, (i) is ranked higher than (ii). Keeping [k] would violate the higher-ranked (i), so the child changes the place of /k/ and produces [t], which violates only the lower-ranked (ii): [tɛb]. For the adult, (ii) is ranked higher than (i). Changing the place of /k/ would violate the higher-ranked (ii), so the adult keeps [k] and violates only the lower-ranked (i): [kɛb]. The two speakers have the same constraints; only the ranking differs.</p>`,
+  rubric:[
+    ["b 선택",1],
+    ["d 선택",1],
+    ["아이: (i)이 (ii)보다 높음 → [k]를 유지하면 더 높은 제약 위반 → [t]로 바꿈 → [tɛb]",1],
+    ["어른: (ii)가 (i)보다 높음 → 조음위치를 바꾸면 더 높은 제약 위반 → [k] 유지 → [kɛb]",1]
+  ],
+  notes:[
+    "슬라이드 7, 8, 10~12 (violable constraints, ranking, child vs. adult = reranking). 제약 이름(*k, IDENT[place])은 쓰지 않고 내용만 제시.",
+    "<B>는 이 아이의 출력이 될 수 있는 형태(연구개 폐쇄음 없음: b, d)와 될 수 없는 형태(a, c, e)로 구성. e는 끝소리에 [k]가 있어 놓치기 쉬움.",
+    "설명에서 '규칙의 순서(order)'로 쓰면 감점. 핵심은 같은 제약의 서열(ranking)이 다르다는 것.",
+    "선택은 정답 하나당 1점. 3개 이상 고르면 오답 수만큼 감점하는 방식 권장."
+  ]
+},
+{
+  id:"ot-plate",
+  section:"Phonology",
+  topic:"Optimality Theory",
+  points:4,
+  fields:[
+    {id:"s",label:"The TWO input–output pairs the child's grammar generates",type:"select",answer:"bd"},
+    {id:"e",label:"Why /blɛt/ is [bɛt], not [blɛt] or [bəlɛt]",type:"essay"}
+  ],
+  paper:`
+<p class="lead">Read &lt;A&gt; and &lt;B&gt; and follow the directions. [4 points]</p>
+<div class="box"><span class="box-h">&lt;A&gt;</span>
+ <p>In Optimality Theory, the output a speaker produces does not have to satisfy every constraint. It only has to do better than the other possible outputs under the speaker's ranking. Some constraints prefer outputs that are easy to pronounce, while others prefer outputs that stay faithful to the input, so they often conflict. Consider the three constraints below.</p>
+ <ul class="clist">
+  <li><b>(i)</b><span>An output should not contain a consonant cluster.</span></li>
+  <li><b>(ii)</b><span>An output should not contain a sound that is not in the input.</span></li>
+  <li><b>(iii)</b><span>Every sound in the input should appear in the output.</span></li>
+ </ul>
+ <p>A child learning English ranks (i) highest, (ii) next, and (iii) lowest. This child says <i>plate</i> /pleɪt/ as [peɪt].</p>
+</div>
+<div class="box"><span class="box-h">&lt;B&gt;</span>
+ <p>The forms below are nonce words. They are not English words, but they are possible forms.</p>
+ <ul class="blist">
+  <li><span>a.</span><span>/plɪm/ → [plɪm]</span></li>
+  <li><span>b.</span><span>/plɪm/ → [pɪm]</span></li>
+  <li><span>c.</span><span>/stɑb/ → [sətɑb]</span></li>
+  <li><span>d.</span><span>/grʌf/ → [gʌf]</span></li>
+  <li><span>e.</span><span>/blɛt/ → [bəlɛt]</span></li>
+ </ul>
+</div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Select the TWO input–output pairs in &lt;B&gt; that the child&#39;s grammar in &lt;A&gt; generates. Then, based on the ranking in &lt;A&gt;, explain why the child pronounces /blɛt/ as [bɛt], rather than [blɛt] or [bəlɛt].</p>
+</div>`,
+  answer:`
+<p>Pairs the grammar generates: <b>b, d</b></p>
+<p>[blɛt] keeps the cluster and violates (i), the highest-ranked constraint, so it loses. Both [bəlɛt] and [bɛt] avoid the cluster. [bəlɛt] inserts [ə] and violates (ii), while [bɛt] deletes /l/ and violates (iii). Since (ii) is ranked higher than (iii), inserting a sound is worse than deleting one, so [bɛt] is the best output.</p>`,
+  rubric:[
+    ["b 선택",1],
+    ["d 선택",1],
+    ["(i)이 가장 높아 자음군을 유지한 [blɛt]가 탈락함을 설명",1],
+    ["(ii)가 (iii)보다 높아 삽입한 [bəlɛt]보다 삭제한 [bɛt]가 나음을 설명",1]
+  ],
+  notes:[
+    "슬라이드 8, 9, 12 (markedness vs. faithfulness, 'plate'). 제약 이름(*COMPLEX, DEP, MAX)은 쓰지 않고 내용만 제시.",
+    "Item 15가 '출력 형태'만 고르게 한다면, 이 문항은 입력→출력 쌍을 고르게 해서 삭제와 삽입 중 무엇이 선택되는지 서열로 판단하게 함.",
+    "오답: a는 자음군 유지 (i 위반), c와 e는 삽입 (ii 위반, 삭제보다 나쁨).",
+    "/stɑb/는 어느 자음을 지우는지 이 세 제약만으로 정할 수 없어서, 삭제형이 아닌 삽입형만 보기로 씀.",
+    "선택은 정답 하나당 1점. 3개 이상 고르면 오답 수만큼 감점하는 방식 권장."
+  ]
+}
+];
+
+const itemsEl=document.getElementById("items"), selEl=document.getElementById("item-select");
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+let currentId=ITEMS[0].id;
+{const v=store.get("tce-item"); if(v&&ITEMS.some(i=>i.id===v)) currentId=v;}
+
+const letters=v=>[...new Set((v.toLowerCase().match(/[a-z]/g)||[]))].sort().join("");
+function grade(f,v){
+  if(f.type==="text"){const k=x=>x.toLowerCase().replace(/[^a-z]/g,""); return f.accept.map(k).includes(k(v));}
+  if(f.type==="select") return letters(v)===f.answer;
+  return null;
+}
+
+const FEEDBACK={
+ "ot-key":{
+  s:{opts:{
+   a:"a: [kʌf] contains [k]. For this child, (i) outranks (ii), so [k] would always be changed. The child cannot produce it.",
+   b:"b: [tɪb] has no velar stop, so it violates neither constraint. The child can produce it.",
+   c:"c: [gʊp] contains the velar stop [g], which (i) rules out for this child.",
+   d:"d: [dɛp] has no velar stop, so the child can produce it.",
+   e:"e: [bɪk] ends in [k]. Look at every sound, not just the first one. (i) rules it out for this child."}},
+  e:{checklist:["Child: (i) is ranked higher than (ii), so keeping [k] is worse than changing its place: [tɛb].","Adult: (ii) is ranked higher than (i), so changing the place is worse than keeping [k]: [kɛb].","Both speakers have the same constraints; only the ranking is different (not the order of rules)."]}
+ },
+ "ot-plate":{
+  s:{opts:{
+   a:"a: [plɪm] keeps the cluster /pl/ and violates (i), the highest-ranked constraint. The child avoids it, as in [peɪt].",
+   b:"b: [pɪm] avoids the cluster by deleting /l/. Deleting violates only (iii), the lowest-ranked constraint.",
+   c:"c: [sətɑb] inserts [ə], which violates (ii). For this child, inserting is worse than deleting, because (ii) outranks (iii).",
+   d:"d: [gʌf] avoids the cluster by deleting /r/, which violates only the lowest-ranked (iii).",
+   e:"e: [bəlɛt] inserts [ə] and violates (ii). Deleting a sound would violate only the lower-ranked (iii), so the child prefers [bɛt]."}},
+  e:{checklist:["[blɛt] violates (i), the highest-ranked constraint, so it is ruled out.","[bəlɛt] violates (ii); [bɛt] violates (iii).","(ii) is ranked higher than (iii), so deleting is the smaller violation: [bɛt] wins."]}
+ },
+ "wf-short-1":{a:{wrong:"<i>elbowed</i> and <i>bottled</i> add no derivational affix; only the inflectional -ed shows they are verbs. A noun used as a verb with no change in form is category extension (zero derivation)."}},
+ "wf-short-2":{a:{wrong:"The longer words came first: <i>television</i> and <i>babysitter</i>. Speakers removed what looked like a suffix (-ion, -er) to make new verbs. That is back formation."}},
+ "wf-short-3":{a:{wrong:"Each word combines <i>parts</i> of two existing words (mo-tor + ho-tel, iPod + broad-cast). Compounding would keep both words whole, so this is blending."}},
+ "wf-short-4":{a:{wrong:"Both words are shortened forms of longer words, <i>influenza</i> and <i>gymnasium</i>. Nothing new is added, and the meaning stays the same. That is clipping."}},
+ "wf-short-5":{a:{wrong:"Both words come from the first letters of the words in a phrase and are pronounced as words, not letter by letter. That makes them acronyms, not abbreviations like <i>TV</i>."}},
+ "steps-unhelpfulness":{
+  b1:{wrong:"<i>help</i> is a noun, and only <i>-ful</i> attaches to nouns. So the first step is help + -ful."},
+  b2:{wrong:"After <i>helpful</i> is formed, <i>un-</i> must attach next. If <i>-ness</i> came first, the result would be a noun, and <i>un-</i> attaches only to adjectives."},
+  b3:{wrong:"<i>un-</i> attaches to the adjective formed in step 1, <i>helpful</i>."},
+  b4:{wrong:"<i>-ness</i> attaches last, to the adjective <i>unhelpful</i>, forming the noun <i>unhelpfulness</i>."}
+ },
+ "steps-nationalization":{
+  b1:{wrong:"-al turns the noun <i>nation</i> into the adjective <i>national</i>."},
+  b2:{wrong:"-ize turns nouns or adjectives into verbs, so <i>nationalize</i> is a verb."},
+  b3:{wrong:"-ation turns the verb <i>nationalize</i> into the noun <i>nationalization</i>."},
+  b4:{wrong:"-ation attaches only to verbs. <i>national</i> is an adjective, so -ize must first turn it into a verb."}
+ },
+ "tree-undoable":{
+  c1:{wrong:"un- attaches to the verb <i>do</i> and makes another verb, <i>undo</i> ('reverse the action'). So ① is a Verb."},
+  c2:{wrong:"The base <i>do</i> is a Verb."},
+  c3:{wrong:"-able turns the verb <i>do</i> into <i>doable</i>, an Adjective. un- then means 'not'."},
+  c4:{wrong:"The base <i>do</i> is a Verb."},
+  t1:{opts:{
+   a:"a: every edit <i>can be undone</i>, so this is [[un-do]-able], structure (1).",
+   b:"b: the report <i>cannot be done</i> in time, so this is [un-[do-able]], structure (2).",
+   c:"c: the repair <i>can no longer be undone</i>, so this is structure (1). <i>No longer</i> adds the negation, not un-."}},
+  t2:{opts:{
+   a:"a: every edit <i>can be undone</i>, so this is structure (1), not (2).",
+   b:"b: the report <i>cannot be done</i> in time, so this is [un-[do-able]], structure (2).",
+   c:"c: the repair <i>can no longer be undone</i>, so this is structure (1), not (2). <i>No longer</i> adds the negation, not un-."}}
+ },
+ "tree-lighthouse":{
+  c1:{wrong:"<i>light</i> + <i>house</i> form the compound <i>lighthouse</i>. Its rightmost member <i>house</i> is a noun, so ① is a Noun."},
+  c2:{wrong:"② sits above <i>keep</i> alone, before -er is added. <i>keep</i> is a Verb; -er then makes the noun <i>keeper</i>."},
+  c3:{wrong:"In (2), <i>light</i> modifies <i>housekeeper</i> and means 'not heavy', so it is an Adjective."},
+  c4:{wrong:"<i>house</i> + <i>keeper</i> form <i>housekeeper</i>. Its rightmost member <i>keeper</i> is a noun, so ④ is a Noun."},
+  m1:{checklist:["light + house group first as the compound <i>lighthouse</i>.","The whole means a person who keeps (looks after) a lighthouse."]},
+  m2:{checklist:["house + keeper group first as the noun <i>housekeeper</i>.","The adjective <i>light</i> modifies it: a housekeeper who is light."]}
+ },
+ "rule-ordering-1":{
+  a:{wrong:"CCR deletes /p/ or /d/, which puts the nasal right next to /k/. That creates the environment for NA, so CCR feeds NA."},
+  b:{checklist:["VL applies before FL.","ladder: /d/ is already voiced, so VL lengthens the vowel. FL then gives [læːɾər].","latter: when VL applies, /t/ is still voiceless, so the vowel is not lengthened.","FL turns /t/ into the voiced [ɾ] only after VL has applied, so the vowel stays short: [læɾər]."]}
+ },
+ "infl-deriv-1":{
+  a:{wrong:"An inflectional affix never changes a word's part of speech. The missing word is <i>category</i>."},
+  b:{opts:{
+   a:"<i>older</i>: -er marks {COMP}, so it is inflectional.",
+   b:"<i>driver</i>: -er turns the verb <i>drive</i> into a noun, so it is derivational.",
+   c:"<i>carpeting</i>: a noun meaning carpet material, not {PRES PART}, so -ing is derivational.",
+   d:"<i>driving</i>: in <i>is driving</i>, -ing marks {PRES PART}, so it is inflectional.",
+   e:"<i>aged</i>: an adjective (<i>an aged man</i>), not {PAST} or {PAST PART}, so -ed is derivational.",
+   f:"<i>walked</i>: -ed marks {PAST}, so it is inflectional.",
+   g:"<i>friendly</i>: -ly turns the noun <i>friend</i> into an adjective, so it is derivational.",
+   h:"<i>walks</i>: -s marks {PRES}, so it is inflectional."}}
+ },
+ "rdi-order-1":{
+  a:{opts:{
+   a:"<i>friendships</i>: friend + ship (D) + s (I) follows the RDI order, so it doesn't appear to violate it.",
+   b:"<i>happierness</i>: {COMP} comes before -ness. This really violates RDI, so the word is ill-formed.",
+   c:"<i>lovingly</i>: -ing (I) before -ly (D) looks like a violation, but category extension makes <i>loving</i> an adjective, so -ly can attach.",
+   d:"<i>menly</i>: {PLU} comes before -ly. This really violates RDI, so the word is ill-formed.",
+   e:"<i>markedly</i>: -ed (I) before -ly (D) looks like a violation, but category extension makes <i>marked</i> an adjective, so -ly can attach.",
+   f:"<i>createsive</i>: {PRES} comes before -ive. This really violates RDI, so the word is ill-formed.",
+   g:"<i>governments</i>: govern + ment (D) + s (I) follows the RDI order, so it doesn't appear to violate it."}}
+ },
+ "wf-match-1":{
+  m:{opts:{
+   a:"<i>radar</i> is an acronym: it comes from the first letters of a phrase and is pronounced as a word.",
+   b:"<i>texted</i> is category extension: the noun <i>text</i> becomes a verb with no change in form.",
+   c:"<i>smog</i> is a blend of parts of <i>smoke</i> and <i>fog</i>.",
+   d:"<i>bartend</i> is a back formation from <i>bartender</i>, made by removing what looks like the suffix -er.",
+   e:"<i>TV</i> is an abbreviation: it is read letter by letter, unlike an acronym. It matches none of the processes.",
+   f:"<i>hamburger</i> comes from a proper name (Hamburg). It matches none of the processes."}}
+ },
+ "wf-match-2":{
+  m:{opts:{
+   a:"<i>lab</i> is a clipped form of <i>laboratory</i>.",
+   b:"<i>quiz</i> is a coinage: a brand-new word based on no existing morphemes.",
+   c:"<i>brunch</i> is a blend of parts of <i>breakfast</i> and <i>lunch</i>. It matches none of the processes.",
+   d:"<i>cockroach</i> is folk etymology: Spanish <i>cucaracha</i> was replaced with similar-sounding English forms.",
+   e:"<i>blackboard</i> is a compound of two free morphemes, <i>black</i> and <i>board</i>.",
+   f:"<i>chaired</i> is category extension: the noun <i>chair</i> becomes a verb. It matches none of the processes."}}
+ }
+};
+function feedbackFor(it,f){
+  const fb=(FEEDBACK[it.id]||{})[f.id]||{};
+  if(f.type==="essay"&&fb.checklist) return `<span class="fb-h">Check your answer for these points</span><ul>${fb.checklist.map(c=>`<li>${c}</li>`).join("")}</ul>`;
+  if(f.type==="text"){const v=document.getElementById(`f-${it.id}-${f.id}`).value; return grade(f,v)?"":(fb.wrong||"");}
+  if(f.type==="select"){
+    const got=letters(document.getElementById(`f-${it.id}-${f.id}`).value), want=f.answer, msgs=[];
+    [...want].filter(x=>!got.includes(x)).forEach(x=>msgs.push(`You left out <b>${x}</b>. ${fb.opts?.[x]||""}`));
+    [...got].filter(x=>!want.includes(x)).forEach(x=>msgs.push(`<b>${x}</b> should not be included. ${fb.opts?.[x]||""}`));
+    return msgs.length?`<ul>${msgs.map(m=>`<li>${m}</li>`).join("")}</ul>`:"";
+  }
+  if(f.type==="match"){
+    const msgs=[];
+    f.rows.forEach((r,k)=>{
+      const v=document.getElementById(`f-${it.id}-${f.id}-${k}`).value;
+      if(v===r[2]) return;
+      const chose=v?`You chose <b>${v}</b>. ${fb.opts?.[v]||""} `:"You didn't choose a sentence. ";
+      msgs.push(`${r[0]} ${r[1]}: ${chose}The answer is <b>${r[2]}</b>. ${fb.opts?.[r[2]]||""}`);
+    });
+    return msgs.length?`<ul>${msgs.map(m=>`<li>${m}</li>`).join("")}</ul>`:"";
+  }
+  return "";
+}
+function fieldHTML(it,f){
+  if(f.type==="match"){
+    const rows=f.rows.map((r,k)=>{
+      const key=`ans:${it.id}:${f.id}:${k}`, v=store.get(key)||"", fid=`f-${it.id}-${f.id}-${k}`;
+      const opts=['<option value="">—</option>',...[...f.options].map(o=>`<option value="${o}"${o===v?" selected":""}>${o}</option>`)].join("");
+      return `<div class="mrow"><span>${r[0]}</span><label for="${fid}">${r[1]}</label><select id="${fid}" data-key="${key}">${opts}</select><span class="mark" id="m-${fid}"></span></div>`;
+    }).join("");
+    return `<div class="field"><span class="hint">Choose a sentence letter from &lt;B&gt; for each process.</span><div class="match">${rows}</div><div class="fb" id="fb-${it.id}-${f.id}" hidden></div></div>`;
+  }
+  const key=`ans:${it.id}:${f.id}`, v=store.get(key)||"", fid=`f-${it.id}-${f.id}`;
+  const hint=f.type==="select"?'<span class="hint">Type the letters, e.g. a, d</span>':f.type==="essay"?'<span class="hint">Write in English. After checking, compare it with the points shown below.</span>':'';
+  const ctrl=f.type==="essay"
+    ?`<textarea id="${fid}" data-key="${key}">${v.replace(/</g,"&lt;")}</textarea>`
+    :`<div class="row"><input id="${fid}" data-key="${key}" type="text" autocomplete="off" spellcheck="false" value="${v.replace(/"/g,"&quot;")}"><span class="mark" id="m-${fid}"></span></div>`;
+  return `<div class="field"><label for="${fid}">${f.label}</label>${hint}${ctrl}<div class="fb" id="fb-${it.id}-${f.id}" hidden></div></div>`;
+}
+function buildPicker(){
+  const secs=[...new Set(ITEMS.map(i=>i.section))];
+  selEl.innerHTML=secs.map(sec=>`<optgroup label="${sec}">${ITEMS.map((it,n)=>it.section===sec?`<option value="${it.id}">Item ${n+1} · ${it.topic} [${it.points} pt${it.points>1?"s":""}]</option>`:"").join("")}</optgroup>`).join("");
+  selEl.value=currentId;
+  selEl.onchange=()=>go(selEl.value);
+  document.getElementById("prev-item").onclick=()=>step(-1);
+  document.getElementById("next-item").onclick=()=>step(1);
+}
+function go(id){currentId=id; selEl.value=id; store.set("tce-item",id); render();}
+function step(d){const order=[...selEl.options].map(o=>o.value), k=order.indexOf(currentId); const n=order[k+d]; if(n) go(n);}
+function render(){
+  const list=ITEMS.filter(i=>i.id===currentId);
+  itemsEl.innerHTML="";
+  const order=[...selEl.options].map(o=>o.value), k=order.indexOf(currentId);
+  document.getElementById("prev-item").disabled=k<=0;
+  document.getElementById("next-item").disabled=k>=order.length-1;
+  list.forEach(it=>{
+    const total=it.rubric.reduce((a,r)=>a+r[1],0);
+    const art=document.createElement("article"); art.className="sheet"; art.id=it.id;
+    art.innerHTML=`
+      <div class="sheet-head"><div><span class="qno">Item ${ITEMS.indexOf(it)+1}</span><span class="tag">${it.section}</span><span class="tag">${it.topic}</span></div><span class="pts">${it.points} points</span></div>
+      <div class="paper">${it.paper}</div>
+      <section class="sheet-ans" aria-label="Answer sheet">
+        <h3>Your answer</h3>
+        ${it.fields.map(f=>fieldHTML(it,f)).join("")}
+        <div class="actions"><button class="btn" type="button" data-act="check">Check answers</button><button class="btn ghost" type="button" data-act="clear">Clear</button><span class="score" aria-live="polite"></span></div>
+      </section>
+      <details class="key"><summary>모범 답안 · 채점 기준</summary>
+        <div class="key-body">
+          <h3>Model answer</h3><div class="paper">${it.answer}</div>
+          <h3>Scoring (${total} points)</h3>
+          <div class="tbl"><table class="rubric"><thead><tr><th>요소</th><th>배점</th></tr></thead><tbody>
+            ${it.rubric.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}
+          </tbody></table></div>
+          <h3>Notes</h3><ul class="notes">${it.notes.map(n=>`<li>${n}</li>`).join("")}</ul>
+        </div></details>`;
+    art.querySelectorAll("[data-key]").forEach(el=>el.addEventListener(el.tagName==="SELECT"?"change":"input",()=>store.set(el.dataset.key,el.value)));
+    const scoreEl=art.querySelector(".score");
+    art.querySelector('[data-act="check"]').onclick=()=>{
+      let auto=0,right=0,essay=false;
+      it.fields.forEach(f=>{
+        if(f.type==="match"){
+          f.rows.forEach((r,k)=>{const fid=`f-${it.id}-${f.id}-${k}`, ok=document.getElementById(fid).value===r[2]; auto++; if(ok) right++;
+            const m=document.getElementById("m-"+fid); m.textContent=ok?"Correct":"Incorrect"; m.className="mark "+(ok?"ok":"no");});
+          return;
+        }
+        const fid=`f-${it.id}-${f.id}`, v=document.getElementById(fid).value, ok=grade(f,v);
+        if(ok===null){essay=true;return;}
+        auto++; if(ok) right++;
+        const m=document.getElementById("m-"+fid); m.textContent=ok?"Correct":"Incorrect"; m.className="mark "+(ok?"ok":"no");
+      });
+      it.fields.forEach(f=>{const box=document.getElementById(`fb-${it.id}-${f.id}`), html=feedbackFor(it,f); box.innerHTML=html; box.hidden=!html;});
+      scoreEl.textContent=`${right} / ${auto} correct`+(essay?" · check the written part against the points below it":"");
+      art.querySelector("details.key").open=true;
+    };
+    art.querySelector('[data-act="clear"]').onclick=()=>{
+      art.querySelectorAll(".mrow select").forEach(el=>{el.value=""; store.del(el.dataset.key);});
+      art.querySelectorAll(".mrow .mark").forEach(m=>{m.textContent="";m.className="mark";});
+      it.fields.filter(f=>f.type!=="match").forEach(f=>{const fid=`f-${it.id}-${f.id}`; document.getElementById(fid).value=""; store.del(`ans:${it.id}:${f.id}`); const m=document.getElementById("m-"+fid); if(m){m.textContent="";m.className="mark";}});
+      art.querySelectorAll(".fb").forEach(b=>{b.innerHTML="";b.hidden=true;});
+      scoreEl.textContent=""; art.querySelector("details.key").open=false;
+    };
+    itemsEl.appendChild(art);
+  });
+}
+buildPicker();
+render();
+</script>
