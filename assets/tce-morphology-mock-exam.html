@@ -74,6 +74,7 @@ u{text-underline-offset:3px}
 .mrow{display:grid;grid-template-columns:2.2em minmax(0,1fr) 5.5em 5em;gap:8px;align-items:center;font-family:var(--f-paper);font-size:16px}
 .mrow select{font-family:var(--f-paper);font-size:16px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:5px 8px;width:100%}
 .mrow select:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+[hidden]{display:none!important}
 .fb{font-size:14px;line-height:1.55;background:var(--accent-soft);border-radius:4px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
 .fb ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px}
 .fb .fb-h{font-weight:600;font-size:13px}
@@ -86,6 +87,7 @@ u{text-underline-offset:3px}
 .clist{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:4px}
 .clist li{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:8px}
 .clist b{font-family:var(--f-ui);font-size:14.5px;font-weight:600}
+.note{font-size:14.5px;color:var(--muted);margin:0}
 .dir{border:1px solid var(--fg);padding:10px 14px;display:flex;flex-direction:column;gap:6px}
 .dir-h{font-weight:700;text-align:center}
 details.key{background:var(--key);border:1px solid var(--key-line);border-radius:6px}
@@ -448,86 +450,86 @@ const ITEMS = [
   id:"wf-short-1",
   section:"Morphology",
   topic:"Word formation (short answer)",
-  points:1,
-  fields:[{id:"a",label:"Word-formation process",type:"text",accept:["category extension", "zero derivation", "conversion", "functional shift"]}],
+  points:2,
+  fields:[{id:"p1",label:"(1)–(2)",type:"text",accept:["category extension", "zero derivation", "conversion", "functional shift"]},{id:"p2",label:"(3)–(4)",type:"text",accept:["compounding", "compound", "compounds"]}],
   paper:`
-<p class="lead">Read the sentences and follow the directions. [1 point]</p>
-<div class="box"><ul class="blist"><li><span>•</span><span>He <u>elbowed</u> his way through the crowd.</span></li><li><span>•</span><span>She <u>bottled</u> the homemade sauce and gave it to her neighbors.</span></li></ul></div>
+<p class="lead">Read the sentences and follow the directions. [2 points]</p>
+<div class="box"><ul class="blist"><li><span>(1)</span><span>He <u>elbowed</u> his way through the crowd.</span></li><li><span>(2)</span><span>She <u>bottled</u> the homemade sauce and gave it to her neighbors.</span></li><li><span>(3)</span><span>I need to buy a new <u>toothbrush</u>.</span></li><li><span>(4)</span><span>A tall <u>sunflower</u> grew by the fence.</span></li></ul></div>
 <div class="dir">
  <div class="dir-h">&lt;Directions&gt;</div>
- <p>Write the word-formation process that the underlined words have in common.</p>
+ <p>The underlined words in (1) and (2) were formed by the same word-formation process, and so were the underlined words in (3) and (4). Write the process for (1)–(2) and the process for (3)–(4).</p>
 </div>`,
-  answer:`<p><b>category extension (zero derivation)</b></p><p>The nouns <i>elbow</i> and <i>bottle</i> are used as verbs with no change in form.</p>`,
-  rubric:[["category extension (zero derivation)",1]],
-  notes:["슬라이드 33 (category extension = zero derivation).", "기출의 email, peopled와 겹치지 않도록 신체 부위·사물 명사를 씀.", "-ed는 굴절접사이므로 파생(derivation)으로 답하면 오답. conversion, zero derivation도 정답 처리."]
+  answer:`<p>(1)–(2): <b>category extension (zero derivation)</b><br><i>elbowed</i>: the noun <i>elbow</i> is used as a verb; <i>bottled</i>: the noun <i>bottle</i> is used as a verb.</p><p>(3)–(4): <b>compounding</b><br><i>toothbrush</i> &lt; <i>tooth</i> + <i>brush</i>; <i>sunflower</i> &lt; <i>sun</i> + <i>flower</i>.</p>`,
+  rubric:[["(1)–(2) category extension (zero derivation)",1],["(3)–(4) compounding",1]],
+  notes:["슬라이드 33, 34.", "-ed를 보고 derivation으로 답하면 오답 (굴절접사). conversion, zero derivation도 정답 처리."]
 },
 {
   id:"wf-short-2",
   section:"Morphology",
   topic:"Word formation (short answer)",
-  points:1,
-  fields:[{id:"a",label:"Word-formation process",type:"text",accept:["back formation", "backformation"]}],
+  points:2,
+  fields:[{id:"p1",label:"(1)–(2)",type:"text",accept:["back formation"]},{id:"p2",label:"(3)–(4)",type:"text",accept:["proper name", "proper names", "eponym", "eponymy", "from a proper name"]}],
   paper:`
-<p class="lead">Read the sentences and follow the directions. [1 point]</p>
-<div class="box"><ul class="blist"><li><span>•</span><span>The station will <u>televise</u> the final match live.</span></li><li><span>•</span><span>My sister agreed to <u>babysit</u> on Saturday night.</span></li></ul></div>
+<p class="lead">Read the sentences and follow the directions. [2 points]</p>
+<div class="box"><ul class="blist"><li><span>(1)</span><span>The station will <u>televise</u> the final match live.</span></li><li><span>(2)</span><span>My sister agreed to <u>babysit</u> on Saturday night.</span></li><li><span>(3)</span><span>He ate a ham <u>sandwich</u> for lunch.</span></li><li><span>(4)</span><span>The students decided to <u>boycott</u> the new cafeteria.</span></li></ul></div>
 <div class="dir">
  <div class="dir-h">&lt;Directions&gt;</div>
- <p>Identify the word-formation process that produced the underlined words. Write ONE term.</p>
+ <p>Sentences (1)–(2) share one word-formation process, and sentences (3)–(4) share another. Identify each process, writing ONE term in each blank.</p>
 </div>`,
-  answer:`<p><b>back formation</b></p><p><i>televise</i> &lt; <i>television</i>, <i>babysit</i> &lt; <i>babysitter</i>. Each was formed by removing what looked like an affix.</p>`,
-  rubric:[["back formation",1]],
-  notes:["슬라이드 42 (back formation).", "학생들이 televise를 tele- + -ize의 파생으로 착각하기 쉬움. 역사적으로 television이 먼저.", "슬라이드 예(burgle, edit, bartend 등)와 겹치지 않게 함."]
+  answer:`<p>(1)–(2): <b>back formation</b><br><i>televise</i> &lt; <i>television</i>; <i>babysit</i> &lt; <i>babysitter</i>.</p><p>(3)–(4): <b>proper name</b><br><i>sandwich</i> comes from the Earl of Sandwich; <i>boycott</i> comes from Captain Charles Boycott.</p>`,
+  rubric:[["(1)–(2) back formation",1],["(3)–(4) proper name",1]],
+  notes:["슬라이드 40, 42.", "televise를 tele- + -ize 파생으로 착각하기 쉬움. 역사적으로 television이 먼저.", "proper name은 eponym으로 써도 정답 처리."]
 },
 {
   id:"wf-short-3",
   section:"Morphology",
   topic:"Word formation (short answer)",
-  points:1,
-  fields:[{id:"a",label:"Word-formation process",type:"text",accept:["blending", "blend"]}],
+  points:2,
+  fields:[{id:"p1",label:"(1)–(2)",type:"text",accept:["blending", "blend"]},{id:"p2",label:"(3)–(4)",type:"text",accept:["coinage", "coining", "root creation", "root creation and coinage"]}],
   paper:`
-<p class="lead">Read the sentences and follow the directions. [1 point]</p>
-<div class="box"><ul class="blist"><li><span>•</span><span>We stayed at a cheap <u>motel</u> just off the highway.</span></li><li><span>•</span><span>I listen to a history <u>podcast</u> on my way to work.</span></li></ul></div>
+<p class="lead">Read the sentences and follow the directions. [2 points]</p>
+<div class="box"><ul class="blist"><li><span>(1)</span><span>We stayed at a cheap <u>motel</u> just off the highway.</span></li><li><span>(2)</span><span>I listen to a history <u>podcast</u> on my way to work.</span></li><li><span>(3)</span><span>Could you pass me a <u>Kleenex</u>?</span></li><li><span>(4)</span><span>She bought a pair of <u>nylon</u> stockings.</span></li></ul></div>
 <div class="dir">
  <div class="dir-h">&lt;Directions&gt;</div>
- <p>What word-formation process do the underlined words show? Write your answer in ONE word.</p>
+ <p>Each pair of sentences, (1)–(2) and (3)–(4), contains underlined words formed by the same process. Write the word-formation process for each pair.</p>
 </div>`,
-  answer:`<p><b>blending</b></p><p><i>motel</i> &lt; <i>motor</i> + <i>hotel</i>, <i>podcast</i> &lt; <i>iPod</i> + <i>broadcast</i>.</p>`,
-  rubric:[["blending",1]],
-  notes:["슬라이드 36 (blending).", "compounding과 구별: 두 단어의 '일부'를 합침.", "Item 4의 smog, Item 5의 brunch와 겹치지 않게 함."]
+  answer:`<p>(1)–(2): <b>blending</b><br><i>motel</i> &lt; <i>motor</i> + <i>hotel</i>; <i>podcast</i> &lt; <i>iPod</i> + <i>broadcast</i>.</p><p>(3)–(4): <b>coinage</b><br><i>Kleenex</i> was invented as a brand name; <i>nylon</i> was invented as the name of a new material.</p>`,
+  rubric:[["(1)–(2) blending",1],["(3)–(4) coinage",1]],
+  notes:["슬라이드 35, 36.", "coinage는 root creation으로 써도 정답 처리.", "blending과 compounding의 구별, coinage와 다른 과정의 구별이 핵심."]
 },
 {
   id:"wf-short-4",
   section:"Morphology",
   topic:"Word formation (short answer)",
-  points:1,
-  fields:[{id:"a",label:"Word-formation process",type:"text",accept:["clipping", "clipped form", "clipped forms", "clip"]}],
+  points:2,
+  fields:[{id:"p1",label:"(1)–(2)",type:"text",accept:["clipping", "clipped form", "clipped forms", "clip"]},{id:"p2",label:"(3)–(4)",type:"text",accept:["folk etymology"]}],
   paper:`
-<p class="lead">Read the sentences and follow the directions. [1 point]</p>
-<div class="box"><ul class="blist"><li><span>•</span><span>Half of my class missed school because of the <u>flu</u>.</span></li><li><span>•</span><span>Let&#39;s meet at the <u>gym</u> after the last class.</span></li></ul></div>
+<p class="lead">Read the sentences and follow the directions. [2 points]</p>
+<div class="box"><ul class="blist"><li><span>(1)</span><span>Half of my class missed school because of the <u>flu</u>.</span></li><li><span>(2)</span><span>Let&#39;s meet at the <u>gym</u> after the last class.</span></li><li><span>(3)</span><span>We caught <u>crayfish</u> in the stream behind the school.</span></li><li><span>(4)</span><span>A <u>woodchuck</u> was digging under the shed.</span></li></ul></div>
 <div class="dir">
  <div class="dir-h">&lt;Directions&gt;</div>
- <p>Write the term for the word-formation process by which the underlined words were created.</p>
+ <p>The underlined words in (1)–(2) were created by one process, and those in (3)–(4) by a different process. Name both processes.</p>
 </div>`,
-  answer:`<p><b>clipping</b></p><p><i>flu</i> &lt; <i>influenza</i>, <i>gym</i> &lt; <i>gymnasium</i>.</p>`,
-  rubric:[["clipping",1]],
-  notes:["슬라이드 37 (clipped form).", "flu는 앞과 뒤가 모두 잘린 경우, gym은 뒷부분이 잘린 경우.", "Item 5의 lab과 겹치지 않게 함."]
+  answer:`<p>(1)–(2): <b>clipping</b><br><i>flu</i> &lt; <i>influenza</i>; <i>gym</i> &lt; <i>gymnasium</i>.</p><p>(3)–(4): <b>folk etymology</b><br><i>crayfish</i> &lt; Old French <i>crevice</i>, reshaped with the familiar word <i>fish</i>; <i>woodchuck</i> &lt; an Algonquian word like <i>wuchak</i>, reshaped as <i>wood</i> + <i>chuck</i>.</p>`,
+  rubric:[["(1)–(2) clipping",1],["(3)–(4) folk etymology",1]],
+  notes:["슬라이드 37, 41.", "crayfish와 woodchuck을 compounding으로 답하기 쉬움. 영어 단어처럼 보이지만 외래어를 비슷한 소리의 친숙한 형태로 바꾼 것."]
 },
 {
   id:"wf-short-5",
   section:"Morphology",
   topic:"Word formation (short answer)",
-  points:1,
-  fields:[{id:"a",label:"Word-formation process",type:"text",accept:["acronym", "acronyms", "acronymy"]}],
+  points:2,
+  fields:[{id:"p1",label:"(1)–(2)",type:"text",accept:["acronym", "acronyms", "acronymy"]},{id:"p2",label:"(3)–(4)",type:"text",accept:["abbreviation", "alphabetism", "initialism"]}],
   paper:`
-<p class="lead">Read the sentences and follow the directions. [1 point]</p>
-<div class="box"><ul class="blist"><li><span>•</span><span>The doctor used a <u>laser</u> to remove the scar.</span></li><li><span>•</span><span>We went <u>scuba</u> diving off the coast of Jeju.</span></li></ul></div>
+<p class="lead">Read the sentences and follow the directions. [2 points]</p>
+<div class="box"><ul class="blist"><li><span>(1)</span><span>The doctor used a <u>laser</u> to remove the scar.</span></li><li><span>(2)</span><span>We went <u>scuba</u> diving off the coast of Jeju.</span></li><li><span>(3)</span><span>The company hired a new <u>CEO</u> last month.</span></li><li><span>(4)</span><span>I bought the movie on <u>DVD</u>.</span></li></ul></div>
 <div class="dir">
  <div class="dir-h">&lt;Directions&gt;</div>
- <p>Name the word-formation process that the two underlined words share.</p>
+ <p>Write the word-formation process shared by the underlined words in (1) and (2), and the one shared by the underlined words in (3) and (4).</p>
 </div>`,
-  answer:`<p><b>acronym</b></p><p><i>laser</i> &lt; light amplification by stimulated emission of radiation; <i>scuba</i> &lt; self-contained underwater breathing apparatus.</p>`,
-  rubric:[["acronym",1]],
-  notes:["슬라이드 38~39 (acronym vs. abbreviation).", "abbreviation으로 답하면 오답: laser와 scuba는 글자 이름이 아니라 단어처럼 읽음.", "대부분의 화자가 원래 구를 모른다는 점도 수업에서 짚을 만함."]
+  answer:`<p>(1)–(2): <b>acronym</b><br><i>laser</i> &lt; <b>l</b>ight <b>a</b>mplification by <b>s</b>timulated <b>e</b>mission of <b>r</b>adiation; <i>scuba</i> &lt; <b>s</b>elf-<b>c</b>ontained <b>u</b>nderwater <b>b</b>reathing <b>a</b>pparatus.</p><p>(3)–(4): <b>abbreviation</b><br><i>CEO</i> &lt; <b>c</b>hief <b>e</b>xecutive <b>o</b>fficer; <i>DVD</i> &lt; <b>d</b>igital <b>v</b>ideo <b>d</b>isc.</p>`,
+  rubric:[["(1)–(2) acronym",1],["(3)–(4) abbreviation",1]],
+  notes:["슬라이드 38, 39 (acronym vs. abbreviation).", "같은 '첫 글자' 방식이지만 읽는 방식으로 구별: 단어처럼 읽으면 acronym, 글자로 읽으면 abbreviation.", "abbreviation은 alphabetism/initialism으로 써도 정답 처리."]
 },
 {
   id:"rule-ordering-1",
@@ -587,8 +589,8 @@ const ITEMS = [
   topic:"Optimality Theory",
   points:4,
   fields:[
-    {id:"s",label:"The TWO nonce words the child could produce",type:"select",answer:"bd"},
-    {id:"e",label:"Why /kɛb/ is [tɛb] for the child but [kɛb] for the adult",type:"essay"}
+    {id:"s",label:"The TWO pronunciations the child would produce",type:"select",answer:"bd"},
+    {id:"e",label:"Why the child says [toʊbi] but the adult says [koʊbi]",type:"essay"}
   ],
   paper:`
 <p class="lead">Read &lt;A&gt; and &lt;B&gt; and follow the directions. [4 points]</p>
@@ -601,31 +603,34 @@ const ITEMS = [
  <p>A young child ranks (i) higher than (ii), and says <i>key</i> /ki/ as [ti]. Adults rank the same two constraints the other way around, and say [ki].</p>
 </div>
 <div class="box"><span class="box-h">&lt;B&gt;</span>
- <p>The forms below are nonce words. They are not English words, but they are possible forms.</p>
+ <p>Suppose the names below were newly created as brand names. They are not English words, but they are possible forms. Each line shows the name and a pronunciation that a child might give it.</p>
  <ul class="blist">
-  <li><span>a.</span><span>[kʌf]</span></li>
-  <li><span>b.</span><span>[tɪb]</span></li>
-  <li><span>c.</span><span>[gʊp]</span></li>
-  <li><span>d.</span><span>[dɛp]</span></li>
-  <li><span>e.</span><span>[bɪk]</span></li>
+  <li><span>a.</span><span><i>Kemmo</i> /kɛmoʊ/ → [kɛmoʊ]</span></li>
+  <li><span>b.</span><span><i>Gibbo</i> /gɪboʊ/ → [dɪboʊ]</span></li>
+  <li><span>c.</span><span><i>Tupa</i> /tupə/ → [kupə]</span></li>
+  <li><span>d.</span><span><i>Kalu</i> /kɑlu/ → [tɑlu]</span></li>
+  <li><span>e.</span><span><i>Mikko</i> /mɪkoʊ/ → [mɪkoʊ]</span></li>
  </ul>
+ <p class="note">Note: The vowels are transcribed broadly, so their actual pronunciation may vary.</p>
 </div>
 <div class="dir">
  <div class="dir-h">&lt;Directions&gt;</div>
- <p>Choose the TWO nonce words in &lt;B&gt; that the child in &lt;A&gt; could produce. Then, explain why the child pronounces an input /kɛb/ as [tɛb] while an adult pronounces it as [kɛb], using the constraints and their ranking.</p>
+ <p>Choose the TWO pronunciations in &lt;B&gt; that the child in &lt;A&gt; would produce. Then, another new brand, <i>Koby</i> /koʊbi/, is pronounced [toʊbi] by the child but [koʊbi] by an adult. Explain why, using the constraints and their ranking.</p>
 </div>`,
   answer:`
-<p>Words the child could produce: <b>b, d</b></p>
-<p>For the child, (i) is ranked higher than (ii). Keeping [k] would violate the higher-ranked (i), so the child changes the place of /k/ and produces [t], which violates only the lower-ranked (ii): [tɛb]. For the adult, (ii) is ranked higher than (i). Changing the place of /k/ would violate the higher-ranked (ii), so the adult keeps [k] and violates only the lower-ranked (i): [kɛb]. The two speakers have the same constraints; only the ranking differs.</p>`,
+<p>Pronunciations the child would produce: <b>b, d</b></p>
+<p>For the child, (i) is ranked higher than (ii). Keeping [k] would violate the higher-ranked (i), so the child changes the place of /k/ and produces [t], which violates only the lower-ranked (ii): [toʊbi]. For the adult, (ii) is ranked higher than (i). Changing the place of /k/ would violate the higher-ranked (ii), so the adult keeps [k] and violates only the lower-ranked (i): [koʊbi]. The two speakers have the same constraints; only the ranking differs.</p>`,
   rubric:[
     ["b 선택",1],
     ["d 선택",1],
-    ["아이: (i)이 (ii)보다 높음 → [k]를 유지하면 더 높은 제약 위반 → [t]로 바꿈 → [tɛb]",1],
-    ["어른: (ii)가 (i)보다 높음 → 조음위치를 바꾸면 더 높은 제약 위반 → [k] 유지 → [kɛb]",1]
+    ["아이: (i)이 (ii)보다 높음 → [k]를 유지하면 더 높은 제약 위반 → [t]로 바꿈 → [toʊbi]",1],
+    ["어른: (ii)가 (i)보다 높음 → 조음위치를 바꾸면 더 높은 제약 위반 → [k] 유지 → [koʊbi]",1]
   ],
   notes:[
     "슬라이드 7, 8, 10~12 (violable constraints, ranking, child vs. adult = reranking). 제약 이름(*k, IDENT[place])은 쓰지 않고 내용만 제시.",
-    "<B>는 이 아이의 출력이 될 수 있는 형태(연구개 폐쇄음 없음: b, d)와 될 수 없는 형태(a, c, e)로 구성. e는 끝소리에 [k]가 있어 놓치기 쉬움.",
+    "<B>는 새로 만든 브랜드 이름과 아이의 발음 쌍. 정답 b, d는 연구개음을 치조음으로 바꿈.",
+    "오답: a는 첫소리 [k] 유지, e는 가운데 [k] 유지 (첫소리만 보면 놓치기 쉬움), c는 없던 [k]를 만들어 (i)과 (ii)를 모두 위반.",
+    "삭제(예: [ɛmoʊ])는 이 두 제약으로 막을 수 없으므로 보기에 넣지 않음.",
     "설명에서 '규칙의 순서(order)'로 쓰면 감점. 핵심은 같은 제약의 서열(ranking)이 다르다는 것.",
     "선택은 정답 하나당 1점. 3개 이상 고르면 오답 수만큼 감점하는 방식 권장."
   ]
@@ -696,14 +701,19 @@ function grade(f,v){
 }
 
 const FEEDBACK={
+ "wf-short-1":{p1:{wrong:"<i>elbowed</i>: the noun <i>elbow</i> is used as a verb; <i>bottled</i>: the noun <i>bottle</i> is used as a verb. Only the inflectional -ed is added; the noun itself becomes a verb with no change in form. That is category extension, not derivation."},p2:{wrong:"<i>toothbrush</i> &lt; <i>tooth</i> + <i>brush</i>; <i>sunflower</i> &lt; <i>sun</i> + <i>flower</i>. Each word joins two whole free morphemes. That is compounding."}},
+ "wf-short-2":{p1:{wrong:"<i>televise</i> &lt; <i>television</i>; <i>babysit</i> &lt; <i>babysitter</i>. The longer word came first, and speakers removed what looked like a suffix (-ion, -er) to make a new verb. That is back formation."},p2:{wrong:"<i>sandwich</i> comes from the Earl of Sandwich; <i>boycott</i> comes from Captain Charles Boycott. Each word comes from the name of a person. That is formation from a proper name."}},
+ "wf-short-3":{p1:{wrong:"<i>motel</i> &lt; <i>motor</i> + <i>hotel</i>; <i>podcast</i> &lt; <i>iPod</i> + <i>broadcast</i>. Each word combines <i>parts</i> of two existing words. Compounding would keep both words whole, so this is blending."},p2:{wrong:"<i>Kleenex</i> was invented as a brand name; <i>nylon</i> was invented as the name of a new material. Each word was created as a brand-new form, not built from existing morphemes. That is coinage."}},
+ "wf-short-4":{p1:{wrong:"<i>flu</i> &lt; <i>influenza</i>; <i>gym</i> &lt; <i>gymnasium</i>. Each word is a shortened form of a longer word with the same meaning. Nothing new is added. That is clipping."},p2:{wrong:"<i>crayfish</i> &lt; Old French <i>crevice</i>, reshaped with the familiar word <i>fish</i>; <i>woodchuck</i> &lt; an Algonquian word like <i>wuchak</i>, reshaped as <i>wood</i> + <i>chuck</i>. A foreign word was replaced with familiar English forms that sound similar. That is folk etymology, not compounding."}},
+ "wf-short-5":{p1:{wrong:"<i>laser</i> &lt; <b>l</b>ight <b>a</b>mplification by <b>s</b>timulated <b>e</b>mission of <b>r</b>adiation; <i>scuba</i> &lt; <b>s</b>elf-<b>c</b>ontained <b>u</b>nderwater <b>b</b>reathing <b>a</b>pparatus. These words come from the first letters of a phrase and are pronounced as words. That makes them acronyms."},p2:{wrong:"<i>CEO</i> &lt; <b>c</b>hief <b>e</b>xecutive <b>o</b>fficer; <i>DVD</i> &lt; <b>d</b>igital <b>v</b>ideo <b>d</b>isc. These words are read letter by letter (C-E-O, D-V-D), not as words. That makes them abbreviations, not acronyms."}},
  "ot-key":{
   s:{opts:{
-   a:"a: [kʌf] contains [k]. For this child, (i) outranks (ii), so [k] would always be changed. The child cannot produce it.",
-   b:"b: [tɪb] has no velar stop, so it violates neither constraint. The child can produce it.",
-   c:"c: [gʊp] contains the velar stop [g], which (i) rules out for this child.",
-   d:"d: [dɛp] has no velar stop, so the child can produce it.",
-   e:"e: [bɪk] ends in [k]. Look at every sound, not just the first one. (i) rules it out for this child."}},
-  e:{checklist:["Child: (i) is ranked higher than (ii), so keeping [k] is worse than changing its place: [tɛb].","Adult: (ii) is ranked higher than (i), so changing the place is worse than keeping [k]: [kɛb].","Both speakers have the same constraints; only the ranking is different (not the order of rules)."]}
+   a:"a: [kɛmoʊ] keeps [k]. For this child, (i) outranks (ii), so the [k] would be changed, as in key → [ti].",
+   b:"b: /g/ becomes [d]. This avoids a velar stop and violates only the lower-ranked (ii).",
+   c:"c: [kupə] creates a [k] that was not in the input. That violates both (i) and (ii), so the child would just say [tupə].",
+   d:"d: /k/ becomes [t]. This avoids a velar stop and violates only the lower-ranked (ii).",
+   e:"e: [mɪkoʊ] keeps the [k] in the middle of the word. Look at every sound, not just the first one. (i) rules it out for this child."}},
+  e:{checklist:["Child: (i) is ranked higher than (ii), so keeping [k] is worse than changing its place: [toʊbi].","Adult: (ii) is ranked higher than (i), so changing the place is worse than keeping [k]: [koʊbi].","Both speakers have the same constraints; only the ranking is different (not the order of rules)."]}
  },
  "ot-plate":{
   s:{opts:{
@@ -714,11 +724,6 @@ const FEEDBACK={
    e:"e: [bəlɛt] inserts [ə] and violates (ii). Deleting a sound would violate only the lower-ranked (iii), so the child prefers [bɛt]."}},
   e:{checklist:["[blɛt] violates (i), the highest-ranked constraint, so it is ruled out.","[bəlɛt] violates (ii); [bɛt] violates (iii).","(ii) is ranked higher than (iii), so deleting is the smaller violation: [bɛt] wins."]}
  },
- "wf-short-1":{a:{wrong:"<i>elbowed</i> and <i>bottled</i> add no derivational affix; only the inflectional -ed shows they are verbs. A noun used as a verb with no change in form is category extension (zero derivation)."}},
- "wf-short-2":{a:{wrong:"The longer words came first: <i>television</i> and <i>babysitter</i>. Speakers removed what looked like a suffix (-ion, -er) to make new verbs. That is back formation."}},
- "wf-short-3":{a:{wrong:"Each word combines <i>parts</i> of two existing words (mo-tor + ho-tel, iPod + broad-cast). Compounding would keep both words whole, so this is blending."}},
- "wf-short-4":{a:{wrong:"Both words are shortened forms of longer words, <i>influenza</i> and <i>gymnasium</i>. Nothing new is added, and the meaning stays the same. That is clipping."}},
- "wf-short-5":{a:{wrong:"Both words come from the first letters of the words in a phrase and are pronounced as words, not letter by letter. That makes them acronyms, not abbreviations like <i>TV</i>."}},
  "steps-unhelpfulness":{
   b1:{wrong:"<i>help</i> is a noun, and only <i>-ful</i> attaches to nouns. So the first step is help + -ful."},
   b2:{wrong:"After <i>helpful</i> is formed, <i>un-</i> must attach next. If <i>-ness</i> came first, the result would be a noun, and <i>un-</i> attaches only to adjectives."},
@@ -801,7 +806,7 @@ const FEEDBACK={
 function feedbackFor(it,f){
   const fb=(FEEDBACK[it.id]||{})[f.id]||{};
   if(f.type==="essay"&&fb.checklist) return `<span class="fb-h">Check your answer for these points</span><ul>${fb.checklist.map(c=>`<li>${c}</li>`).join("")}</ul>`;
-  if(f.type==="text"){const v=document.getElementById(`f-${it.id}-${f.id}`).value; return grade(f,v)?"":(fb.wrong||"");}
+  if(f.type==="text"){const v=document.getElementById(`f-${it.id}-${f.id}`).value; return grade(f,v)||!fb.wrong?"":`<p style="margin:0">${fb.wrong}</p>`;}
   if(f.type==="select"){
     const got=letters(document.getElementById(`f-${it.id}-${f.id}`).value), want=f.answer, msgs=[];
     [...want].filter(x=>!got.includes(x)).forEach(x=>msgs.push(`You left out <b>${x}</b>. ${fb.opts?.[x]||""}`));
@@ -855,7 +860,7 @@ function render(){
     const total=it.rubric.reduce((a,r)=>a+r[1],0);
     const art=document.createElement("article"); art.className="sheet"; art.id=it.id;
     art.innerHTML=`
-      <div class="sheet-head"><div><span class="qno">Item ${ITEMS.indexOf(it)+1}</span><span class="tag">${it.section}</span><span class="tag">${it.topic}</span></div><span class="pts">${it.points} points</span></div>
+      <div class="sheet-head"><div><span class="qno">Item ${ITEMS.indexOf(it)+1}</span><span class="tag">${it.section}</span><span class="tag">${it.topic}</span></div><span class="pts">${it.points} point${it.points>1?"s":""}</span></div>
       <div class="paper">${it.paper}</div>
       <section class="sheet-ans" aria-label="Answer sheet">
         <h3>Your answer</h3>
@@ -865,7 +870,7 @@ function render(){
       <details class="key"><summary>모범 답안 · 채점 기준</summary>
         <div class="key-body">
           <h3>Model answer</h3><div class="paper">${it.answer}</div>
-          <h3>Scoring (${total} points)</h3>
+          <h3>Scoring (${total} point${total>1?"s":""})</h3>
           <div class="tbl"><table class="rubric"><thead><tr><th>요소</th><th>배점</th></tr></thead><tbody>
             ${it.rubric.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}
           </tbody></table></div>
