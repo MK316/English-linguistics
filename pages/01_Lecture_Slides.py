@@ -12,7 +12,7 @@ st.set_page_config(page_title="Lecture Slide Player", layout="wide")
 
 # ----------------- Tabs -----------------------
 tab1, tab_more, tab3, tab_reading, tab2 = st.tabs(
-    ["🌀 Lecture Slides", "🌀 Morphology", "🌀 OT", "🌀 Readings", "🌀 References"]
+    ["🌀 Lecture Slides", "🌀 More Slides", "🌀 OT Slides", "🌀 Readings", "🌀 References"]
 )
 
 
@@ -441,7 +441,6 @@ with tab_more:
                 options=[f"Slide {i + 1}" for i in range(num_slides2)],
                 index=st.session_state.slide_index2,
                 label_visibility="collapsed",
-                key="jump_select2",
             )
             selected_idx2 = int(selected_slide2.split()[-1]) - 1
             if selected_idx2 != st.session_state.slide_index2:
@@ -545,7 +544,6 @@ with tab3:
                 options=[f"Slide {i + 1}" for i in range(num_slides3)],
                 index=st.session_state.slide_index3,
                 label_visibility="collapsed",
-                key="jump_select3",
             )
             selected_idx3 = int(selected_slide3.split()[-1]) - 1
             if selected_idx3 != st.session_state.slide_index3:
