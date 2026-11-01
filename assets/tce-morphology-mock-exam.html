@@ -120,58 +120,6 @@ i{font-style:italic}
 <script>
 const ITEMS = [
 {
-  id:"rule-ordering-1",
-  section:"Phonology",
-  topic:"Rule ordering",
-  points:4,
-  fields:[
-    {id:"a",label:"Relationship between NA and CCR in set A",type:"text",accept:["feeding"]},
-    {id:"b",label:"Vowel length difference in set B",type:"essay"}
-  ],
-  paper:`
-<p class="lead">Read the passage and follow the directions. [4 points]</p>
-<p>When two phonological rules, Rule X and Rule Y, apply to the same form, their order may be crucial. Suppose Rule X applies before Rule Y.</p>
-<ul class="defs">
- <li><b>Feeding:</b> Rule X creates the environment for Rule Y, so Rule Y applies.</li>
- <li><b>Bleeding:</b> Rule X destroys the environment for Rule Y, so Rule Y does not apply.</li>
-</ul>
-<p>Now suppose Rule X could affect the environment of Rule Y, but applies <i>after</i> Rule Y.</p>
-<ul class="defs">
- <li><b>Counterfeeding:</b> Rule X would create the environment for Rule Y, but because it applies too late, Rule Y does not apply.</li>
- <li><b>Counterbleeding:</b> Rule X would destroy the environment for Rule Y, but because it applies too late, Rule Y still applies.</li>
-</ul>
-<p>The data in (1) come from most varieties of American English. The last column gives the rules involved in each set. Assume that the flap [ɾ] is a voiced segment.</p>
-<div class="ex"><span class="ex-n">(1)</span></div>
-<div class="tbl"><table>
- <thead><tr><th></th><th>Word</th><th>Phonemic form</th><th>Phonetic form</th><th>Rules involved</th></tr></thead>
- <tbody>
-  <tr><td class="set" rowspan="2">A</td><td>pumpkin</td><td>/pʌmpkɪn/</td><td>[pʌŋkɪn]</td><td rowspan="2">Nasal Assimilation (NA)<br>Consonant Cluster Reduction (CCR)</td></tr>
-  <tr><td>handcrafted</td><td>/hændkræftɪd/</td><td>[hæŋkræftɪd]</td></tr>
-  <tr><td class="set" rowspan="2">B</td><td>ladder</td><td>/lædər/</td><td>[læːɾər]</td><td rowspan="2">Vowel Lengthening (VL)<br>Flapping (FL)</td></tr>
-  <tr><td>latter</td><td>/lætər/</td><td>[læɾər]</td></tr>
- </tbody>
-</table></div>
-<div class="dir">
- <div class="dir-h">&lt;Directions&gt;</div>
- <p>Identify the relationship between NA and CCR in set A using ONE term from the passage. Then, explain the vowel length difference in set B, showing how VL and FL apply to both <i>ladder</i> and <i>latter</i> in the correct order.</p>
-</div>`,
-  answer:`
-<p>Set A: <b>feeding</b> (CCR → NA)</p>
-<p>VL applies before FL. In /lædər/, the vowel is followed by voiced /d/, so VL lengthens it; FL then changes /d/ to [ɾ], which gives [læːɾər]. In /lætər/, the vowel is followed by voiceless /t/ when VL applies, so it is not lengthened. FL creates the voiced [ɾ] only afterward, so the vowel stays short: [læɾər].</p>`,
-  rubric:[
-    ["feeding",1],
-    ["VL이 FL보다 먼저 적용됨",1],
-    ["ladder: 기저형의 /d/가 유성음이라 VL 적용 → 장모음",1],
-    ["latter: VL 적용 시점에 /t/가 무성음 → 장음화 안 됨, [ɾ]는 그 후에 생김",1]
-  ],
-  notes:[
-    "Set B는 counterfeeding이지만 용어는 요구하지 않음. 용어를 써서 정확히 설명하면 감점 없이 인정.",
-    "\"in the correct order\"는 순서를 밝히지 않으므로 VL → FL 판단 1점은 유지됨.",
-    "도출 과정은 문장이나 도출표 형식 모두 인정.",
-    "pumpkin은 /m/이 이미 /p/와 같은 조음위치라 NA를 먼저 적용해도 변화 없음 → *[pʌmkɪn] (함정 포인트)."
-  ]
-},
-{
   id:"infl-deriv-1",
   section:"Morphology",
   topic:"Inflectional vs. derivational",
@@ -582,6 +530,58 @@ const ITEMS = [
   notes:["슬라이드 38~39 (acronym vs. abbreviation).", "abbreviation으로 답하면 오답: laser와 scuba는 글자 이름이 아니라 단어처럼 읽음.", "대부분의 화자가 원래 구를 모른다는 점도 수업에서 짚을 만함."]
 },
 {
+  id:"rule-ordering-1",
+  section:"Phonology",
+  topic:"Rule ordering",
+  points:4,
+  fields:[
+    {id:"a",label:"Relationship between NA and CCR in set A",type:"text",accept:["feeding"]},
+    {id:"b",label:"Vowel length difference in set B",type:"essay"}
+  ],
+  paper:`
+<p class="lead">Read the passage and follow the directions. [4 points]</p>
+<p>When two phonological rules, Rule X and Rule Y, apply to the same form, their order may be crucial. Suppose Rule X applies before Rule Y.</p>
+<ul class="defs">
+ <li><b>Feeding:</b> Rule X creates the environment for Rule Y, so Rule Y applies.</li>
+ <li><b>Bleeding:</b> Rule X destroys the environment for Rule Y, so Rule Y does not apply.</li>
+</ul>
+<p>Now suppose Rule X could affect the environment of Rule Y, but applies <i>after</i> Rule Y.</p>
+<ul class="defs">
+ <li><b>Counterfeeding:</b> Rule X would create the environment for Rule Y, but because it applies too late, Rule Y does not apply.</li>
+ <li><b>Counterbleeding:</b> Rule X would destroy the environment for Rule Y, but because it applies too late, Rule Y still applies.</li>
+</ul>
+<p>The data in (1) come from most varieties of American English. The last column gives the rules involved in each set. Assume that the flap [ɾ] is a voiced segment.</p>
+<div class="ex"><span class="ex-n">(1)</span></div>
+<div class="tbl"><table>
+ <thead><tr><th></th><th>Word</th><th>Phonemic form</th><th>Phonetic form</th><th>Rules involved</th></tr></thead>
+ <tbody>
+  <tr><td class="set" rowspan="2">A</td><td>pumpkin</td><td>/pʌmpkɪn/</td><td>[pʌŋkɪn]</td><td rowspan="2">Nasal Assimilation (NA)<br>Consonant Cluster Reduction (CCR)</td></tr>
+  <tr><td>handcrafted</td><td>/hændkræftɪd/</td><td>[hæŋkræftɪd]</td></tr>
+  <tr><td class="set" rowspan="2">B</td><td>ladder</td><td>/lædər/</td><td>[læːɾər]</td><td rowspan="2">Vowel Lengthening (VL)<br>Flapping (FL)</td></tr>
+  <tr><td>latter</td><td>/lætər/</td><td>[læɾər]</td></tr>
+ </tbody>
+</table></div>
+<div class="dir">
+ <div class="dir-h">&lt;Directions&gt;</div>
+ <p>Identify the relationship between NA and CCR in set A using ONE term from the passage. Then, explain the vowel length difference in set B, showing how VL and FL apply to both <i>ladder</i> and <i>latter</i> in the correct order.</p>
+</div>`,
+  answer:`
+<p>Set A: <b>feeding</b> (CCR → NA)</p>
+<p>VL applies before FL. In /lædər/, the vowel is followed by voiced /d/, so VL lengthens it; FL then changes /d/ to [ɾ], which gives [læːɾər]. In /lætər/, the vowel is followed by voiceless /t/ when VL applies, so it is not lengthened. FL creates the voiced [ɾ] only afterward, so the vowel stays short: [læɾər].</p>`,
+  rubric:[
+    ["feeding",1],
+    ["VL이 FL보다 먼저 적용됨",1],
+    ["ladder: 기저형의 /d/가 유성음이라 VL 적용 → 장모음",1],
+    ["latter: VL 적용 시점에 /t/가 무성음 → 장음화 안 됨, [ɾ]는 그 후에 생김",1]
+  ],
+  notes:[
+    "Set B는 counterfeeding이지만 용어는 요구하지 않음. 용어를 써서 정확히 설명하면 감점 없이 인정.",
+    "\"in the correct order\"는 순서를 밝히지 않으므로 VL → FL 판단 1점은 유지됨.",
+    "도출 과정은 문장이나 도출표 형식 모두 인정.",
+    "pumpkin은 /m/이 이미 /p/와 같은 조음위치라 NA를 먼저 적용해도 변화 없음 → *[pʌmkɪn] (함정 포인트)."
+  ]
+},
+{
   id:"ot-key",
   section:"Phonology",
   topic:"Optimality Theory",
@@ -837,8 +837,7 @@ function fieldHTML(it,f){
   return `<div class="field"><label for="${fid}">${f.label}</label>${hint}${ctrl}<div class="fb" id="fb-${it.id}-${f.id}" hidden></div></div>`;
 }
 function buildPicker(){
-  const secs=[...new Set(ITEMS.map(i=>i.section))];
-  selEl.innerHTML=secs.map(sec=>`<optgroup label="${sec}">${ITEMS.map((it,n)=>it.section===sec?`<option value="${it.id}">Item ${n+1} · ${it.topic} [${it.points} pt${it.points>1?"s":""}]</option>`:"").join("")}</optgroup>`).join("");
+  selEl.innerHTML=ITEMS.map((it,n)=>`<option value="${it.id}">Item ${n+1} · ${it.topic} [${it.points} pt${it.points>1?"s":""}]</option>`).join("");
   selEl.value=currentId;
   selEl.onchange=()=>go(selEl.value);
   document.getElementById("prev-item").onclick=()=>step(-1);
