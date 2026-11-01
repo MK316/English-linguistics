@@ -29,7 +29,7 @@ def show_exam(path: Path) -> None:
 
 st.title("TCE mock exam")
 
-tab1, tab2, tab3 = st.tabs(["phonotactics", "Stress & intonation", "Morphology and more"])
+tab1, tab2, tab3 = st.tabs(["🌱 phonotactics", "🌱 Stress & intonation", "🌱 Morphology and more"])
 
 with tab1:
     show_exam(PHONOTACTICS_HTML)
