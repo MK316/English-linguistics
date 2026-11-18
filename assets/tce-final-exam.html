@@ -65,6 +65,33 @@
   .fb ul { margin: 4px 0; padding-left: 20px; }
   .fb li { margin: 4px 0; }
   .hidden { display: none; }
+
+  /* 선택지 */
+  .opt { display: flex; gap: 6px; align-items: flex-start; padding: 3px 8px; margin: 2px 0;
+         border: 1px solid transparent; border-radius: 6px; cursor: pointer; }
+  .opt:hover { background: var(--soft); }
+  .opt input { margin: 6px 2px 0 0; accent-color: var(--accent); }
+  .opt .ol { min-width: 1.2em; }
+  .opt:has(input:checked) { background: var(--accent-soft); border-color: #b9d9cd; }
+  .opt .sit { color: var(--muted); }
+  .opt.ok   { background: #e6f4ea; border-color: #34a853; }
+  .opt.ng   { background: #fdecea; border-color: #d93025; }
+  .opt.miss { border: 1px dashed #34a853; }
+  .opt.ok::after   { content: "✓"; color: #188038; margin-left: auto; font-weight: 700; }
+  .opt.ng::after   { content: "✗"; color: #d93025; margin-left: auto; font-weight: 700; }
+  .opt.miss::after { content: "정답"; color: #188038; margin-left: auto; font-size: 13px; }
+  .pickinfo { font-size: 14px; color: var(--muted); margin: 6px 0 0; }
+  .pickinfo.over { color: var(--warn); font-weight: 600; }
+
+  /* 빈칸 */
+  .bl { font: inherit; font-size: 15px; padding: 1px 6px; border: none; border-bottom: 2px solid var(--ink);
+        background: #fffbea; outline: none; text-align: center; }
+  .bl:focus { border-bottom-color: var(--accent); background: #fff; }
+  .bl.ok { border-bottom-color: #34a853; background: #e6f4ea; }
+  .bl.ng { border-bottom-color: #d93025; background: #fdecea; }
+  .blkey { font-size: 13px; margin-left: 4px; color: #188038; }
+  .blkey.ng { color: #d93025; }
+  .wlabel { font-size: 14px; color: var(--muted); margin: 0 0 4px; }
 </style>
 </head>
 <body>
@@ -97,7 +124,10 @@ const T = (head, rows, cls = "d") =>
   `<table class="${cls}">${head ? "<tr>" + head.map(h => `<th>${h}</th>`).join("") + "</tr>" : ""}` +
   rows.map(r => "<tr>" + r.map(c => `<td>${c}</td>`).join("") + "</tr>").join("") + "</table>";
 const box = (tag, html) => `<div class="box"><div class="tag">&lt;${tag}&gt;</div>${html}</div>`;
-const B = "<span class='blank'>&nbsp;</span>";
+// 선택지: 클릭해서 고르는 체크박스
+const OPT = (l, html) => `<label class="opt" data-opt="${l}"><input type="checkbox" value="${l}"><span class="ol">${l}.</span><span>${html}</span></label>`;
+// 빈칸: 직접 입력하는 칸 (k = 문항 안에서 몇 번째 빈칸인지)
+const BL = (k, w = 110) => `<span class="blwrap"><input class="bl" data-blank="${k}" style="width:${w}px" autocomplete="off" spellcheck="false" aria-label="빈칸 ${k + 1}"><span class="blkey" data-key="${k}"></span></span>`;
 
 /* ---------- items ---------- */
 const ITEMS = [
@@ -117,11 +147,11 @@ const ITEMS = [
     ["b.","bowled twice","[boʊld twaɪs]","*[boʊl twaɪs]"],["","missed calls","[mɪst kɔlz]","*[mɪs kɔlz]"],
     ["","stuffed toys","[stʌft tɔɪz]","*[stʌf tɔɪz]"],["","called back","[kɔld bæk]","*[kɔl bæk]"]])}
   <p class="note"><i>Note</i>: '*' indicates unattested pronunciations.</p>`,
-  B: `<div class="opts"><div>a. fast horse</div><div>b. past midnight</div><div>c. passed notes</div><div>d. gold coin</div><div>e. kind host</div><div>f. best answers</div></div>`,
+  B: `<div class="opts">${OPT("a","fast horse")}${OPT("b","past midnight")}${OPT("c","passed notes")}${OPT("d","gold coin")}${OPT("e","kind host")}${OPT("f","best answers")}</div>`,
   dir: `In &lt;B&gt;, choose the TWO phrases in which the final consonant of the first word can be deleted as described in &lt;A&gt;. Then, based on the data in (3), state the TWO conditions under which a word-final cluster is NOT simplified even though the next word begins with a consonant.`,
   key: "b, d",
   model: `The two phrases are b and d. First, the final consonant of the cluster is not deleted when the next word begins with /h/, as in (3a). Second, it is not deleted when it is a grammatical ending, that is, the suffix <i>-ed</i>, so that the cluster does not belong to a single morpheme, as in (3b).`,
-  rubric: [["b 선택",1],["d 선택",1],["조건 1: 뒤 단어가 /h/로 시작함 (3a)",1],["조건 2: 자음군의 마지막 자음이 문법 어미 <i>-ed</i>임, 즉 자음군이 한 형태소 안에 있지 않음 (3b)",1]],
+  rubric: [["b 선택",1,"o:b"],["d 선택",1,"o:d"],["조건 1: 뒤 단어가 /h/로 시작함 (3a)",1],["조건 2: 자음군의 마지막 자음이 문법 어미 <i>-ed</i>임, 즉 자음군이 한 형태소 안에 있지 않음 (3b)",1]],
   notes: [
     "(1)과 (2)를 비교하면 어말 자음군의 마지막 자음은 뒤 단어가 자음으로 시작할 때 탈락한다. 그런데 (3a)는 뒤 자음이 /h/일 때, (3b)는 마지막 자음이 과거·과거분사 어미 <i>-ed</i>일 때 탈락하지 않음을 보여 준다. <i>bold/bowled</i>, <i>mist/missed</i>는 발음이 같아도 형태소 구조가 달라 결과가 다르다.",
     "b <i>past midnight</i> [pæs mɪdnaɪt], d <i>gold coin</i> [goʊl kɔɪn]: 첫 단어가 단일 형태소이고 뒤 단어가 /h/가 아닌 자음으로 시작하므로 탈락한다.",
@@ -133,15 +163,15 @@ const ITEMS = [
   A: `<p>When a single consonant occurs between two vowels, spoken syllabification assigns it to the onset of the following syllable. The words in (1) are divided in this way, and native speakers readily accept the divisions.</p>
   <div class="ex">(1)</div>
   ${T(["","Word","Syllabification"], [["a.","rival","[ˈraɪ.vəl]"],["","legal","[ˈli.gəl]"],["","paper","[ˈpeɪ.pər]"],["","moment","[ˈmoʊ.mənt]"],["b.","balloon","[bə.ˈlun]"],["","police","[pə.ˈlis]"],["","canal","[kə.ˈnæl]"],["","machine","[mə.ˈʃin]"]])}
-  <p>With the words in (2), however, many speakers are not comfortable with the same kind of division. They feel that the consonant between the two vowels closes the first syllable and, at the same time, begins the second one. A consonant that belongs to two syllables at once in this way is said to be <span class="blank" style="min-width:130px">&nbsp;</span>.</p>
+  <p>With the words in (2), however, many speakers are not comfortable with the same kind of division. They feel that the consonant between the two vowels closes the first syllable and, at the same time, begins the second one. A consonant that belongs to two syllables at once in this way is said to be ${BL(0,150)}.</p>
   <div class="ex">(2)</div>
   ${T(["Word","Pronunciation","Word","Pronunciation"], [["happen","[ˈhæpən]","punish","[ˈpʌnɪʃ]"],["finish","[ˈfɪnɪʃ]","woman","[ˈwʊmən]"],["lemon","[ˈlɛmən]","cabin","[ˈkæbɪn]"]])}
   <p>A comparison of (1) and (2) shows that whether a consonant behaves in this way depends on the vowel that immediately precedes it.</p>`,
-  B: `<div class="opts"><div>a. vanish [ˈvænɪʃ]</div><div>b. bonus [ˈboʊnəs]</div><div>c. guitar [gɪˈtɑr]</div><div>d. honey [ˈhʌni]</div></div>`,
+  B: `<div class="opts">${OPT("a","vanish [ˈvænɪʃ]")}${OPT("b","bonus [ˈboʊnəs]")}${OPT("c","guitar [gɪˈtɑr]")}${OPT("d","honey [ˈhʌni]")}</div>`,
   dir: `Fill in the blank in &lt;A&gt; with the ONE most appropriate word. Then, identify the TWO words in &lt;B&gt; in which the consonant between the two vowels belongs to both syllables at once, and state the TWO phonological conditions that the vowel immediately before such a consonant must satisfy.`,
   key: "빈칸: ambisyllabic / 〈B〉: a, d",
   model: `The word for the blank is "ambisyllabic." The two words are a (<i>vanish</i>) and d (<i>honey</i>). For the consonant to belong to both syllables, the vowel immediately before it must be a short (lax) vowel, and it must be stressed.`,
-  rubric: [["빈칸: ambisyllabic",1],["a 선택",1],["d 선택",1],["조건 1: 앞 모음이 단모음(short/lax vowel)임",1],["조건 2: 앞 모음이 강세를 받음",1]],
+  rubric: [["빈칸: ambisyllabic",1,"b:0"],["a 선택",1,"o:a"],["d 선택",1,"o:d"],["조건 1: 앞 모음이 단모음(short/lax vowel)임",1],["조건 2: 앞 모음이 강세를 받음",1]],
   notes: [
     "(1a)는 앞 모음이 강세를 받지만 장모음·이중모음이고, (1b)는 앞 모음이 단모음이지만 강세가 없다. 두 경우 모두 자음은 뒤 음절의 두음일 뿐이다. (2)는 모두 강세를 받는 단모음 뒤이므로 두 조건이 함께 충족되어야 한다.",
     "a <i>vanish</i> [ˈvænɪʃ], d <i>honey</i> [ˈhʌni]: 강세를 받는 단모음 [æ], [ʌ] 뒤의 /n/이 양음절 자음이다.",
@@ -162,11 +192,11 @@ const ITEMS = [
     ["[consonantal]","−","−","+","+","+"],["[continuant]","+","+","+","−","+/−"],
     ["[syllabic]","+","−","+/−","+/−","−"],["[sonorant]","+","+","+","+","−"]], "d feat")}
   <p class="note"><i>Note</i>: '*' indicates an unattested word.</p>`,
-  B: `<p>What differentiates the words in (1) from those in (2) is that the comparative suffix <i>‑er</i> can attach to disyllabic adjectives only when they end in a segment with the feature [ ${B} ].</p>`,
+  B: `<p>What differentiates the words in (1) from those in (2) is that the comparative suffix <i>‑er</i> can attach to disyllabic adjectives only when they end in a segment with the feature [ ${BL(0,120)} ].</p>`,
   dir: `Fill in the blank in &lt;B&gt; with the ONE distinctive feature from the passage in &lt;A&gt;. The feature value (i.e., '+' or '−') must be specified.`,
   key: "[+sonorant]",
   model: `The feature is [+sonorant].`,
-  rubric: [["[+sonorant]: 자질 이름과 값(+)을 모두 정확히 씀 (값 누락 시 0점)",2]],
+  rubric: [["[+sonorant]: 자질 이름과 값(+)을 모두 정확히 씀 (값 누락 시 0점)",2,"b:0"]],
   notes: [
     "(1)의 어간은 모음(<i>happy</i>, <i>noisy</i>), 활음(<i>narrow</i>, <i>yellow</i>, <i>shallow</i>의 [oʊ] 끝 off-glide), 유음(<i>simple</i>, <i>gentle</i>, <i>clever</i>), 비음(<i>common</i>)으로 끝나 모두 [+sonorant]이다. (2)의 어간은 모두 장애음 /d, t, s/로 끝나 [−sonorant]이다.",
     "[−consonantal]: 유음·비음으로 끝나는 <i>simple</i>, <i>clever</i>, <i>common</i>을 설명하지 못한다. [+continuant]: 비음으로 끝나는 <i>common</i>(−cont)을 설명하지 못하고, (2)의 <i>nervous</i>(/s/, +cont)를 걸러내지 못한다. [+syllabic]: 활음으로 끝나는 <i>narrow</i> 등(−syllabic)을 설명하지 못한다.",
@@ -181,11 +211,11 @@ const ITEMS = [
   <div class="ex">(2)</div>
   ${T(["Base","Adjective"], [["person [ˈpɜrsən]","personal [ˈpɜrsənəl]"],["season [ˈsizən]","seasonal [ˈsizənəl]"],["origin [ˈɔrədʒən]","original [əˈrɪdʒənəl]"],["medicine [ˈmɛdəsən]","medicinal [məˈdɪsənəl]"]])}
   <p>As (1) and (2) show, the location of the primary stress depends on the structure of the syllable immediately before the suffix.</p>`,
-  B: `<div>a. hormone [ˈhɔrmoʊn] → hormonal</div><div>b. pivot [ˈpɪvət] → pivotal</div><div>c. dialect [ˈdaɪəlɛkt] → dialectal</div><div>d. margin [ˈmɑrdʒən] → marginal</div>`,
+  B: `${OPT("a","hormone [ˈhɔrmoʊn] → hormonal")}${OPT("b","pivot [ˈpɪvət] → pivotal")}${OPT("c","dialect [ˈdaɪəlɛkt] → dialectal")}${OPT("d","margin [ˈmɑrdʒən] → marginal")}`,
   dir: `Based on &lt;A&gt;, choose the TWO words in &lt;B&gt; whose adjective form has the primary stress on the syllable immediately before <i>-al</i>. Then, state the generalization about where the primary stress falls in <i>-al</i> adjectives, referring to the structure of that syllable.`,
   key: "a, c",
   model: `The two words are a (<i>hormonal</i>) and c (<i>dialectal</i>). If the syllable immediately before <i>-al</i> is heavy, that is, if it has a long vowel or a diphthong or is closed by a consonant, the primary stress falls on that syllable. If it is light, that is, an open syllable with a short vowel, the primary stress falls one syllable further to the left.`,
-  rubric: [["a 선택",1],["c 선택",1],["접미사 바로 앞 음절이 heavy(장모음·이중모음 또는 폐음절)이면 그 음절에 주강세",1],["그 음절이 light(단모음 개음절)이면 한 음절 더 왼쪽에 주강세",1]],
+  rubric: [["a 선택",1,"o:a"],["c 선택",1,"o:c"],["접미사 바로 앞 음절이 heavy(장모음·이중모음 또는 폐음절)이면 그 음절에 주강세",1],["그 음절이 light(단모음 개음절)이면 한 음절 더 왼쪽에 주강세",1]],
   notes: [
     "(1)의 접미사 앞 음절은 pa.<b>ren</b>.tal, acci.<b>den</b>.tal, au.<b>tum</b>.nal처럼 자음으로 닫히거나 arche.<b>ty</b>.pal처럼 이중모음을 가진다. (2)는 per.so.nal, o.ri.gi.nal처럼 단모음으로 끝나는 열린 음절이다.",
     "a hor.<b>mo</b>.nal: [moʊ]가 이중모음이라 heavy. c dia.<b>lec</b>.tal: [lɛk]이 폐음절이라 heavy.",
@@ -201,11 +231,11 @@ const ITEMS = [
   <div class="ex">(2)</div>
   ${T(["Structure","Examples"], [["noun + verb","báby-sit, spóon-feed"],["adjective + verb","drý-clean, whítewash"],["verb + verb","dróp-kick, stír-fry"],["particle + verb","undertáke, oversléep, outrún"]])}
   <p>As (2) shows, the primary stress does not always fall on the first element of a compound.</p>`,
-  B: `<div class="opts"><div>a. overcoat (noun)</div><div>b. overheat (verb)</div><div>c. proofread (verb)</div><div>d. outnumber (verb)</div></div>`,
+  B: `<div class="opts">${OPT("a","overcoat (noun)")}${OPT("b","overheat (verb)")}${OPT("c","proofread (verb)")}${OPT("d","outnumber (verb)")}</div>`,
   dir: `Choose the TWO compounds in &lt;B&gt; in which the primary stress falls on the second element. Then, based on &lt;A&gt;, state the TWO conditions that a compound must meet for the primary stress to fall on its second element.`,
   key: "b, d",
   model: `The two compounds are b (<i>overheat</i>) and d (<i>outnumber</i>). The primary stress falls on the second element only when the compound functions as a verb and its first element is a particle.`,
-  rubric: [["b 선택",1],["d 선택",1],["조건 1: 복합어가 동사로 쓰임",1],["조건 2: 첫 요소가 particle(부사·전치사)임",1]],
+  rubric: [["b 선택",1,"o:b"],["d 선택",1,"o:d"],["조건 1: 복합어가 동사로 쓰임",1],["조건 2: 첫 요소가 particle(부사·전치사)임",1]],
   notes: [
     "(1)의 명사·형용사 복합어는 첫 요소가 particle이어도(<i>óverdose</i>) 첫 요소에 강세가 온다. (2)의 동사 복합어도 첫 요소가 명사·형용사·동사이면 첫 요소에 강세가 온다. 둘째 요소에 강세가 오는 것은 \"particle + verb\"뿐이다.",
     "b <i>overhéat</i>, d <i>outnúmber</i>: 동사이고 첫 요소가 particle이다.",
@@ -213,7 +243,7 @@ const ITEMS = [
 },
 {
   no: "6", pts: 4, title: "Tonic accent placement",
-  A: `<p>Within a tone group, every stressed syllable has a minor change in pitch, but one syllable carries the major pitch change. This prominence is called the (a) ${B} accent. In a neutral, non-contrastive reading, it falls on the last (b) ${B} item (noun, verb, adjective, or adverb) of the tone group. In (1), the word that carries it is written in capital letters.</p>
+  A: `<p>Within a tone group, every stressed syllable has a minor change in pitch, but one syllable carries the major pitch change. This prominence is called the (a) ${BL(0)} accent. In a neutral, non-contrastive reading, it falls on the last (b) ${BL(1)} item (noun, verb, adjective, or adverb) of the tone group. In (1), the word that carries it is written in capital letters.</p>
   <div class="ex">(1)</div>
   <div class="indent">a. The boy gave the book to his TEACHER.<br>b. She is reading a NOVEL.<br>c. The man SWORE.<br>d. My sister LAUGHED.</div>
   <p>In the sentences in (2) and (3), however, it falls on an earlier word even in a neutral reading.</p>
@@ -221,11 +251,11 @@ const ITEMS = [
   <div class="indent">a. The BIRD flew away.<br>b. The PHONE rang.<br>c. The KETTLE is boiling.<br>d. The SUN came out.</div>
   <div class="ex">(3)</div>
   <div class="indent">a. I don't watch MOVIES typically.<br>b. It wasn't a very nice DAY unfortunately.<br>c. I met her BROTHER yesterday.<br>d. They'll move to BOSTON probably.</div>`,
-  B: `<div>a. The dog barked.</div><div>b. The professor sneezed.</div><div>c. He opened the window.</div><div>d. We go to the beach usually.</div>`,
+  B: `${OPT("a","The dog barked.")}${OPT("b","The professor sneezed.")}${OPT("c","He opened the window.")}${OPT("d","We go to the beach usually.")}`,
   dir: `Fill in each blank in &lt;A&gt; with the ONE most appropriate word. Then, choose the TWO sentences in &lt;B&gt; that, in a neutral reading, follow the pattern in (2) or (3) rather than the pattern in (1).`,
   key: "(a) tonic, (b) lexical / 〈B〉: a, d",
   model: `The word for (a) is "tonic" and the word for (b) is "lexical." The two sentences are a and d.`,
-  rubric: [["(a) tonic",1],["(b) lexical",1],["a 선택",1],["d 선택",1]],
+  rubric: [["(a) tonic",1,"b:0"],["(b) lexical",1,"b:1"],["a 선택",1,"o:a"],["d 선택",1,"o:d"]],
   notes: [
     "중립적 발화에서 tonic accent는 tone group의 마지막 lexical item(명사·동사·형용사·부사)에 온다. (1)이 이 기본형이다.",
     "(2): 주어가 사람이 아닌 자동사 문장에서는 주어에 온다. (1c, d)처럼 주어가 사람이면 동사에 온다. (3): 문장 끝의 문장 부사어·시간 부사어는 tonic accent를 받지 않고 그 앞 어휘 항목이 받는다.",
@@ -246,14 +276,14 @@ const ITEMS = [
   <p>In (3), the contour is the one on the tag. A single sentence may also contain both contours, as in the list in (5).</p>
   <div class="ex">(5) I need to buy a shirt (rise), a jacket (rise), and a tie (fall).</div>`,
   B: `<p>The contour used is given in parentheses.</p>
-  <div>a. Where will the meeting be held? (Rise)</div><div class="indent">Situation: The speaker could not hear what was just said and asks again.</div>
-  <div>b. Would you like coffee or tea? (Rise)</div><div class="indent">Situation: The speaker has only these two drinks.</div>
-  <div>c. We should look for him, shouldn't we? (Fall)</div><div class="indent">Situation: The speaker is confident and expects agreement.</div>
-  <div>d. Who was at the meeting? (Rise)</div><div class="indent">Situation: The speaker has no idea and asks for the first time.</div>`,
+  ${OPT("a","Where will the meeting be held? (Rise)<div class='sit'>Situation: The speaker could not hear what was just said and asks again.</div>")}
+  ${OPT("b","Would you like coffee or tea? (Rise)<div class='sit'>Situation: The speaker has only these two drinks.</div>")}
+  ${OPT("c","We should look for him, shouldn’t we? (Fall)<div class='sit'>Situation: The speaker is confident and expects agreement.</div>")}
+  ${OPT("d","Who was at the meeting? (Rise)<div class='sit'>Situation: The speaker has no idea and asks for the first time.</div>")}`,
   dir: `Identify the TWO utterances in &lt;B&gt; whose contour fits the situation.`,
   key: "a, c",
   model: `The two utterances are a and c.`,
-  rubric: [["a 선택",1],["c 선택",1]],
+  rubric: [["a 선택",1,"o:a"],["c 선택",1,"o:c"]],
   notes: [
     "〈A〉의 (1)~(5)에서 Fall은 화자가 내용을 확정적이고 완결된 것으로 제시할 때(finality, completion), Rise는 내용이 확정되지 않았거나 이어질 말이 남았을 때(uncertainty, incompleteness) 쓰인다.",
     "a: 못 들어서 되묻는 wh-의문문은 (1)의 Rise와 같다. c: 동의를 기대하는 부가의문문은 (3)의 Fall과 같다.",
@@ -268,11 +298,11 @@ const ITEMS = [
   <div class="ex">(2)</div>
   ${T(["Base","Derived word"], [["Jaˈpan","ˌJapaˈnese"],["Suˈdan","ˌSudaˈnese"],["Siˈam","ˌSiaˈmese"],["Bhuˈtan","ˌBhutaˈnese"]])}
   <p>A comparison of (1) and (2) shows that its position depends on the stress pattern of the base. In (2), however, another factor is at work: English tends to avoid a stress clash, that is, a sequence of two adjacent stressed syllables.</p>`,
-  B: `<div>a. auction → auctioneer</div><div>b. Taiwan → Taiwanese</div><div>c. official → officialese</div><div>d. Nepal → Nepalese</div>`,
+  B: `${OPT("a","auction → auctioneer")}${OPT("b","Taiwan → Taiwanese")}${OPT("c","official → officialese")}${OPT("d","Nepal → Nepalese")}`,
   dir: `Choose the TWO derived words in &lt;B&gt; in which the secondary stress falls on the syllable that has the primary stress in the base. Then, state the generalization shown in (1), and explain, in terms of stress clash, why the words in (2) do not follow it.`,
   key: "a, c",
   model: `The two words are a (<i>auctioneer</i>) and c (<i>officialese</i>). The secondary stress falls on the syllable that has the primary stress in the base, as in (1). In (2), that syllable is immediately before the suffix, which has the primary stress. Placing the secondary stress there would create a stress clash, so it is placed one syllable to the left.`,
-  rubric: [["a 선택",1],["c 선택",1],["일반화: 부강세는 어기에서 주강세를 받던 음절에 놓임",1],["(2): 그 음절이 주강세를 받는 접미사 바로 앞이라 stress clash가 생기므로 한 음절 왼쪽으로 옮김",1]],
+  rubric: [["a 선택",1,"o:a"],["c 선택",1,"o:c"],["일반화: 부강세는 어기에서 주강세를 받던 음절에 놓임",1],["(2): 그 음절이 주강세를 받는 접미사 바로 앞이라 stress clash가 생기므로 한 음절 왼쪽으로 옮김",1]],
   notes: [
     "(1) ˈjournal → ˌjournaˈlese, comˈputer → comˌputeˈrese: 어기의 주강세 음절과 접미사 사이에 무강세 음절이 있어 충돌이 없다.",
     "(2) Jaˈpan → *Jaˌpaˈnese가 되면 강세 음절 둘이 이어지므로 ˌJapaˈnese가 된다.",
@@ -291,11 +321,11 @@ const ITEMS = [
   </div>
   <p class="note"><i>Note</i>: '*' indicates an ill-formed word.</p>
   <p>The rhythm of English is based on a unit called the foot. For example, <i>absolutely</i> consists of two feet, [ˌæbsə] and [ˈlutli], and <i>kangaroo</i> consists of [ˌkæŋgə] and [ˈru].</p>`,
-  B: `<div>a. Tennessee [ˌtɛnəˈsi] → Tenne-blooming-ssee</div><div>b. Minnesota [ˌmɪnəˈsoʊtə] → Minneso-blooming-ta</div><div>c. Massachusetts [ˌmæsəˈtʃusəts] → Massa-blooming-chusetts</div><div>d. Mississippi [ˌmɪsəˈsɪpi] → Mi-blooming-ssissippi</div>`,
+  B: `${OPT("a","Tennessee [ˌtɛnəˈsi] → Tenne-blooming-ssee")}${OPT("b","Minnesota [ˌmɪnəˈsoʊtə] → Minneso-blooming-ta")}${OPT("c","Massachusetts [ˌmæsəˈtʃusəts] → Massa-blooming-chusetts")}${OPT("d","Mississippi [ˌmɪsəˈsɪpi] → Mi-blooming-ssissippi")}`,
   dir: `Identify the TWO well-formed words in &lt;B&gt;. Then, state the generalization about where the emphatic word can be inserted, using the rhythmic unit introduced in &lt;A&gt;.`,
   key: "a, c",
   model: `The two words are a and c. The emphatic word can be inserted only at the boundary between two feet, that is, immediately before a foot. It cannot be inserted inside a foot.`,
-  rubric: [["a 선택",1],["c 선택",1],["일반화: 두 foot 사이(경계)에만 삽입할 수 있고 foot 내부에는 삽입할 수 없음",2]],
+  rubric: [["a 선택",1,"o:a"],["c 선택",1,"o:c"],["일반화: 두 foot 사이(경계)에만 삽입할 수 있고 foot 내부에는 삽입할 수 없음",2]],
   notes: [
     "foot은 강세 음절 하나와 그 뒤의 무강세 음절들로 이루어진다. <i>absolutely</i>는 [ˌæbsə][ˈlutli]이므로 두 foot 사이인 <i>abso-blooming-lutely</i>만 가능하다. *<i>ab-blooming-solutely</i>와 *<i>absolute-blooming-ly</i>는 foot을 쪼갠다.",
     "a [ˌtɛnə][ˈsi] → Tenne-blooming-ssee, c [ˌmæsə][ˈtʃusəts] → Massa-blooming-chusetts: foot 경계에 삽입되었다.",
@@ -310,13 +340,13 @@ const ITEMS = [
   <p>In (2), however, /t/ is also between vowels, but it is not flapped. Instead, it is aspirated.</p>
   <div class="ex">(2)</div>
   ${T(["Word / phrase","Pronunciation"], [["attack","ə(ˈtʰæk)"],["atomic","ə(ˈtʰɑmɪk)"],["guitar","gɪ(ˈtʰɑr)"],["a tacker","ə(ˈtʰækər)"],["a ticket","ə(ˈtʰɪkɪt)"]])}
-  <p>The parentheses in (1) and (2) mark a rhythmic unit called the <span class="blank" style="min-width:110px">&nbsp;</span>, which consists of a stressed syllable and any unstressed syllables that follow it. An unstressed syllable before the first stressed syllable, as in <i>attack</i>, lies outside this unit, while an unstressed function word may join the unit of the preceding word, as in <i>hit it</i>.</p>`,
-  B: `<div class="opts"><div>a. photograph [ˈfoʊtəgræf]</div><div>b. photographer [fəˈtɑgrəfər]</div><div>c. hit a [ˈhɪt ə]</div><div>d. a table [ə ˈteɪbəl]</div></div>
+  <p>The parentheses in (1) and (2) mark a rhythmic unit called the ${BL(0,110)}, which consists of a stressed syllable and any unstressed syllables that follow it. An unstressed syllable before the first stressed syllable, as in <i>attack</i>, lies outside this unit, while an unstressed function word may join the unit of the preceding word, as in <i>hit it</i>.</p>`,
+  B: `<div class="opts">${OPT("a","photograph [ˈfoʊtəgræf]")}${OPT("b","photographer [fəˈtɑgrəfər]")}${OPT("c","hit a [ˈhɪt ə]")}${OPT("d","a table [ə ˈteɪbəl]")}</div>
   <p class="note"><i>Note</i>: The transcriptions in &lt;B&gt; are broad and do not show how /t/ is realized.</p>`,
   dir: `Fill in the blank in &lt;A&gt; with the ONE most appropriate word. Then, choose the TWO items in &lt;B&gt; in which /t/ is realized as a flap. Finally, state the generalization about where Flapping applies in terms of the unit defined in &lt;A&gt;.`,
   key: "빈칸: foot / 〈B〉: a, c",
   model: `The word for the blank is "foot." The two items are a and c. Flapping applies when /t/ is inside a foot, that is, when it follows the stressed vowel of the foot and precedes an unstressed vowel. It does not apply when /t/ is at the beginning of a foot.`,
-  rubric: [["빈칸: foot",1],["a 선택",1],["c 선택",1],["일반화: /t/가 foot 내부에 있을 때 Flapping 적용 (foot의 첫소리이면 적용되지 않음)",2]],
+  rubric: [["빈칸: foot",1,"b:0"],["a 선택",1,"o:a"],["c 선택",1,"o:c"],["일반화: /t/가 foot 내부에 있을 때 Flapping 적용 (foot의 첫소리이면 적용되지 않음)",2]],
   notes: [
     "(1)의 /t/는 모두 foot 안에서 강세 모음 뒤, 무강세 모음 앞에 있다. (2)의 /t/는 foot의 첫소리이며 기식음 [tʰ]로 실현된다. <i>atom</i> (ˈæɾəm)과 <i>atomic</i> ə(ˈtʰɑmɪk)의 대조가 이를 잘 보여 준다.",
     "<i>hit it</i>처럼 무강세 기능어는 앞 단어의 foot에 들어가므로, 단어 경계와 상관없이 foot 내부이면 flap이 된다.",
@@ -333,10 +363,29 @@ const LEAD = Object.fromEntries([
 ].map(([n, w]) => [n, `Read the passage in &lt;A&gt; and the ${w} in &lt;B&gt;`]));
 LEAD["3-1"] = "Read the passages in &lt;A&gt; and &lt;B&gt;";
 
+/* ---------- 자동 채점용 정답 ----------
+   opts: 정답 선택지, blanks: 빈칸별 허용 답, write: 서술 답안칸 표시 여부 */
+const AUTO = {
+  "1":   { opts: ["b","d"] },
+  "2":   { opts: ["a","d"], blanks: [["ambisyllabic"]] },
+  "3-1": { blanks: [["+sonorant"]], write: false },
+  "4":   { opts: ["a","c"] },
+  "5":   { opts: ["b","d"] },
+  "6":   { opts: ["a","d"], blanks: [["tonic"], ["lexical"]], write: false },
+  "7":   { opts: ["a","c"], write: false },
+  "8":   { opts: ["a","c"] },
+  "9":   { opts: ["a","c"] },
+  "10":  { opts: ["a","c"], blanks: [["foot"]] }
+};
+// 대소문자·공백·대괄호·따옴표·마침표 무시, 마이너스 기호 통일
+const norm = s => s.toLowerCase().replace(/[−–—]/g, "-").replace(/[\s\[\]"'“”‘’.]/g, "");
+
 /* ---------- state (memory only; iframe storage is unreliable) ---------- */
 const answers = ITEMS.map(() => "");
-const checks = ITEMS.map(it => it.rubric.map(() => false));
-const opened = ITEMS.map(() => false);
+const picks   = ITEMS.map(() => new Set());
+const blanks  = ITEMS.map(it => (AUTO[it.no].blanks || []).map(() => ""));
+const checks  = ITEMS.map(it => it.rubric.map(() => false));
+const opened  = ITEMS.map(() => false);
 let cur = 0;
 
 const $ = id => document.getElementById(id);
@@ -350,9 +399,11 @@ ITEMS.forEach((it, i) => {
 
 const itemScore = i => ITEMS[i].rubric.reduce((s, r, k) => s + (checks[i][k] ? r[1] : 0), 0);
 const updateTotal = () => { $("tot").textContent = ITEMS.reduce((s, _, i) => s + itemScore(i), 0); };
+const need = () => (AUTO[ITEMS[cur].no].opts || []).length;
+const blankOK = k => (AUTO[ITEMS[cur].no].blanks[k]).some(a => norm(a) === norm(blanks[cur][k]));
 
 function render() {
-  const it = ITEMS[cur];
+  const it = ITEMS[cur], auto = AUTO[it.no];
   pick.value = cur;
   $("prev").disabled = cur === 0;
   $("next").disabled = cur === ITEMS.length - 1;
@@ -360,43 +411,110 @@ function render() {
   itemEl.innerHTML = `
     <h2 class="q">${it.no}. ${LEAD[it.no]}, and follow the directions. [${it.pts} points]</h2>
     ${box("A", it.A)}
-    ${box("B", it.B)}
+    ${box("B", it.B + (auto.opts ? `<div class="pickinfo" id="pinfo"></div>` : ""))}
     <p class="dir">${it.dir}</p>
-    <textarea id="ans" placeholder="답안을 영어로 작성하세요.">${""}</textarea>`;
+    ${auto.write === false ? "" : `<div class="wlabel">서술 답안</div>
+    <textarea id="ans" placeholder="조건·일반화 등 서술 부분을 영어로 작성하세요."></textarea>`}`;
+
+  // 서술 답안
   const ta = $("ans");
-  ta.value = answers[cur];
-  ta.addEventListener("input", () => { answers[cur] = ta.value; });
+  if (ta) { ta.value = answers[cur]; ta.addEventListener("input", () => { answers[cur] = ta.value; }); }
+
+  // 선택지
+  itemEl.querySelectorAll(".opt input").forEach(cb => {
+    cb.checked = picks[cur].has(cb.value);
+    cb.addEventListener("change", () => {
+      cb.checked ? picks[cur].add(cb.value) : picks[cur].delete(cb.value);
+      refresh();
+    });
+  });
+
+  // 빈칸
+  itemEl.querySelectorAll("input.bl").forEach(inp => {
+    const k = +inp.dataset.blank;
+    inp.value = blanks[cur][k];
+    inp.addEventListener("input", () => { blanks[cur][k] = inp.value; refresh(); });
+  });
 
   fbEl.innerHTML = `
     <h3>정답</h3><div>${it.key}</div>
     <h3>모범답안</h3><div class="model">${it.model}</div>
     <h3>채점 기준 · 자기 채점</h3>
     <table class="rub"><tr><th>채점 요소</th><th>배점</th></tr>
-      ${it.rubric.map((r, k) => `<tr><td><label><input type="checkbox" data-k="${k}" ${checks[cur][k] ? "checked" : ""}> <span>${r[0]}</span></label></td><td class="pt">${r[1]}</td></tr>`).join("")}
+      ${it.rubric.map((r, k) => `<tr><td><label><input type="checkbox" data-k="${k}"> <span>${r[0]}${r[2] ? ' <span style="color:var(--muted);font-size:13px">(자동)</span>' : ""}</span></label></td><td class="pt">${r[1]}</td></tr>`).join("")}
     </table>
-    <div class="score">이 문항 점수: <b id="isc">${itemScore(cur)}</b> / ${it.pts}</div>
+    <div class="score">이 문항 점수: <b id="isc"></b> / ${it.pts}</div>
+    <div class="score">선택지·빈칸 항목은 자동으로 채점되고, 서술 항목은 모범답안과 비교해 직접 체크하세요. 자동 결과도 바꿀 수 있습니다.</div>
     <h3>해설</h3><ul>${it.notes.map(n => `<li>${n}</li>`).join("")}</ul>`;
-  fbEl.querySelectorAll("input[type=checkbox]").forEach(cb =>
-    cb.addEventListener("change", () => {
-      checks[cur][+cb.dataset.k] = cb.checked;
-      $("isc").textContent = itemScore(cur);
-      updateTotal();
-    }));
+  fbEl.querySelectorAll(".rub input").forEach(cb =>
+    cb.addEventListener("change", () => { checks[cur][+cb.dataset.k] = cb.checked; syncScore(); }));
 
   setOpen(opened[cur]);
+}
+
+/* 선택 개수 안내 + (정답 열림 상태면) 표시·자동 채점 갱신 */
+function refresh() {
+  const n = need(), info = $("pinfo");
+  if (info) {
+    const c = picks[cur].size;
+    info.textContent = `선택 ${c} / ${n}` + (c > n ? ` — ${n}개를 넘게 고르면 선택지 점수는 0점입니다.` : "");
+    info.classList.toggle("over", c > n);
+  }
+  if (opened[cur]) { autoGrade(); mark(true); } else { mark(false); }
+}
+
+function autoGrade() {
+  const it = ITEMS[cur], over = picks[cur].size > need();
+  it.rubric.forEach((r, k) => {
+    if (!r[2]) return;
+    const [t, v] = r[2].split(":");
+    checks[cur][k] = t === "o" ? (!over && picks[cur].has(v)) : blankOK(+v);
+  });
+  syncScore();
+}
+
+function syncScore() {
+  fbEl.querySelectorAll(".rub input").forEach(cb => { cb.checked = checks[cur][+cb.dataset.k]; });
+  const s = $("isc"); if (s) s.textContent = itemScore(cur);
+  updateTotal();
+}
+
+function mark(on) {
+  const auto = AUTO[ITEMS[cur].no];
+  itemEl.querySelectorAll(".opt").forEach(el => {
+    const l = el.dataset.opt, sel = picks[cur].has(l), right = (auto.opts || []).includes(l);
+    el.classList.toggle("ok", on && sel && right);
+    el.classList.toggle("ng", on && sel && !right);
+    el.classList.toggle("miss", on && !sel && right);
+  });
+  itemEl.querySelectorAll("input.bl").forEach(inp => {
+    const k = +inp.dataset.blank, ok = blankOK(k);
+    const key = itemEl.querySelector(`.blkey[data-key="${k}"]`);
+    inp.classList.toggle("ok", on && ok);
+    inp.classList.toggle("ng", on && !ok);
+    key.textContent = on ? (ok ? "✓" : `✗ ${auto.blanks[k][0]}`) : "";
+    key.classList.toggle("ng", on && !ok);
+  });
 }
 
 function setOpen(v) {
   opened[cur] = v;
   fbEl.classList.toggle("hidden", !v);
   $("toggle").textContent = v ? "정답 · 해설 숨기기" : "정답 · 해설 보기";
+  refresh();
+  syncScore();
 }
 
-pick.addEventListener("change", () => { cur = +pick.value; render(); window.scrollTo(0, 0); });
-$("prev").addEventListener("click", () => { if (cur > 0) { cur--; render(); window.scrollTo(0, 0); } });
-$("next").addEventListener("click", () => { if (cur < ITEMS.length - 1) { cur++; render(); window.scrollTo(0, 0); } });
+const go = i => { cur = i; render(); window.scrollTo(0, 0); };
+pick.addEventListener("change", () => go(+pick.value));
+$("prev").addEventListener("click", () => { if (cur > 0) go(cur - 1); });
+$("next").addEventListener("click", () => { if (cur < ITEMS.length - 1) go(cur + 1); });
 $("toggle").addEventListener("click", () => setOpen(!opened[cur]));
-$("clear").addEventListener("click", () => { answers[cur] = ""; $("ans").value = ""; });
+$("clear").addEventListener("click", () => {
+  answers[cur] = ""; picks[cur].clear(); blanks[cur] = blanks[cur].map(() => "");
+  checks[cur] = checks[cur].map(() => false);
+  render();
+});
 
 render();
 updateTotal();
